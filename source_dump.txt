@@ -1,0 +1,554 @@
+# ==================================================
+# Path: D:\Users\bai tap hoc tap\N1_K2\BaiTapHTML\HTML\BWD-main\BWD-main
+# Detected tech: javascript
+# ==================================================
+
+## DIRECTORY STRUCTURE
+```
+BWD-main/
+├── .github/
+├── .idea/
+├── dist/
+├── docs/
+│   ├── TOC.md
+│   ├── about-this-repo.md
+│   ├── css.md
+│   ├── extend.md
+│   ├── faq.md
+│   ├── html.md
+│   ├── js.md
+│   ├── misc.md
+│   └── usage.md
+├── src/
+│   ├── css/
+│   │   ├── img/
+│   │   │   ├── Book/
+│   │   │   │   ├── Lược_sử_thời_gian.jpg
+│   │   │   │   ├── Nhà_giả_kim.png
+│   │   │   │   ├── Thế_giới_phẳng.jpg
+│   │   │   │   ├── Toán_12.jpg
+│   │   │   │   ├── Trăm_năm_cô_đơn.jpeg
+│   │   │   │   ├── adress.png
+│   │   │   │   ├── authorbao.jpg
+│   │   │   │   ├── authorchien.jpg
+│   │   │   │   ├── authorthong.jpg
+│   │   │   │   ├── gen_vị_kỷ.jpg
+│   │   │   │   ├── hai_số_phận.webp
+│   │   │   │   ├── lịch_sử_10.jpg
+│   │   │   │   ├── nguoi-dua-dieu.png
+│   │   │   │   ├── ngữ_văn_11.jpg
+│   │   │   │   ├── quyen-gop-sach.jpg
+│   │   │   │   ├── reading-communities.webp
+│   │   │   │   ├── súng_vi_trùng_và_thép.webp
+│   │   │   │   ├── số_đỏ.webp
+│   │   │   │   ├── vũ_trụ_trong_vỏ_hạt_dẻ.jpg
+│   │   │   │   ├── white-library-with-shelves-and-stairs.jpg
+│   │   │   │   ├── điểm_đến_của_cuộc_đời.jpg
+│   │   │   │   ├── đắc_nhân_tâm.jpg
+│   │   │   │   └── địa_lý_12.png
+│   │   │   ├── icon/
+│   │   │   │   ├── favicon.ico
+│   │   │   │   ├── icon.png
+│   │   │   │   └── icon.svg
+│   │   │   └── .gitkeep
+│   │   ├── about.css
+│   │   ├── animation.css
+│   │   ├── borrow.css
+│   │   ├── button.css
+│   │   ├── donate.css
+│   │   ├── headerfooter.css
+│   │   ├── login-register.css
+│   │   └── styles.css
+│   ├── img/
+│   │   ├── Book/
+│   │   │   ├── Lược_sử_thời_gian.jpg
+│   │   │   ├── Nhà_giả_kim.png
+│   │   │   ├── Thế_giới_phẳng.jpg
+│   │   │   ├── Toán_12.jpg
+│   │   │   ├── Trăm_năm_cô_đơn.jpeg
+│   │   │   ├── adress.png
+│   │   │   ├── authorbao.jpg
+│   │   │   ├── authorchien.jpg
+│   │   │   ├── authorthong.jpg
+│   │   │   ├── gen_vị_kỷ.jpg
+│   │   │   ├── hai_số_phận.webp
+│   │   │   ├── lịch_sử_10.jpg
+│   │   │   ├── nguoi-dua-dieu.png
+│   │   │   ├── ngữ_văn_11.jpg
+│   │   │   ├── reading-communities.webp
+│   │   │   ├── súng_vi_trùng_và_thép.webp
+│   │   │   ├── số_đỏ.webp
+│   │   │   ├── vũ_trụ_trong_vỏ_hạt_dẻ.jpg
+│   │   │   ├── điểm_đến_của_cuộc_đời.jpg
+│   │   │   ├── đắc_nhân_tâm.jpg
+│   │   │   └── địa_lý_12.png
+│   │   ├── icon/
+│   │   │   ├── favicon.ico
+│   │   │   ├── icon.png
+│   │   │   └── icon.svg
+│   │   └── .gitkeep
+│   ├── js/
+│   │   ├── vendor/
+│   │   └── app.js
+│   ├── .editorconfig
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── 404.html
+│   ├── AccountManage.html
+│   ├── Login.html
+│   ├── about.html
+│   ├── books.html
+│   ├── borrow.html
+│   ├── demopage.html
+│   ├── donate.html
+│   ├── index.html
+│   ├── package.json
+│   ├── questionsyoumayhave.html
+│   ├── register.html
+│   ├── robots.txt
+│   ├── site.webmanifest
+│   ├── webpack.common.js
+│   ├── webpack.config.dev.js
+│   └── webpack.config.prod.js
+├── test/
+│   ├── file_content.mjs
+│   └── file_existence.mjs
+├── .cspell.json
+├── .editorconfig
+├── .eslintrc.js
+├── .gitattributes
+├── .gitignore
+├── .npmrc
+├── .prettierignore
+├── .prettierrc.json
+├── BWD_Final.iml
+├── CHANGELOG.md
+├── LICENSE.txt
+├── README.md
+├── gulpfile.mjs
+├── package-lock.json
+└── package.json
+```
+
+## FILE CONTENTS
+
+### .eslintrc.js
+```js
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+    mocha: true,
+    node: true,
+  },
+  plugins: ['mocha'],
+  extends: 'eslint:recommended',
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
+  rules: {
+    indent: ['error', 2],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+  },
+};
+
+```
+
+### gulpfile.mjs
+```mjs
+import fs from 'fs';
+import path from 'path';
+import gulp from 'gulp';
+import gulpAutoPrefixer from 'gulp-autoprefixer';
+import gulpEslint from 'gulp-eslint';
+import gulpHeader from 'gulp-header';
+import gulpRename from 'gulp-rename';
+import archiver from 'archiver';
+import { globSync } from 'glob';
+import { deleteSync } from 'del';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('./package.json');
+
+const dirs = pkg['h5bp-configs'].directories;
+
+// ---------------------------------------------------------------------
+// | Helper tasks                                                      |
+// ---------------------------------------------------------------------
+
+gulp.task('archive:create_archive_dir', (done) => {
+  fs.mkdirSync(path.resolve(dirs.archive), '0755');
+  done();
+});
+
+gulp.task('archive:zip', (done) => {
+  const archiveName = path.resolve(
+    dirs.archive,
+    `${pkg.name}_v${pkg.version}.zip`,
+  );
+  const zip = archiver('zip');
+  const files = globSync('**/*.*', {
+    cwd: dirs.dist,
+    ignore: [
+      '**/node_modules/**',
+      'package-lock.json',
+      '**/dist/**',
+      '**/.cache/**',
+    ],
+    dot: true, // include hidden files
+  });
+  const output = fs.createWriteStream(archiveName);
+
+  zip.on('error', (error) => {
+    done();
+    throw error;
+  });
+
+  output.on('close', done);
+
+  files.forEach((file) => {
+    const filePath = path.resolve(dirs.dist, file);
+
+    // `zip.bulk` does not maintain the file
+    // permissions, so we need to add files individually
+    zip.append(fs.createReadStream(filePath), {
+      name: file,
+      mode: fs.statSync(filePath).mode,
+    });
+  });
+
+  zip.pipe(output);
+  zip.finalize();
+  done();
+});
+
+gulp.task('clean', (done) => {
+  deleteSync([dirs.archive, dirs.dist]);
+  done();
+});
+
+gulp.task('copy:index.html', () => {
+  return gulp.src(`${dirs.src}/index.html`).pipe(gulp.dest(dirs.dist));
+});
+
+gulp.task('copy:license', () =>
+  gulp.src('LICENSE.txt').pipe(gulp.dest(dirs.dist)),
+);
+
+gulp.task('copy:style', () => {
+  const banner = `/*! HTML5 Boilerplate v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n\n`;
+
+  return gulp
+    .src('node_modules/main.css/dist/main.css')
+    .pipe(gulpHeader(banner))
+    .pipe(
+      gulpAutoPrefixer({
+        cascade: false,
+      }),
+    )
+    .pipe(
+      gulpRename({
+        basename: 'style',
+      }),
+    )
+    .pipe(gulp.dest(`${dirs.dist}/css`));
+});
+
+gulp.task('copy:misc', () =>
+  gulp
+    .src(
+      [
+        // Copy all files
+        `${dirs.src}/**/*`,
+
+        // Exclude the following files
+        // (other tasks will handle the copying of these files)
+        `!${dirs.src}/css/main.css`,
+        `!${dirs.src}/index.html`,
+        `!**/.DS_Store`
+      ],
+      {
+        encoding: false,
+        // Include hidden files by default
+        dot: true,
+      },
+    )
+    .pipe(gulp.dest(dirs.dist)),
+);
+
+gulp.task('lint:js', () =>
+  gulp
+    .src([`${dirs.src}/js/*.js`, `${dirs.src}/*.js`, `${dirs.test}/*.mjs`])
+    .pipe(gulpEslint())
+    .pipe(gulpEslint.failOnError()),
+);
+
+// ---------------------------------------------------------------------
+// | Main tasks                                                        |
+// ---------------------------------------------------------------------
+gulp.task(
+  'copy',
+  gulp.series('copy:index.html', 'copy:license', 'copy:style', 'copy:misc'),
+);
+
+gulp.task('build', gulp.series(gulp.parallel('clean', 'lint:js'), 'copy'));
+
+gulp.task(
+  'archive',
+  gulp.series('build', 'archive:create_archive_dir', 'archive:zip'),
+);
+
+gulp.task('default', gulp.series('build'));
+
+```
+
+### src\webpack.common.js
+```js
+const path = require('path');
+
+module.exports = {
+  entry: {
+    app: './js/app.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+    filename: './js/app.js',
+  },
+};
+
+```
+
+### src\webpack.config.dev.js
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    liveReload: true,
+    hot: true,
+    open: true,
+    static: ['./'],
+  },
+});
+
+```
+
+### src\webpack.config.prod.js
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+module.exports = merge(common, {
+  mode: 'production',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'img', to: 'img' },
+        { from: 'css', to: 'css' },
+        { from: 'js/vendor', to: 'js/vendor' },
+        { from: 'icon.svg', to: 'icon.svg' },
+        { from: 'favicon.ico', to: 'favicon.ico' },
+        { from: 'robots.txt', to: 'robots.txt' },
+        { from: 'icon.png', to: 'icon.png' },
+        { from: '404.html', to: '404.html' },
+        { from: 'site.webmanifest', to: 'site.webmanifest' },
+      ],
+    }),
+  ],
+});
+
+```
+
+### src\js\app.js
+```js
+
+```
+
+### test\file_content.mjs
+```mjs
+import assert from 'assert';
+import fs from 'fs';
+import path from 'path';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
+const dirs = pkg['h5bp-configs'].directories;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+function checkString(file, string, done) {
+  let character = '';
+  let matchFound = false;
+  let matchedPositions = 0;
+  const readStream = fs.createReadStream(file, { encoding: 'utf8' });
+
+  readStream.on('close', done);
+  readStream.on('error', done);
+  readStream.on('readable', function () {
+    // Read file until the string is found
+    // or the whole file has been read
+    while (matchFound !== true && (character = readStream.read(1)) !== null) {
+      if (character === string.charAt(matchedPositions)) {
+        matchedPositions += 1;
+      } else {
+        matchedPositions = 0;
+      }
+
+      if (matchedPositions === string.length) {
+        matchFound = true;
+      }
+    }
+
+    assert.equal(true, matchFound);
+    this.close();
+  });
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+function runTests() {
+  const dir = dirs.dist;
+
+  describe(`Test if the files from the "${dir}" directory have the expected content`, () => {
+    it('"style.css" should contain a custom banner', function (done) {
+      const string = `/*! HTML5 Boilerplate v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n`;
+      checkString(path.resolve(dir, 'css/style.css'), string, done);
+    });
+  });
+}
+
+runTests();
+
+```
+
+### test\file_existence.mjs
+```mjs
+import assert from 'assert';
+import fs from 'fs';
+import path from 'path';
+import { globSync } from 'glob';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
+const dirs = pkg['h5bp-configs'].directories;
+
+const expectedFilesInArchiveDir = [`${pkg.name}_v${pkg.version}.zip`];
+
+const expectedFilesInDistDir = [
+  '.editorconfig',
+  '.gitattributes',
+  '.gitignore',
+  '404.html',
+  'package.json',
+
+  'webpack.common.js',
+  'webpack.config.dev.js',
+  'webpack.config.prod.js',
+
+  'css/', // for directories, a `/` character
+  // should be included at the end
+  'css/style.css',
+
+  'favicon.ico',
+
+  'icon.png',
+  'icon.svg',
+
+  'img/',
+  'img/.gitkeep',
+
+  'index.html',
+
+  'js/',
+  'js/app.js',
+  'js/vendor/',
+  'js/vendor/.gitkeep',
+  'LICENSE.txt',
+  'robots.txt',
+  'site.webmanifest',
+];
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+function checkFiles(directory, expectedFiles) {
+  // Get the list of files from the specified directory
+  const files = globSync('**/*', {
+    cwd: directory,
+    ignore: [
+      '**/node_modules/**',
+      'package-lock.json',
+      '**/dist/**',
+      '**/.cache/**',
+    ],
+    dot: true, // include hidden files
+    mark: true, // add a `/` character to directory matches,
+    posix: true, //https://github.com/isaacs/node-glob/issues/467
+  });
+
+  // Check if all expected files are present in the
+  // specified directory, and are of the expected type
+  expectedFiles.forEach((file) => {
+    let ok = false;
+    const expectedFileType =
+      file.slice(-1) !== '/' ? 'regular file' : 'directory';
+
+    // If file exists
+    if (files.indexOf(file) !== -1) {
+      // Check if the file is of the correct type
+      if (file.slice(-1) !== '/') {
+        // Check if the file is really a regular file
+        ok = fs.statSync(path.resolve(directory, file)).isFile();
+      } else {
+        // Check if the file is a directory
+        // (Since glob adds the `/` character to directory matches,
+        // we can simply check if the `/` character is present)
+        ok = files[files.indexOf(file)].slice(-1) === '/';
+      }
+    }
+
+    it(`"${file}" should be present and it should be a ${expectedFileType}`, () => {
+      assert.equal(true, ok);
+    });
+  });
+
+  // List all files that should be NOT
+  // be present in the specified directory
+  files
+    .filter((file) => {
+      return expectedFiles.indexOf(file) === -1;
+    })
+    .forEach((file) => {
+      it(`"${file}" should NOT be present`, () => {
+        assert(false);
+      });
+    });
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+function runTests() {
+  describe('Test if all the expected files, and only them, are present in the build directories', () => {
+    describe(dirs.archive, () => {
+      checkFiles(dirs.archive, expectedFilesInArchiveDir);
+    });
+
+    describe(dirs.dist, () => {
+      checkFiles(dirs.dist, expectedFilesInDistDir);
+    });
+  });
+}
+
+runTests();
+
+```

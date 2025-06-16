@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn mượn sách - Thư viện cộng đồng</title>
+    <link href="css/headerfooter.css" rel="stylesheet">
+    <link href="css/questionsyoumayhave.css" rel="stylesheet">
+  <link href = "css/button.css" rel = "stylesheet" >
+    <style>
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .guide-content {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .step-icon {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            padding-left: 40px;
+        }
+
+        .step-content p {
+            margin-bottom: 10px;
+        }
+
+        .note {
+            background-color: #f1f8e9;
+            border-left: 4px solid #8bc34a;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .note h3 {
+            color: #558b2f;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .important {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+        }
+
+        .important h3 {
+            color: #ff8f00;
+        }
+
+        .faq {
+            margin-top: 30px;
+        }
+
+        .faq h2 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #2980b9;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            display: none;
+        }
+
+        .faq-question:after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        .active .faq-question:after {
+            content: '-';
+        }
+
+        .active .faq-answer {
+            display: block;
+        }
+
+        .contact-info {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+
+        .btn1 {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn1:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .guide-container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .step-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="main-header"></header>
+
+    <div class="guide-container" id="huongdanmuonsach">
+        <h1>Hướng Dẫn Mượn Sách</h1>
+
+        <div class="guide-content">
+            <div class="step">
+                <div class="step-title">
+                    <div class="step-icon">1</div>
+                    <h2>Đăng ký tài khoản</h2>
+                </div>
+                <div class="step-content">
+                    <p>Trước khi mượn sách, bạn cần có tài khoản trên hệ thống thư viện cộng đồng của chúng tôi:</p>
+                    <ul>
+                        <li>Nhấp vào nút "Đăng ký" ở góc phải trên cùng của trang chủ</li>
+                        <li>Điền đầy đủ thông tin cá nhân theo yêu cầu</li>
+                        <li>Tải lên một hình ảnh CMND/CCCD để xác minh danh tính</li>
+                        <li>Xác nhận email của bạn thông qua liên kết được gửi đến hộp thư</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <div class="step-icon">2</div>
+                    <h2>Tìm kiếm sách muốn mượn</h2>
+                </div>
+                <div class="step-content">
+                    <p>Bạn có thể tìm kiếm sách bằng nhiều cách:</p>
+                    <ul>
+                        <li>Sử dụng thanh tìm kiếm ở đầu trang</li>
+                        <li>Duyệt theo danh mục sách</li>
+                        <li>Xem sách được đề xuất trên trang chủ</li>
+                        <li>Lọc theo tình trạng sách (có sẵn)</li>
+                    </ul>
+                    <p>Khi tìm thấy sách bạn quan tâm, nhấp vào tên sách để xem thông tin chi tiết.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <div class="step-icon">3</div>
+                    <h2>Đặt lịch mượn sách</h2>
+                </div>
+                <div class="step-content">
+                    <p>Sau khi tìm thấy sách mong muốn và kiểm tra tình trạng sách (có sẵn):</p>
+                    <ul>
+                        <li>Nhấp vào nút "Mượn sách" trên trang thông tin chi tiết sách</li>
+                        <li>Chọn thời gian đến nhận sách (trong giờ làm việc của thư viện)</li>
+                        <li>Chọn thời hạn mượn sách (tối đa 14 ngày)</li>
+                        <li>Xác nhận yêu cầu mượn sách</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <div class="step-icon">4</div>
+                    <h2>Nhận sách tại thư viện</h2>
+                </div>
+                <div class="step-content">
+                    <p>Đến thư viện theo lịch hẹn để nhận sách:</p>
+                    <ul>
+                        <li>Mang theo CMND/CCCD hoặc giấy tờ tùy thân</li>
+                        <li>Gặp nhân viên thư viện tại quầy tiếp đón</li>
+                        <li>Cung cấp mã đặt sách được gửi qua email/SMS</li>
+                        <li>Kiểm tra tình trạng sách trước khi xác nhận nhận sách</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <div class="step-icon">5</div>
+                    <h2>Trả sách đúng hạn</h2>
+                </div>
+                <div class="step-content">
+                    <p>Quy trình trả sách:</p>
+                    <ul>
+                        <li>Trả sách tại thư viện trước hoặc đúng ngày đã đăng ký</li>
+                        <li>Nhân viên thư viện sẽ kiểm tra tình trạng sách</li>
+                        <li>Nếu sách còn nguyên vẹn, bạn sẽ nhận xác nhận đã trả sách</li>
+                        <li>Nếu muốn gia hạn, bạn có thể đăng ký trước khi hết hạn 3 ngày</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <h3>Lưu ý quan trọng</h3>
+                <p>Nếu bạn trả sách muộn, hệ thống sẽ ghi nhận và có thể ảnh hưởng đến khả năng mượn sách trong tương lai:</p>
+                <ul>
+                    <li>Trễ hạn 1-3 ngày: Cảnh báo</li>
+                    <li>Trễ hạn 4-7 ngày: Tạm ngưng quyền mượn sách trong 7 ngày</li>
+                    <li>Trễ hạn trên 7 ngày: Tạm ngưng quyền mượn sách trong 30 ngày</li>
+                </ul>
+            </div>
+
+            <div class="note important">
+                <h3>Quy định về bảo quản sách</h3>
+                <p>Người mượn có trách nhiệm bảo quản sách trong thời gian mượn:</p>
+                <ul>
+                    <li>Không làm rách, viết, đánh dấu lên sách</li>
+                    <li>Không để sách ở nơi ẩm ướt hoặc dễ hư hỏng</li>
+                    <li>Trường hợp làm mất hoặc hư hỏng sách, người mượn sẽ phải đền bù theo quy định</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h2>Câu hỏi thường gặp</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Tôi có thể mượn tối đa bao nhiêu cuốn sách cùng lúc?</div>
+                <div class="faq-answer">Mỗi người dùng có thể mượn tối đa 3 cuốn sách cùng một lúc. Đối với thành viên VIP (đã quyên góp sách cho thư viện), số lượng có thể tăng lên 5 cuốn.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Làm thế nào để gia hạn thời gian mượn sách?</div>
+                <div class="faq-answer">Bạn có thể gia hạn thời gian mượn sách thông qua tài khoản cá nhân trên website hoặc liên hệ trực tiếp với thư viện. Việc gia hạn cần được thực hiện ít nhất 3 ngày trước khi hết hạn và chỉ được gia hạn tối đa 1 lần cho mỗi cuốn sách (thêm 7 ngày).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Nếu tôi làm mất sách thì sao?</div>
+                <div class="faq-answer">Nếu bạn làm mất sách, bạn cần báo ngay cho thư viện và có hai lựa chọn: (1) Mua lại cuốn sách mới cùng loại hoặc (2) Đền bù theo giá trị sách cộng thêm phí xử lý 20%. Các trường hợp mất sách sẽ được xem xét cụ thể.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Tôi có thể yêu cầu sách hiện không có trong thư viện không?</div>
+                <div class="faq-answer">Có, bạn có thể gửi yêu cầu đề xuất sách mới thông qua mục "Đề xuất sách" trên website. Thư viện sẽ xem xét và cập nhật nếu có thể. Bạn cũng có thể quyên góp sách theo danh sách đề xuất từ cộng đồng.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Thư viện có dịch vụ giao sách tận nhà không?</div>
+                <div class="faq-answer">Hiện tại, thư viện cộng đồng của chúng tôi chưa cung cấp dịch vụ giao sách tận nhà. Tuy nhiên, đối với độc giả là người cao tuổi hoặc khuyết tật, chúng tôi có thể xem xét hỗ trợ trong từng trường hợp cụ thể. Vui lòng liên hệ trực tiếp với thư viện để biết thêm chi tiết.</div>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h3>Bạn cần thêm thông tin?</h3>
+            <p>Liên hệ với đội ngũ hỗ trợ của chúng tôi qua:</p>
+            <p>Email: hotroB4E@gmail.com</p>
+            <p>Liên hệ: 0989 676 555</p>
+            <a href="#" class="btn1">Nhắn tin hỗ trợ trực tuyến</a>
+        </div>
+    </div>
+
+    <footer id="main-footer"></footer>
+
+    <button id="backToTop" class="back-to-top" style="display: none;">↑</button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

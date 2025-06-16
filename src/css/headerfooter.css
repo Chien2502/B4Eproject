@@ -1,0 +1,257 @@
+/* Header Styles */
+
+:root {
+    --primary-color: rgb(52, 73, 94);
+    --secondary-color: #1d7edc;
+    --accent-color: #e74c3c;
+    --light-color: rgb(213, 222, 231);
+    --dark-color: #34495e;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --heading-font: 'Montserrat', sans-serif;
+    --body-font: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--heading-font);
+    letter-spacing: -0.5px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    font-family: var(--body-font);
+    line-height: 1.8;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.containerfe {
+    position: relative;
+    background: transparent;
+    border-bottom: 4px solid transparent;
+    background-size: 200% 100%, cover;
+    background-position: 0 bottom;
+    background-repeat: repeat-x;
+    animation: stripe-slide 8s linear infinite;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@keyframes stripe-slide {
+    0% {
+        background-position: 200% 0%;
+    }
+
+    100% {
+        background-position: -200% 0%;
+    }
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.nav-links a {
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: #3498db;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    
+    cursor: pointer;
+    text-decoration: none;
+   
+    
+}
+
+.btn:hover {
+    background-color: #2980b9, var(--secondary-color);
+    color: white;
+}
+
+.btn-outline {
+    background-color: #097aea;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* footer*/
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-column ul li a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: var(--secondary-color);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li {
+        margin: 5px 0;
+    }
+
+    .auth-buttons {
+        margin-top: 10px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-input {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .filter-options {
+        flex-wrap: wrap;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .modal-book-details {
+        flex-direction: column;
+    }
+
+    .modal-book-cover {
+        flex: none;
+        margin: 0 auto;
+        width: 200px;
+    }
+}

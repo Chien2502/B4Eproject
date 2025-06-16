@@ -1,0 +1,186 @@
+/* Add smooth transitions and modern shadows */
+:root {
+  --primary-gradient: linear-gradient(135deg, #2b6cb0 0%, #3182ce 50%, #4299e1 100%);
+  --hover-transform: scale(1.02) translateY(-3px);
+  --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Hero Section */
+.hero-section {
+  background:
+    linear-gradient(120deg,
+    rgba(41, 128, 185, 0.9),
+    rgba(52, 152, 219, 0.8),
+    rgba(33, 150, 243, 0.9)),
+    url('img/Book/white-library-with-shelves-and-stairs.jpg') center/cover;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  margin-bottom: 3rem;
+}
+
+/* Enhanced Cards */
+.feature-box, .book-item, .founder-card {
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.feature-box:hover, .book-item:hover, .founder-card:hover {
+  transform: var(--hover-transform);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Typography */
+h1, h2, h3 {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: var(--text-shadow);
+}
+
+/* Enhanced Buttons */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+}
+
+.btn:hover::before {
+  transform: translateX(100%);
+  transition: 0.5s;
+}
+
+/* Enhanced Navigation */
+.nav-links a {
+  position: relative;
+  padding: 0.5rem 1rem;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Smooth Scrolling */
+.intro-stats {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Image Hover Effects */
+.book-item img {
+  transition: transform 0.5s ease;
+}
+
+.book-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Enhanced Section Titles */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--primary-gradient);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.section-title h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    120deg,
+    #2b6cb0 0%,   /* Deep blue */
+    #3182ce 20%,  /* Medium blue */
+    #4299e1 40%,  /* Light blue */
+    #63b3ed 60%,  /* Sky blue */
+    #3182ce 80%,  /* Back to medium blue */
+    #2b6cb0 100%  /* Back to deep blue */
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: gradient-shift 5s ease infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Add depth with pseudo-element */
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(43, 108, 176, 0.5) 50%,
+    transparent 100%
+  );
+}
+.hero-content h1{
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    120deg,
+    #2b6cb0 0%,   /* Deep blue */
+    #3182ce 20%,  /* Medium blue */
+    #4299e1 40%,  /* Light blue */
+    #63b3ed 60%,  /* Sky blue */
+    #3182ce 80%,  /* Back to medium blue */
+    #2b6cb0 100%  /* Back to deep blue */
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: gradient-shift 5s ease infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Add depth with pseudo-element */

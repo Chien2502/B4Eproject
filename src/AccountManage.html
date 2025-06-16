@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý tài khoản | Thư viện cộng đồng</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-color: #1d7ddc;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --light-bg: #f5f6fa;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .gradient-header {
+      background: linear-gradient(
+        90deg,
+        #0a4c95 0%,
+        #1e88e5 25%,
+        #64b5f6 50%,
+        #1e88e5 75%,
+        #0a4c95 100%
+      );
+      background-size: 200% 100%;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      animation: gradient-animation 8s linear infinite;
+    }
+
+    @keyframes gradient-animation {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .account-section {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .sidebar {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: fit-content;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-menu a {
+      display: block;
+      padding: 0.8rem 1rem;
+      color: var(--text-color);
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .main-content {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 2rem;
+    }
+
+    .profile-info h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #2980b9;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat-box {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .account-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="gradient-header">
+  <div class="container">
+    <h1>Quản lý tài khoản</h1>
+  </div>
+</header>
+
+<main class="container">
+  <div class="account-section">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="#" class="active">Thông tin cá nhân</a></li>
+        <li><a href="#">Sách đang mượn</a></li>
+        <li><a href="#">Lịch sử mượn sách</a></li>
+        <li><a href="#">Sách đã quyên góp</a></li>
+        <li><a href="#">Cài đặt tài khoản</a></li>
+        <li><a href="#">Đổi mật khẩu</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <div class="profile-header">
+        <img src="/api/placeholder/100/100" alt="Avatar" class="profile-avatar">
+        <div class="profile-info">
+          <h2>Nguyễn Văn A</h2>
+          <p>Thành viên từ: 15/03/2024</p>
+        </div>
+      </div>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="fullName">Họ và tên</label>
+          <input type="text" id="fullName" value="Nguyễn Văn A">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" value="nguyenvana@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <input type="tel" id="phone" value="0123456789">
+        </div>
+
+        <div class="form-group">
+          <label for="address">Địa chỉ</label>
+          <input type="text" id="address" value="Hà Nội, Việt Nam">
+        </div>
+
+        <button type="submit" class="btn">Cập nhật thông tin</button>
+      </form>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h3>5</h3>
+          <p>Sách đang mượn</p>
+        </div>
+        <div class="stat-box">
+          <h3>15</h3>
+          <p>Đã mượn</p>
+        </div>
+        <div class="stat-box">
+          <h3>3</h3>
+          <p>Đã quyên góp</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.getElementById('profile-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thông tin đã được cập nhật thành công!');
+  });
+</script>
+</body>
+</html>

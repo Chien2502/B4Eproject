@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quyên góp sách</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/headerfooter.css" rel="stylesheet">
+    <link href="css/donate.css" rel="stylesheet">
+    <link href="css/button.css" rel="stylesheet">
+    <link href="css/animation.css" rel="stylesheet">
+</head>
+
+<body>
+    <script src="js/main.js"></script>
+    <header id="main-header"></header>
+
+    <section class="hero hero-section">
+        <div class="container">
+            <h1 style="color: #f7f9fc">Quyên góp sách - Lan tỏa tri thức</h1>
+            <p>Hãy chung tay xây dựng thư viện cộng đồng bằng cách quyên góp những cuốn sách bạn yêu thích để nhiều
+                người khác có cơ hội được đọc và tiếp thu kiến thức.</p>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="info-box">
+            <h3>200+</h3>
+            <p>Sách đã được quyên góp</p>
+        </div>
+        <div class="info-box">
+            <h3>50+</h3>
+            <p>Người quyên góp</p>
+        </div>
+        <div class="info-box">
+            <h3>100+</h3>
+            <p>Độc giả được hưởng lợi</p>
+        </div>
+
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <h2 class="section-title">Quy trình quyên góp</h2>
+
+            <div class="steps-container">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <h3>Điền thông tin</h3>
+                    <p>Điền đầy đủ thông tin về cuốn sách và thông tin liên hệ của bạn vào form bên dưới.</p>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <h3>Xác nhận</h3>
+                    <p>Chúng tôi sẽ liên hệ với bạn để xác nhận thông tin và sắp xếp việc nhận sách.</p>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <h3>Gửi sách</h3>
+                    <p>Bạn có thể gửi sách trực tiếp hoặc chúng tôi sẽ sắp xếp người đến nhận tùy theo số lượng và địa
+                        điểm.</p>
+                </div>
+            </div>
+
+            <div class="donation-form-container">
+                <h2>Form quyên góp sách</h2>
+                <form id="donationForm">
+                    <div class="form-group">
+                        <label for="fullName">Họ và tên *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <textarea id="address" name="address"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookTitle">Tên sách *</label>
+                        <input type="text" id="bookTitle" name="bookTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Tác giả</label>
+                        <input type="text" id="author" name="author">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">Nhà xuất bản</label>
+                        <input type="text" id="publisher" name="publisher">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publicationYear">Năm xuất bản</label>
+                        <input type="number" id="publicationYear" name="publicationYear" min="1800" max="2025">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookCondition">Tình trạng sách *</label>
+                        <select id="bookCondition" name="bookCondition" required>
+                            <option value="">-- Chọn tình trạng --</option>
+                            <option value="new">Mới (100%)</option>
+                            <option value="likeNew">Gần như mới (90-99%)</option>
+                            <option value="good">Tốt (80-89%)</option>
+                            <option value="fair">Khá (50-79%)</option>
+                            <option value="poor">Cũ (dưới 50%)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Số lượng *</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Mô tả thêm</label>
+                        <textarea id="description" name="description"
+                            placeholder="Mô tả thêm về sách, nội dung, hoặc lưu ý khi nhận sách..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donationType">Hình thức quyên góp *</label>
+                        <select id="donationType" name="donationType" required>
+                            <option value="">-- Chọn hình thức --</option>
+                            <option value="directDelivery">Trực tiếp đến thư viện</option>
+                            <option value="pickup">Đề nghị đến nhận tại nhà</option>
+                            <option value="shipping">Gửi qua dịch vụ chuyển phát</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Gửi thông tin quyên góp</button>
+
+                    <p class="note">* Thông tin bắt buộc</p>
+                </form>
+            </div>
+
+            <div class="faq">
+                <h2 class="section-title">Câu hỏi thường gặp</h2>
+
+                <div class="faq-item">
+                    <h3>Những loại sách nào được chấp nhận?</h3>
+                    <p>Chúng tôi chấp nhận hầu hết các loại sách còn trong tình trạng đọc được, bao gồm sách giáo dục,
+                        văn học, khoa học, kỹ năng sống, sách thiếu nhi, v.v. Chúng tôi không nhận các ấn phẩm quá cũ
+                        nát không thể đọc được hoặc có nội dung không phù hợp.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Làm thế nào để tôi biết sách của mình đã được nhận?</h3>
+                    <p>Sau khi chúng tôi nhận được sách của bạn, chúng tôi sẽ gửi email xác nhận và cảm ơn. Nếu bạn đã
+                        đăng ký tài khoản, bạn có thể theo dõi trạng thái quyên góp trong phần "Lịch sử quyên góp" trên
+                        trang cá nhân.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Tôi có thể quyên góp ẩn danh không?</h3>
+                    <p>Có, bạn có thể chọn quyên góp ẩn danh. Chúng tôi vẫn cần thông tin liên hệ của bạn để xác nhận
+                        việc nhận sách, nhưng tên của bạn sẽ không xuất hiện trong danh sách quyên góp công khai.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Có giới hạn số lượng sách quyên góp không?</h3>
+                    <p>Không có giới hạn về số lượng sách bạn có thể quyên góp. Tuy nhiên, nếu bạn muốn quyên góp một số
+                        lượng lớn (trên 50 cuốn), vui lòng liên hệ trực tiếp với chúng tôi để sắp xếp việc nhận sách phù
+                        hợp.</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h2>Thông tin liên hệ</h2>
+                <p>Nếu bạn có bất kỳ câu hỏi nào về việc quyên góp sách, vui lòng liên hệ với chúng tôi qua các phương
+                    thức sau:</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Địa chỉ</h3>
+                        <p>470 Trần Đại Nghĩa, Ngũ Hành Sơn, Đà Nẵng</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <h3>Điện thoại</h3>
+                        <p>0989 676 555</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>hotroB4E@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="main-footer"></footer>
+
+    <button id="backToTop" class="back-to-top" style="display: none;">↑</button>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

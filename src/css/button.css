@@ -1,0 +1,55 @@
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: none;
+  transition: opacity 0.3s;
+}
+
+.back-to-top.visible {
+  display: block;
+}
+@keyframes stripe-animation {
+  0% {
+    background-position: 200% 0, center;
+  }
+  100% {
+    background-position: -200% 0, center;
+  }
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(45deg,
+  #2980b9 25%,
+  #3498db 25%,
+  #3498db 50%,
+  #2980b9 50%,
+  #2980b9 75%,
+  #3498db 75%);
+  background-size: 25px 25px , cover;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: none;
+  transition: transform 0.3s;
+  animation: stripe-animation 2s linear infinite;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
