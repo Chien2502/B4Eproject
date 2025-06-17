@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCategory = 'Tất cả';
   let currentSortOrder = 'newest';
 
-  // HÀM HIỂN THỊ DANH SÁCH SÁCH (Giữ nguyên từ bước trước)
+  // HÀM HIỂN THỊ DANH SÁCH SÁCH
   function displayBooks(bookList) {
     if (!bookGrid) return;
     bookGrid.innerHTML = '';
