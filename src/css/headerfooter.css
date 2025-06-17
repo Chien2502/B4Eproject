@@ -264,37 +264,3 @@ footer {
     color: #fff;
     cursor: pointer;
 }
-
-
-/* .nav-links {
-    transition: max-height 0.4s ease;
-    overflow: hidden;
-}
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .navbar {
-        flex-wrap: wrap;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-
-        max-height: 0;
-    }
-
-    .nav-links.open {
-        max-height: 400px;
-    }
-
-    .auth-buttons {
-        margin-top: 10px;
-        width: 100%;
-        justify-content: center;
-    }
-} */

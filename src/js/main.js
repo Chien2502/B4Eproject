@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", function() {
     loadComponent("layout/footer.html", "main-footer");
   }
 
-  // Xử lý nút Back to Top (đoạn mã này có thể chuyển vào đây cho gọn)
+  // Xử lý nút Back to Top
   const backToTopButton = document.getElementById('backToTop');
   if (backToTopButton) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
-        backToTopButton.style.display = 'block'; // Hiển thị nút
+        backToTopButton.style.display = 'block'; 
       } else {
-        backToTopButton.style.display = 'none'; // Ẩn nút
+        backToTopButton.style.display = 'none';
       }
     });
 
