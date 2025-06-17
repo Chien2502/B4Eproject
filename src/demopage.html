@@ -4,321 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mượn sách</title>
+  <title>Chi tiết sách</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="css/headerfooter.css" rel="stylesheet">
   <link href="css/button.css" rel="stylesheet">
-  <link href="css/animation.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/demopage.css" rel="stylesheet">
+
 </head>
 
 <body>
-  <header id="main-header"></header>
+<header id="main-header"></header>
 
-  <!-- Book Details Page Content -->
-  <div class="container mx-auto px-4 py-8">
-    <!-- Book Information Section -->
-    <div class="flex flex-col md:flex-row gap-8">
-      <!-- Book Cover -->
-      <div class="w-full md:w-1/3 lg:w-1/4">
-        <div class="book-cover shadow-lg rounded-lg overflow-hidden">
-          <img src="img/Book/Nhà_giả_kim.png" alt="Nhà Giả Kim - Paulo Coelho" class="w-full h-auto object-cover" />
-        </div>
+<main class="detail-container">
+  <aside class="left-column">
+    <div class="book-cover-container">
+      <img id="book-cover-img" src="" alt="Bìa sách">
+    </div>
+    <a id="borrow-link" href="#" class="btn-borrow">Mượn sách</a>
+    <div id="book-status-badge" class="status-badge"></div>
 
-        <div class="mt-6 flex flex-col gap-3">
-          <a href="borrow-form.html"
-            class="bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-center transition">
-            Mượn sách
-          </a>
-          <div class="bg-green-100 rounded-lg p-3 text-center">
-            <span class="text-green-600 font-medium">Có sẵn</span>
-            <p class="text-sm text-gray-600 mt-1">5 cuốn có thể mượn</p>
-          </div>
-        </div>
+    <div class="book-info-left">
+      <h3 id="book-title-left"></h3>
+      <p id="book-author-left"></p>
+      <div class="rating">
+        <span class="stars">★★★★☆</span>
+        <span class="ml-2">(Đang cập nhật)</span>
       </div>
+    </div>
+  </aside>
 
-      <!-- Book Details -->
-      <div class="w-full md:w-2/3 lg:w-3/4">
-        <h1 class="text-3xl font-bold text-gray-800">Nhà Giả Kim</h1>
-        <h2 class="text-xl text-gray-600 mt-2">Paulo Coelho</h2>
+  <section class="right-column">
+    <h1 id="book-title-main" class="book-title-main"></h1>
+    <p id="book-author-main" class="book-author-main"></p>
 
-        <div class="flex items-center mt-4">
-          <div class="flex text-yellow-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          </div>
-          <span class="ml-2 text-gray-600">4.8/5 (245 đánh giá)</span>
-        </div>
-
-        <!-- Book Meta Information -->
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-sm text-gray-500">Năm xuất bản</h3>
-            <p class="font-medium">1988 (Bản dịch tiếng Việt: 2013)</p>
-          </div>
-
-          <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-sm text-gray-500">Số trang</h3>
-            <p class="font-medium">228 trang</p>
-          </div>
-
-          <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-sm text-gray-500">Thể loại</h3>
-            <p class="font-medium">Tiểu thuyết, Tâm lý, Triết học</p>
-          </div>
-
-          <div class="bg-gray-100 p-4 rounded-lg">
-            <h3 class="text-sm text-gray-500">Ngôn ngữ</h3>
-            <p class="font-medium">Tiếng Việt</p>
-          </div>
-        </div>
-
-        <!-- Book Description -->
-        <div class="mt-8">
-          <h3 class="text-xl font-semibold border-b border-gray-200 pb-2">Giới thiệu sách</h3>
-          <div class="mt-4 text-gray-700 space-y-4">
-            <p>
-              "Nhà Giả Kim" (tên gốc: "O Alquimista") là một trong những tác phẩm nổi tiếng nhất của nhà
-              văn Paulo Coelho, được xuất bản lần đầu vào năm 1988 và đã được dịch ra hơn 80 ngôn ngữ.
-            </p>
-            <p>
-              Cuốn sách kể về hành trình của Santiago - một chàng chăn cừu trẻ người Tây Ban Nha. Sau một
-              giấc mơ lặp đi lặp lại về kho báu ẩn giấu ở chân kim tự tháp Ai Cập, Santiago quyết định bán
-              đàn cừu và bắt đầu cuộc phiêu lưu vượt qua eo biển Gibraltar đến sa mạc Sahara để tìm kiếm
-              kho báu của mình.
-            </p>
-            <p>
-              Trong hành trình đầy thử thách này, Santiago gặp gỡ nhiều nhân vật khác nhau như nhà giả
-              kim, người bán pha lê, cô gái sa mạc Fatima... mỗi người đều mang đến cho chàng những bài
-              học quý giá về cuộc sống, về việc lắng nghe trái tim mình và theo đuổi vận mệnh cá nhân
-              (Personal Legend).
-            </p>
-            <p>
-              "Nhà Giả Kim" không chỉ đơn thuần là câu chuyện về một kho báu vật chất, mà còn là ẩn dụ sâu
-              sắc về hành trình khám phá bản thân, về việc lắng nghe những dấu hiệu của vũ trụ và hiểu
-              được rằng khi một người thực sự khao khát điều gì, cả vũ trụ sẽ hợp lực để giúp người đó đạt
-              được ước mơ.
-            </p>
-            <blockquote class="italic border-l-4 border-gray-300 pl-4 py-2 my-4">
-              "Khi bạn khao khát một điều gì đó, cả vũ trụ sẽ hợp lực giúp bạn đạt được điều đó."
-            </blockquote>
-            <p>
-              Cuốn sách này đã truyền cảm hứng cho hàng triệu độc giả trên toàn thế giới, trở thành một
-              trong những tác phẩm văn học bán chạy nhất mọi thời đại với hơn 65 triệu bản được bán ra.
-            </p>
-          </div>
-        </div>
+    <div class="book-meta">
+      <div class="meta-item">
+        <h4>Thể loại</h4>
+        <p id="book-category"></p>
+      </div>
+      <div class="meta-item">
+        <h4>Năm xuất bản</h4>
+        <p>Đang cập nhật</p>
       </div>
     </div>
 
-    <!-- Additional Information Tabs -->
-    <div class="mt-12">
-      <div class="border-b border-gray-200">
-        <nav class="flex -mb-px">
-          <a href="#" class="border-b-2 border-blue-500 text-blue-600 py-4 px-6 font-medium">Đánh giá từ độc
-            giả</a>
-          <a href="#" class="text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-6 font-medium">Trích dẫn
-            hay</a>
-          <a href="#" class="text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-6 font-medium">Sách liên
-            quan</a>
-        </nav>
-      </div>
-
-      <!-- Reader Reviews Section -->
-      <div class="py-6">
-        <div class="flex items-center justify-between">
-          <h3 class="text-xl font-semibold">Đánh giá từ độc giả</h3>
-          <button class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 transition">
-            Viết đánh giá
-          </button>
-        </div>
-
-        <!-- Review Items -->
-        <div class="mt-6 space-y-6">
-          <!-- Review 1 -->
-          <div class="bg-gray-50 p-6 rounded-lg">
-            <div class="flex justify-between items-start">
-              <div>
-                <div class="flex items-center">
-                  <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span class="text-blue-600 font-medium">TH</span>
-                  </div>
-                  <div class="ml-4">
-                    <p class="font-medium">Trần Hoàng</p>
-                    <div class="flex text-yellow-400 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="text-sm text-gray-500">12/03/2025</span>
-            </div>
-            <h4 class="font-semibold mt-4">Cuốn sách thay đổi cuộc đời tôi</h4>
-            <p class="mt-2 text-gray-700">
-              Tôi đã đọc "Nhà Giả Kim" vào một giai đoạn khó khăn trong cuộc sống và nó đã giúp tôi nhận
-              ra rằng những khó khăn chỉ là những thử thách giúp ta trưởng thành. Câu chuyện về Santiago
-              đã truyền cảm hứng cho tôi dám theo đuổi ước mơ của mình. Đây là cuốn sách mà tôi sẽ đọc đi
-              đọc lại nhiều lần trong đời.
-            </p>
-          </div>
-
-          <!-- Review 2 -->
-          <div class="bg-gray-50 p-6 rounded-lg">
-            <div class="flex justify-between items-start">
-              <div>
-                <div class="flex items-center">
-                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <span class="text-green-600 font-medium">NT</span>
-                  </div>
-                  <div class="ml-4">
-                    <p class="font-medium">Nguyễn Thảo</p>
-                    <div class="flex text-yellow-400 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="text-sm text-gray-500">28/02/2025</span>
-            </div>
-            <h4 class="font-semibold mt-4">Đơn giản nhưng sâu sắc</h4>
-            <p class="mt-2 text-gray-700">
-              Điều tôi yêu thích nhất về "Nhà Giả Kim" là cách tác giả truyền tải những thông điệp phức
-              tạp về cuộc sống qua một câu chuyện đơn giản, dễ hiểu. Ngôn ngữ không cầu kỳ nhưng mỗi trang
-              sách đều chứa đựng những bài học sâu sắc. Tôi đặc biệt ấn tượng với ý tưởng về "Ngôn ngữ của
-              thế giới" - cách vũ trụ giao tiếp với chúng ta thông qua các dấu hiệu.
-            </p>
-          </div>
-
-          <!-- More Reviews Link -->
-          <div class="text-center pt-4">
-            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">
-              Xem thêm đánh giá (243)
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="book-description-container">
+      <h3>Giới thiệu sách</h3>
+      <div id="book-description"></div>
     </div>
+  </section>
+</main>
 
-    <!-- Book Donation & Borrowing Information -->
-    <div class="mt-12 bg-blue-50 p-6 rounded-lg">
-      <h3 class="text-xl font-semibold text-blue-800">Thông tin mượn sách</h3>
-      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h4 class="font-medium text-blue-700">Quy định mượn</h4>
-          <ul class="mt-2 space-y-2 text-gray-700">
-            <li class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2 mt-0.5" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span>Thời gian mượn tối đa: 14 ngày</span>
-            </li>
-            <li class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2 mt-0.5" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span>Gia hạn: Có thể gia hạn 1 lần (thêm 7 ngày)</span>
-            </li>
-            <li class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2 mt-0.5" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span>Phí quá hạn: 5.000đ/ngày</span>
-            </li>
-            <li class="flex items-start">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2 mt-0.5" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span>Số lượng sách tối đa được mượn: 3 cuốn/người</span>
-            </li>
-          </ul>
-        </div>
+<footer id="main-footer"></footer>
 
-        <div>
-          <h4 class="font-medium text-blue-700">Quyên góp sách</h4>
-          <p class="mt-2 text-gray-700">
-            Nếu bạn có cuốn sách này và muốn đóng góp cho thư viện của chúng tôi, vui lòng liên hệ qua mục
-            "Quyên góp" hoặc điền vào biểu mẫu dưới đây.
-          </p>
-          <br>
-          <a class="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium text-center transition"
-            href="donate.html">
-            Quyên góp sách này
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer id="main-footer"></footer>
+<button id="backToTop" class="back-to-top" style="display: none;">↑</button>
 
-  <button id="backToTop" class="back-to-top" style="display: none;">↑</button>
-
-  <script src="js/main.js"></script>
+<script src="js/database.js"></script>
+<script src="js/details.js"></script>
+<script src="js/main.js"></script>
 </body>
+
+</html>

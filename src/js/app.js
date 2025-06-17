@@ -4,28 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tìm phần tử container sẽ chứa danh sách sách
   const bookGrid = document.querySelector('.books-grid');
 
-  // =================================================================
-  // HÀM HIỂN THỊ DANH SÁCH SÁCH
-  // Nhiệm vụ: Nhận vào một danh sách sách và hiển thị chúng lên giao diện
-  // =================================================================
+
   function displayBooks(bookList) {
-    // Nếu không tìm thấy bookGrid thì không làm gì cả (để tránh lỗi ở các trang khác)
     if (!bookGrid) {
       return;
     }
-
-    // Xóa sạch mọi thứ đang có trong lưới sách trước khi hiển thị kết quả mới
     bookGrid.innerHTML = '';
-
-    // Lặp qua mỗi cuốn sách trong danh sách được cung cấp
     bookList.forEach(book => {
-      // Tạo một thẻ <div> mới cho mỗi cuốn sách
       const bookCard = document.createElement('div');
-      // Thêm class 'book-card' để áp dụng CSS đã có
       bookCard.classList.add('book-card');
-
-      // Dùng template literal (dấu `) để tạo cấu trúc HTML cho thẻ sách
-      // Dữ liệu được lấy từ đối tượng 'book' (ví dụ: book.image, book.title)
       bookCard.innerHTML = `
                 <div class="book-cover">
                     <img src="${book.image}" alt="${book.title}">
@@ -43,21 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
       bookGrid.appendChild(bookCard);
     });
   }
-
-  // =================================================================
-  // LẦN CHẠY ĐẦU TIÊN
-  // Hiển thị toàn bộ sách khi người dùng vừa tải trang
-  // =================================================================
-  // Biến 'books' được lấy từ tệp 'database.js' mà chúng ta đã nhúng vào HTML
   displayBooks(books);
-
 });
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // =================================================================
   // PHẦN KHAI BÁO BIẾN VÀ LẤY CÁC PHẦN TỬ HTML
-  // =================================================================
   const bookGrid = document.querySelector('.books-grid');
   const searchInput = document.querySelector('.search-box input');
   const categoryLinks = document.querySelectorAll('.filter-group a[data-category]');
@@ -67,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCategory = 'Tất cả';
   let currentSortOrder = 'newest';
 
-  // =================================================================
   // HÀM HIỂN THỊ DANH SÁCH SÁCH (Giữ nguyên từ bước trước)
-  // =================================================================
   function displayBooks(bookList) {
     if (!bookGrid) return;
     bookGrid.innerHTML = '';
@@ -91,11 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
       bookGrid.appendChild(bookCard);
     });
   }
-
-  // =================================================================
   // HÀM LỌC VÀ SẮP XẾP TỔNG HỢP
   // Đây là hàm trung tâm xử lý tất cả logic
-  // =================================================================
   function applyFiltersAndSort() {
     // Bắt đầu với danh sách đầy đủ
     let filteredBooks = books;
@@ -138,19 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     displayBooks(filteredBooks);
   }
 
-  // =================================================================
-  // GẮN CÁC BỘ LẮNG NGHE SỰ KIỆN (EVENT LISTENERS)
-  // =================================================================
-
-  // 1. Lắng nghe sự kiện người dùng gõ vào ô tìm kiếm
+  // GẮN CÁC EVENT LISTENERS
+  // 1. EVENT LISTENERS người dùng gõ vào ô tìm kiếm
   if (searchInput) {
     searchInput.addEventListener('input', (event) => {
       currentSearchTerm = event.target.value.toLowerCase();
       applyFiltersAndSort();
     });
   }
-
-  // 2. Lắng nghe sự kiện người dùng nhấn vào các link thể loại
+  // 2. EVENT LISTENERS người dùng nhấn vào các link thể loại
   if (categoryLinks) {
     categoryLinks.forEach(link => {
       link.addEventListener('click', (event) => {
@@ -166,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Lắng nghe sự kiện người dùng thay đổi lựa chọn sắp xếp
+  // 3. EVENT LISTENERS người dùng thay đổi lựa chọn sắp xếp
   if (sortSelect) {
     sortSelect.addEventListener('change', (event) => {
       currentSortOrder = event.target.value;
@@ -174,9 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // =================================================================
-  // LẦN CHẠY ĐẦU TIÊN
-  // =================================================================
   applyFiltersAndSort();
 
 });

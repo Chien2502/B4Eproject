@@ -1,0 +1,156 @@
+/* css/demopage.css */
+
+:root {
+  --primary-color: rgb(52, 73, 94);
+  --secondary-color: #2563eb; /* Blue color for button */
+  --light-green-bg: #dcfce7;
+  --dark-green-text: #166534;
+  --light-gray-text: #6b7280;
+  --dark-text: #1f2937;
+  --border-color: #e5e7eb;
+}
+
+.detail-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 4rem;
+}
+
+/* --- Cột bên trái --- */
+.left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-column .book-cover-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1.5rem;
+}
+
+.left-column .book-cover-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.left-column .btn-borrow {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s;
+}
+
+.left-column .btn-borrow:hover {
+  background-color: #1d4ed8;
+}
+
+.left-column .status-badge {
+  padding: 0.75rem 1rem;
+  background-color: var(--light-green-bg);
+  color: var(--dark-green-text);
+  text-align: center;
+  font-weight: 500;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.left-column .status-badge.borrowed {
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.left-column .book-info-left h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin-bottom: 0.25rem;
+}
+
+.left-column .book-info-left p {
+  color: var(--light-gray-text);
+}
+
+.left-column .rating {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--light-gray-text);
+}
+
+.left-column .rating .stars {
+  color: #facc15; /* Yellow for stars */
+}
+
+/* --- Cột bên phải --- */
+.right-column {
+  padding-top: 1rem;
+}
+
+.right-column .book-title-main {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.right-column .book-author-main {
+  font-size: 1.25rem;
+  color: var(--light-gray-text);
+  margin-bottom: 2rem;
+}
+
+.right-column .book-meta {
+  display: flex;
+  gap: 5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.right-column .meta-item h4 {
+  color: var(--light-gray-text);
+  margin-bottom: 0.5rem;
+}
+
+.right-column .meta-item p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.right-column .book-description-container {
+  margin-top: 2rem;
+}
+
+.right-column .book-description-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin-bottom: 1rem;
+}
+
+.right-column .book-description-container p {
+  color: var(--light-gray-text);
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detail-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

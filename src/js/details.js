@@ -43,26 +43,39 @@ document.addEventListener('DOMContentLoaded', () => {
  * @param {object} book - Đối tượng sách cần hiển thị.
  */
 function displayBookDetails(book) {
+  // --- Cập nhật tiêu đề trang ---
   document.title = `${book.title} - Thư viện Cộng đồng`;
-  document.getElementById('book-title').textContent = book.title;
-  document.getElementById('book-author').textContent = book.author;
-  document.getElementById('book-cover-img').src = book.image;
-  document.getElementById('book-cover-img').alt = book.title;
+
+  // --- Điền thông tin cho CỘT BÊN PHẢI ---
+  document.getElementById('book-title-main').textContent = book.title;
+  document.getElementById('book-author-main').textContent = book.author;
   document.getElementById('book-category').textContent = book.category;
 
+  // Xử lý mô tả có nhiều dòng
   const descriptionHTML = book.description.split('\n').map(p => `<p>${p}</p>`).join('');
   document.getElementById('book-description').innerHTML = descriptionHTML;
 
-  const statusElement = document.getElementById('book-status');
+  // --- Điền thông tin cho CỘT BÊN TRÁI ---
+  document.getElementById('book-cover-img').src = book.image;
+  document.getElementById('book-cover-img').alt = book.title;
+  document.getElementById('book-title-left').textContent = book.title;
+  document.getElementById('book-author-left').textContent = book.author;
+
+  // Cập nhật link và trạng thái cho nút
+  const borrowLink = document.getElementById('borrow-link');
+  const statusBadge = document.getElementById('book-status-badge');
+
   if (book.status === 'available') {
-    statusElement.textContent = 'Có sẵn';
-    statusElement.className = 'text-green-600 font-medium';
+    statusBadge.textContent = 'Có sẵn';
+    statusBadge.className = 'status-badge'; // Class mặc định màu xanh
+    borrowLink.href = `borrow-form.html?title=${encodeURIComponent(book.title)}`;
+    borrowLink.style.display = 'block'; // Hiển thị nút
   } else {
-    statusElement.textContent = 'Đã cho mượn';
-    statusElement.className = 'text-yellow-600 font-medium';
+    statusBadge.textContent = 'Đã cho mượn';
+    statusBadge.className = 'status-badge borrowed'; // Class màu vàng
+    borrowLink.style.display = 'none'; // Ẩn nút mượn sách
   }
 }
-
 /**
  * Hàm này hiển thị một thông báo lỗi trên trang.
  * @param {string} mainMessage - Thông báo lỗi chính.

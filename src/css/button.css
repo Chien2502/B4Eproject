@@ -1,55 +1,47 @@
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--primary-color);
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: none;
-  transition: opacity 0.3s;
-}
 
-.back-to-top.visible {
-  display: block;
-}
-@keyframes stripe-animation {
-  0% {
-    background-position: 200% 0, center;
-  }
-  100% {
-    background-position: -200% 0, center;
-  }
-}
-
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(45deg,
-  #2980b9 25%,
-  #3498db 25%,
-  #3498db 50%,
-  #2980b9 50%,
-  #2980b9 75%,
-  #3498db 75%);
-  background-size: 25px 25px , cover;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: none;
-  transition: transform 0.3s;
-  animation: stripe-animation 2s linear infinite;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
 
 .back-to-top:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 45px;
+  height: 45px;
+
+  /* Hiệu ứng Gradient cầu vồng */
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #ff6b6b);
+  background-size: 400% 400%; /* Nền lớn hơn để animation mượt hơn */
+  animation: rainbow-slide 4s linear infinite; /* Áp dụng animation mới */
+
+  color: white;
+  border-radius: 50%;
+  border: none; /* Đã bỏ viền trắng */
+  cursor: pointer;
+  display: none;
+  font-size: 1.2rem;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.back-to-top:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== ĐỊNH NGHĨA ANIMATION CẦU VỒNG ===== */
+@keyframes rainbow-slide {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
