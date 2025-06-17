@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hướng dẫn mượn sách - Thư viện cộng đồng</title>
     <link href="css/headerfooter.css" rel="stylesheet">
     <link href="css/questionsyoumayhave.css" rel="stylesheet">
-  <link href = "css/button.css" rel = "stylesheet" >
+    <link href="css/button.css" rel="stylesheet">
     <style>
-
         body {
             background-color: #f8f9fa;
             color: #333;
@@ -192,9 +192,21 @@
         }
     </style>
 </head>
+
+<script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    toggleBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    /* Đóng menu sau khi chọn link (tùy chọn) */
+    nav.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', () => nav.classList.remove('open')));
+</script>
+
 <body>
 
-<header id="main-header"></header>
+    <header id="main-header"></header>
 
     <div class="guide-container" id="huongdanmuonsach">
         <h1>Hướng Dẫn Mượn Sách</h1>
@@ -283,7 +295,8 @@
 
             <div class="note">
                 <h3>Lưu ý quan trọng</h3>
-                <p>Nếu bạn trả sách muộn, hệ thống sẽ ghi nhận và có thể ảnh hưởng đến khả năng mượn sách trong tương lai:</p>
+                <p>Nếu bạn trả sách muộn, hệ thống sẽ ghi nhận và có thể ảnh hưởng đến khả năng mượn sách trong tương
+                    lai:</p>
                 <ul>
                     <li>Trễ hạn 1-3 ngày: Cảnh báo</li>
                     <li>Trễ hạn 4-7 ngày: Tạm ngưng quyền mượn sách trong 7 ngày</li>
@@ -307,27 +320,36 @@
 
             <div class="faq-item">
                 <div class="faq-question">Tôi có thể mượn tối đa bao nhiêu cuốn sách cùng lúc?</div>
-                <div class="faq-answer">Mỗi người dùng có thể mượn tối đa 3 cuốn sách cùng một lúc. Đối với thành viên VIP (đã quyên góp sách cho thư viện), số lượng có thể tăng lên 5 cuốn.</div>
+                <div class="faq-answer">Mỗi người dùng có thể mượn tối đa 3 cuốn sách cùng một lúc. Đối với thành viên
+                    VIP (đã quyên góp sách cho thư viện), số lượng có thể tăng lên 5 cuốn.</div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Làm thế nào để gia hạn thời gian mượn sách?</div>
-                <div class="faq-answer">Bạn có thể gia hạn thời gian mượn sách thông qua tài khoản cá nhân trên website hoặc liên hệ trực tiếp với thư viện. Việc gia hạn cần được thực hiện ít nhất 3 ngày trước khi hết hạn và chỉ được gia hạn tối đa 1 lần cho mỗi cuốn sách (thêm 7 ngày).</div>
+                <div class="faq-answer">Bạn có thể gia hạn thời gian mượn sách thông qua tài khoản cá nhân trên website
+                    hoặc liên hệ trực tiếp với thư viện. Việc gia hạn cần được thực hiện ít nhất 3 ngày trước khi hết
+                    hạn và chỉ được gia hạn tối đa 1 lần cho mỗi cuốn sách (thêm 7 ngày).</div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Nếu tôi làm mất sách thì sao?</div>
-                <div class="faq-answer">Nếu bạn làm mất sách, bạn cần báo ngay cho thư viện và có hai lựa chọn: (1) Mua lại cuốn sách mới cùng loại hoặc (2) Đền bù theo giá trị sách cộng thêm phí xử lý 20%. Các trường hợp mất sách sẽ được xem xét cụ thể.</div>
+                <div class="faq-answer">Nếu bạn làm mất sách, bạn cần báo ngay cho thư viện và có hai lựa chọn: (1) Mua
+                    lại cuốn sách mới cùng loại hoặc (2) Đền bù theo giá trị sách cộng thêm phí xử lý 20%. Các trường
+                    hợp mất sách sẽ được xem xét cụ thể.</div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Tôi có thể yêu cầu sách hiện không có trong thư viện không?</div>
-                <div class="faq-answer">Có, bạn có thể gửi yêu cầu đề xuất sách mới thông qua mục "Đề xuất sách" trên website. Thư viện sẽ xem xét và cập nhật nếu có thể. Bạn cũng có thể quyên góp sách theo danh sách đề xuất từ cộng đồng.</div>
+                <div class="faq-answer">Có, bạn có thể gửi yêu cầu đề xuất sách mới thông qua mục "Đề xuất sách" trên
+                    website. Thư viện sẽ xem xét và cập nhật nếu có thể. Bạn cũng có thể quyên góp sách theo danh sách
+                    đề xuất từ cộng đồng.</div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Thư viện có dịch vụ giao sách tận nhà không?</div>
-                <div class="faq-answer">Hiện tại, thư viện cộng đồng của chúng tôi chưa cung cấp dịch vụ giao sách tận nhà. Tuy nhiên, đối với độc giả là người cao tuổi hoặc khuyết tật, chúng tôi có thể xem xét hỗ trợ trong từng trường hợp cụ thể. Vui lòng liên hệ trực tiếp với thư viện để biết thêm chi tiết.</div>
+                <div class="faq-answer">Hiện tại, thư viện cộng đồng của chúng tôi chưa cung cấp dịch vụ giao sách tận
+                    nhà. Tuy nhiên, đối với độc giả là người cao tuổi hoặc khuyết tật, chúng tôi có thể xem xét hỗ trợ
+                    trong từng trường hợp cụ thể. Vui lòng liên hệ trực tiếp với thư viện để biết thêm chi tiết.</div>
             </div>
         </div>
 
@@ -346,4 +368,5 @@
 
     <script src="js/main.js"></script>
 </body>
+
 </html>

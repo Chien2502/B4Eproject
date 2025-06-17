@@ -12,6 +12,17 @@
     <link href="css/animation.css" rel="stylesheet">
 </head>
 
+<script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    toggleBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    /* Đóng menu sau khi chọn link (tùy chọn) */
+    nav.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', () => nav.classList.remove('open')));
+</script>
+
 <body>
     <header id="main-header"></header>
 
@@ -58,9 +69,8 @@
         </div>
 
         <!-- Tiểu thuyết -->
-      <div
-        class="books-grid">
-      </div>
+        <div class="books-grid">
+        </div>
     </main>
     <footer id="main-footer"></footer>
     <button id="backToTop" class="back-to-top" style="display: none;">↑</button>

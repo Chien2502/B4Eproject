@@ -12,56 +12,68 @@
 
 </head>
 
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const nav = document.querySelector('.nav-links');
+
+  toggleBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+  /* Đóng menu sau khi chọn link (tùy chọn) */
+  nav.querySelectorAll('a').forEach(link =>
+    link.addEventListener('click', () => nav.classList.remove('open')));
+</script>
+
+
 <body>
-<header id="main-header"></header>
+  <header id="main-header"></header>
 
-<main class="detail-container">
-  <aside class="left-column">
-    <div class="book-cover-container">
-      <img id="book-cover-img" src="" alt="Bìa sách">
-    </div>
-    <a id="borrow-link" href="#" class="btn-borrow">Mượn sách</a>
-    <div id="book-status-badge" class="status-badge"></div>
-
-    <div class="book-info-left">
-      <h3 id="book-title-left"></h3>
-      <p id="book-author-left"></p>
-      <div class="rating">
-        <span class="stars">★★★★☆</span>
-        <span class="ml-2">(Đang cập nhật)</span>
+  <main class="detail-container">
+    <aside class="left-column">
+      <div class="book-cover-container">
+        <img id="book-cover-img" src="" alt="Bìa sách">
       </div>
-    </div>
-  </aside>
+      <a id="borrow-link" href="#" class="btn-borrow">Mượn sách</a>
+      <div id="book-status-badge" class="status-badge"></div>
 
-  <section class="right-column">
-    <h1 id="book-title-main" class="book-title-main"></h1>
-    <p id="book-author-main" class="book-author-main"></p>
-
-    <div class="book-meta">
-      <div class="meta-item">
-        <h4>Thể loại</h4>
-        <p id="book-category"></p>
+      <div class="book-info-left">
+        <h3 id="book-title-left"></h3>
+        <p id="book-author-left"></p>
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="ml-2">(Đang cập nhật)</span>
+        </div>
       </div>
-      <div class="meta-item">
-        <h4>Năm xuất bản</h4>
-        <p>Đang cập nhật</p>
+    </aside>
+
+    <section class="right-column">
+      <h1 id="book-title-main" class="book-title-main"></h1>
+      <p id="book-author-main" class="book-author-main"></p>
+
+      <div class="book-meta">
+        <div class="meta-item">
+          <h4>Thể loại</h4>
+          <p id="book-category"></p>
+        </div>
+        <div class="meta-item">
+          <h4>Năm xuất bản</h4>
+          <p>Đang cập nhật</p>
+        </div>
       </div>
-    </div>
 
-    <div class="book-description-container">
-      <h3>Giới thiệu sách</h3>
-      <div id="book-description"></div>
-    </div>
-  </section>
-</main>
+      <div class="book-description-container">
+        <h3>Giới thiệu sách</h3>
+        <div id="book-description"></div>
+      </div>
+    </section>
+  </main>
 
-<footer id="main-footer"></footer>
+  <footer id="main-footer"></footer>
 
-<button id="backToTop" class="back-to-top" style="display: none;">↑</button>
+  <button id="backToTop" class="back-to-top" style="display: none;">↑</button>
 
-<script src="js/database.js"></script>
-<script src="js/details.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/details.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

@@ -12,6 +12,17 @@
   <title>Quản lý tài khoản</title>
   <script src="js/main.js"></script>
 </head>
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const nav = document.querySelector('.nav-links');
+
+  toggleBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+  /* Đóng menu sau khi chọn link (tùy chọn) */
+  nav.querySelectorAll('a').forEach(link =>
+    link.addEventListener('click', () => nav.classList.remove('open')));
+</script>
+
 
 <body>
   <header id="main-header"></header>
