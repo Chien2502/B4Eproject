@@ -1,39 +1,111 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Hàm để tải nội dung từ một tệp và chèn vào một phần tử
-  const loadComponent = (url, elementId) => {
-    fetch(url)
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById(elementId).innerHTML = data;
-      });
-  };
 
-  // Tải header và footer
-  if (document.getElementById('main-header')) {
-    loadComponent("layout/header.html", "main-header");
-  }
-  if (document.getElementById('main-footer')) {
-    loadComponent("layout/footer.html", "main-footer");
-  }
+    // 1. HÀM TẢI COMPONENT (ĐÃ CẬP NHẬT)
+    // Chúng ta thêm một "callback" để nó chạy sau khi tải xong
+    const loadComponent = (url, elementId, callback) => {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data;
+                if (callback) {
+                    callback(); // Gọi hàm callback (nếu có)
+                }
+            });
+    };
 
-  // Xử lý nút Back to Top
-  const backToTopButton = document.getElementById('backToTop');
-  if (backToTopButton) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopButton.style.display = 'block'; 
-      } else {
-        backToTopButton.style.display = 'none';
-      }
-    });
+    // 2. HÀM CẬP NHẬT GIAO DIỆN HEADER (HÀM MỚI)
+    function updateAuthUI() {
+        const authContainer = document.getElementById('auth-container');
+        if (!authContainer) {
+            console.error("Không tìm thấy #auth-container trong header.");
+            return;
+        }
 
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
+        const token = localStorage.getItem('b4e_token');
+        const userJson = localStorage.getItem('b4e_user');
+
+        if (token && userJson) {
+            // === Nếu ĐÃ ĐĂNG NHẬP ===
+            const user = JSON.parse(userJson);
+            // Tạo một avatar giả bằng chữ cái đầu
+            const avatarLetter = user.username.charAt(0).toUpperCase();
+
+            // Thay thế HTML bằng avatar và dropdown
+            authContainer.innerHTML = `
+                <div class="profile-container">
+                    <div class="profile-avatar" tabindex="0" aria-label="Mở menu người dùng">
+                        ${avatarLetter}
+                    </div>
+                    <ul class="profile-dropdown">
+                        <li><a href="AccountManage.html">Chào, ${user.username}</a></li>
+                        <li><a href="AccountManage.html">Quản lý tài khoản</a></li>
+                        <li><a href="#" id="logout-button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            `;
+
+            // Thêm sự kiện cho nút Đăng xuất (id="logout-button")
+            const logoutButton = document.getElementById('logout-button');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Xóa token và thông tin user khỏi localStorage
+                    localStorage.removeItem('b4e_token');
+                    localStorage.removeItem('b4e_user');
+                    
+                    // Tải lại trang chủ
+                    alert('Bạn đã đăng xuất.');
+                    window.location.href = 'index.html';
+                });
+            }
+            
+            // (Tùy chọn) Thêm logic để nhấp vào avatar thì hiện dropdown
+            const avatar = document.querySelector('.profile-avatar');
+            const dropdown = document.querySelector('.profile-dropdown');
+            avatar.addEventListener('click', () => {
+                 dropdown.classList.toggle('active');
+            });
+
+        } else {
+            // === Nếu CHƯA ĐĂNG NHẬP ===
+            // HTML mặc định đã là nút Đăng nhập/Đăng ký
+            // nên chúng ta không cần làm gì thêm ở đây.
+            // Đoạn code này chỉ để đảm bảo nếu cần:
+            /*
+            authContainer.innerHTML = `
+                <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+                <a href="register.html" class="btn">Đăng ký</a>
+            `;
+            */
+        }
+    }
+
+    // 3. TẢI HEADER VÀ FOOTER (CẬP NHẬT)
+    // Tải header và TRUYỀN HÀM updateAuthUI làm callback
+    if (document.getElementById('main-header')) {
+        loadComponent("layout/header.html", "main-header", updateAuthUI);
+    }
+    if (document.getElementById('main-footer')) {
+        loadComponent("layout/footer.html", "main-footer");
+    }
+
+    // 4. XỬ LÝ NÚT BACK TO TOP (Giữ nguyên)
+    const backToTopButton = document.getElementById('backToTop');
+    if (backToTopButton) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block'; 
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 });
-
-

@@ -1,13 +1,15 @@
 # ==================================================
-# Path: D:\Users\bai tap hoc tap\N1_K2\BaiTapHTML\HTML\BWD-main\BWD-main
+# Path: D:\Users\BT\N2_K1\CNLTW\B4Eproject
 # Detected tech: javascript
 # ==================================================
 
 ## DIRECTORY STRUCTURE
 ```
-BWD-main/
+B4Eproject/
+├── .git/
 ├── .github/
 ├── .idea/
+├── .vscode/
 ├── dist/
 ├── docs/
 │   ├── TOC.md
@@ -52,9 +54,11 @@ BWD-main/
 │   │   │   │   └── icon.svg
 │   │   │   └── .gitkeep
 │   │   ├── about.css
+│   │   ├── accountmanage.css
 │   │   ├── animation.css
 │   │   ├── borrow.css
 │   │   ├── button.css
+│   │   ├── demopage.css
 │   │   ├── donate.css
 │   │   ├── headerfooter.css
 │   │   ├── login-register.css
@@ -69,6 +73,7 @@ BWD-main/
 │   │   │   ├── adress.png
 │   │   │   ├── authorbao.jpg
 │   │   │   ├── authorchien.jpg
+│   │   │   ├── authordoanh.jpg
 │   │   │   ├── authorthong.jpg
 │   │   │   ├── gen_vị_kỷ.jpg
 │   │   │   ├── hai_số_phận.webp
@@ -85,23 +90,40 @@ BWD-main/
 │   │   ├── icon/
 │   │   │   ├── favicon.ico
 │   │   │   ├── icon.png
-│   │   │   └── icon.svg
+│   │   │   ├── icon.svg
+│   │   │   └── vitmeme.jpg
 │   │   └── .gitkeep
 │   ├── js/
 │   │   ├── vendor/
-│   │   └── app.js
+│   │   ├── IntegrateBooks.js
+│   │   ├── app.js
+│   │   ├── book-browser.js
+│   │   ├── books.html
+│   │   ├── borrow.html
+│   │   ├── database.js
+│   │   ├── demopage.html
+│   │   ├── details.js
+│   │   ├── donate.html
+│   │   ├── donate.js
+│   │   ├── footer.html
+│   │   ├── header.html
+│   │   └── main.js
+│   ├── layout/
+│   │   ├── footer.html
+│   │   └── header.html
 │   ├── .editorconfig
 │   ├── .gitattributes
 │   ├── .gitignore
 │   ├── 404.html
 │   ├── AccountManage.html
-│   ├── Login.html
 │   ├── about.html
 │   ├── books.html
+│   ├── borrow-form.html
 │   ├── borrow.html
 │   ├── demopage.html
 │   ├── donate.html
 │   ├── index.html
+│   ├── login.html
 │   ├── package.json
 │   ├── questionsyoumayhave.html
 │   ├── register.html
@@ -126,8 +148,10 @@ BWD-main/
 ├── LICENSE.txt
 ├── README.md
 ├── gulpfile.mjs
+├── index.html
 ├── package-lock.json
-└── package.json
+├── package.json
+└── source_dump.txt
 ```
 
 ## FILE CONTENTS
@@ -372,6 +396,917 @@ module.exports = merge(common, {
 
 ### src\js\app.js
 ```js
+// Chờ cho toàn bộ cấu trúc HTML của trang được tải xong rồi mới chạy mã
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Tìm phần tử container sẽ chứa danh sách sách
+  const bookGrid = document.querySelector('.books-grid');
+
+
+  function displayBooks(bookList) {
+    if (!bookGrid) {
+      return;
+    }
+    bookGrid.innerHTML = '';
+    bookList.forEach(book => {
+      const bookCard = document.createElement('div');
+      bookCard.classList.add('book-card');
+      bookCard.innerHTML = `
+                <div class="book-cover">
+                    <img src="${book.image}" alt="${book.title}">
+                </div>
+                <div class="book-details">
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">${book.author}</p>
+                    <div class="book-actions">
+                         <a href="demopage.html?id=${book.id}" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            `;
+
+      // Gắn thẻ sách vừa tạo vào trong lưới sách
+      bookGrid.appendChild(bookCard);
+    });
+  }
+  displayBooks(books);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // PHẦN KHAI BÁO BIẾN VÀ LẤY CÁC PHẦN TỬ HTML
+  const bookGrid = document.querySelector('.books-grid');
+  const searchInput = document.querySelector('.search-box input');
+  const categoryLinks = document.querySelectorAll('.filter-group a[data-category]');
+  const sortSelect = document.querySelector('.sort-options select');
+
+  let currentSearchTerm = '';
+  let currentCategory = 'Tất cả';
+  let currentSortOrder = 'newest';
+
+  // HÀM HIỂN THỊ DANH SÁCH SÁCH
+  function displayBooks(bookList) {
+    if (!bookGrid) return;
+    bookGrid.innerHTML = '';
+    bookList.forEach(book => {
+      const bookCard = document.createElement('div');
+      bookCard.classList.add('book-card');
+      bookCard.innerHTML = `
+                <div class="book-cover">
+                    <img src="${book.image}" alt="${book.title}">
+                </div>
+                <div class="book-details">
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">${book.author}</p>
+                    <div class="book-actions">
+                         <a href="demopage.html?id=${book.id}" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            `;
+      bookGrid.appendChild(bookCard);
+    });
+  }
+  // HÀM LỌC VÀ SẮP XẾP TỔNG HỢP
+  // Đây là hàm trung tâm xử lý tất cả logic
+  function applyFiltersAndSort() {
+    // Bắt đầu với danh sách đầy đủ
+    let filteredBooks = books;
+
+    // 1. Áp dụng bộ lọc Thể loại
+    if (currentCategory !== 'Tất cả') {
+      filteredBooks = filteredBooks.filter(book => book.category === currentCategory);
+    }
+
+    // 2. Áp dụng bộ lọc Tìm kiếm
+    if (currentSearchTerm) {
+      filteredBooks = filteredBooks.filter(book =>
+        book.title.toLowerCase().includes(currentSearchTerm) ||
+        book.author.toLowerCase().includes(currentSearchTerm)
+      );
+    }
+
+    // 3. Áp dụng Sắp xếp
+    switch (currentSortOrder) {
+      case 'popular':
+        // (Tạm thời) Sắp xếp ngẫu nhiên để mô phỏng độ phổ biến
+        filteredBooks.sort(() => 0.5 - Math.random());
+        break;
+      case 'title_asc':
+        // Sắp xếp theo tên A-Z
+        filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'title_desc':
+        // Sắp xếp theo tên Z-A
+        filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'newest':
+      default:
+        // Sắp xếp theo ID giảm dần (giả sử ID lớn hơn là sách mới hơn)
+        filteredBooks.sort((a, b) => b.id - a.id);
+        break;
+    }
+
+    // Cuối cùng, hiển thị kết quả đã được lọc và sắp xếp
+    displayBooks(filteredBooks);
+  }
+
+  // GẮN CÁC EVENT LISTENERS
+  // 1. EVENT LISTENERS người dùng gõ vào ô tìm kiếm
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      currentSearchTerm = event.target.value.toLowerCase();
+      applyFiltersAndSort();
+    });
+  }
+  // 2. EVENT LISTENERS người dùng nhấn vào các link thể loại
+  if (categoryLinks) {
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault(); // Ngăn trang tải lại
+
+        // Cập nhật trạng thái 'active' cho các link
+        categoryLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        currentCategory = link.dataset.category;
+        applyFiltersAndSort();
+      });
+    });
+  }
+
+  // 3. EVENT LISTENERS người dùng thay đổi lựa chọn sắp xếp
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (event) => {
+      currentSortOrder = event.target.value;
+      applyFiltersAndSort();
+    });
+  }
+
+  applyFiltersAndSort();
+
+});
+
+```
+
+### src\js\book-browser.js
+```js
+// Chờ cho toàn bộ cấu trúc HTML của trang được tải xong rồi mới chạy mã
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('.catalog-container')) {
+    // Đây là trang Danh mục sách (books.html)
+    setupBookBrowser({
+      gridSelector: '.books-grid',
+      searchSelector: '.search-box input',
+      categorySelector: '.filter-group a[data-category]',
+      sortSelector: '.sort-options select',
+      statusSelector: null, // Không có bộ lọc trạng thái ở trang này
+      getCategoryValue: (element) => element.dataset.category,
+      cardType: 'catalog'
+    });
+  }
+
+  if (document.querySelector('.search-container')) {
+    // Đây là trang Mượn sách (borrow.html)
+    setupBookBrowser({
+      gridSelector: '.books-grid',
+      searchSelector: '.search-input input',
+      categorySelector: '.category-filter',
+      sortSelector: 'select[name="sort"]',
+      statusSelector: 'select[name="status"]',
+      getCategoryValue: (element) => element.textContent,
+      cardType: 'borrow'
+    });
+  }
+});
+
+
+
+// HÀM THIẾT LẬP TRÌNH DUYỆT SÁCH
+// Hàm này nhận một đối tượng cấu hình để biết cách tương tác với các phần tử trên trang
+function setupBookBrowser(config) {
+
+  // --- Lấy các phần tử HTML dựa trên cấu hình ---
+  const bookGrid = document.querySelector(config.gridSelector);
+  const searchInput = document.querySelector(config.searchSelector);
+  const categoryFilters = document.querySelectorAll(config.categorySelector);
+  const sortSelect = document.querySelector(config.sortSelector);
+  const statusSelect = config.statusSelector ? document.querySelector(config.statusSelector) : null;
+
+  // --- Biến lưu trữ trạng thái lọc hiện tại ---
+  let currentSearchTerm = '';
+  let currentCategory = 'Tất cả';
+  let currentSortOrder = sortSelect ? sortSelect.value : 'newest';
+  let currentStatus = 'all';
+
+  // Nếu không tìm thấy lưới sách, dừng lại để không gây lỗi
+  if (!bookGrid) {
+    console.error("Không tìm thấy phần tử lưới sách với selector:", config.gridSelector);
+    return;
+  }
+
+  // =================================================================
+  // HÀM HIỂN THỊ SÁCH LÊN GIAO DIỆN
+  // =================================================================
+  function displayBooks(bookList) {
+    bookGrid.innerHTML = ''; // Xóa sạch lưới sách trước khi hiển thị
+
+    bookList.forEach(book => {
+      const bookCard = document.createElement('div');
+
+      // Chọn class và HTML dựa trên loại card từ config
+      if (config.cardType === 'borrow') {
+        bookCard.className = 'book-card';
+        const isAvailable = book.status === 'available';
+        bookCard.innerHTML = `
+                    <div class="book-cover">
+                        <img src="${book.image}" alt="${book.title}">
+                        <div class="book-status ${isAvailable ? 'status-available' : 'status-borrowed'}">
+                            ${isAvailable ? 'Có sẵn' : 'Đã cho mượn'}
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <p class="book-description">${book.description}</p>
+                        <div class="book-actions">
+                            <a class="btn btn-primary ${!isAvailable ? 'disabled' : ''}" href="borrow-form.html?title=${encodeURIComponent(book.title)}" ${!isAvailable ? 'aria-disabled="true"' : ''}>Mượn sách</a>
+                            <a class="btn1 btn-secondary" href="demopage.html?id=${book.id}">Chi tiết</a>
+                        </div>
+                    </div>
+                `;
+      } else { // Mặc định là 'catalog'
+        bookCard.className = 'book-card';
+        bookCard.innerHTML = `
+                    <div class="book-cover">
+                        <img src="${book.image}" alt="${book.title}">
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <div class="book-actions">
+                             <a href="demopage.html?id=${book.id}" class="btn btn-primary">Xem chi tiết</a>
+                        </div>
+                    </div>
+                `;
+      }
+      bookGrid.appendChild(bookCard);
+    });
+  }
+
+  // HÀM LỌC VÀ SẮP XẾP TỔNG HỢP
+  function applyFiltersAndSort() {
+    let filteredBooks = [...books]; // Tạo một bản sao của mảng sách gốc
+
+    // 1. Lọc theo trạng thái (nếu có)
+    if (currentStatus !== 'all') {
+      filteredBooks = filteredBooks.filter(book => book.status === currentStatus);
+    }
+
+    // 2. Lọc theo thể loại
+    if (currentCategory !== 'Tất cả') {
+      filteredBooks = filteredBooks.filter(book => book.category === currentCategory);
+    }
+
+    // 3. Lọc theo từ khóa tìm kiếm
+    if (currentSearchTerm) {
+      filteredBooks = filteredBooks.filter(book =>
+        book.title.toLowerCase().includes(currentSearchTerm) ||
+        book.author.toLowerCase().includes(currentSearchTerm)
+      );
+    }
+
+    // 4. Sắp xếp
+    switch (currentSortOrder) {
+      case 'popular':
+        filteredBooks.sort(() => 0.5 - Math.random()); // Giả lập phổ biến
+        break;
+      case 'title_asc':
+        filteredBooks.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
+        break;
+      case 'title_desc':
+        filteredBooks.sort((a, b) => b.title.localeCompare(a.title, 'vi'));
+        break;
+      case 'newest':
+      default:
+        filteredBooks.sort((a, b) => b.id - a.id); // Giả sử ID lớn hơn là mới hơn
+        break;
+    }
+
+    displayBooks(filteredBooks);
+  }
+
+  // GẮN CÁC EVENT LISTENERS
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      currentSearchTerm = event.target.value.toLowerCase().trim();
+      applyFiltersAndSort();
+    });
+  }
+
+  if (categoryFilters) {
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', (event) => {
+        event.preventDefault();
+        categoryFilters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        currentCategory = config.getCategoryValue(filter).trim();
+        applyFiltersAndSort();
+      });
+    })
+  }
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (event) => {
+      currentSortOrder = event.target.value;
+      applyFiltersAndSort();
+    });
+  }
+
+  if (statusSelect) {
+    statusSelect.addEventListener('change', (event) => {
+      currentStatus = event.target.value;
+      applyFiltersAndSort();
+    });
+  }
+
+  applyFiltersAndSort();
+}
+
+```
+
+### src\js\database.js
+```js
+
+const books = [
+  {
+    id: 1,
+    title: 'Nhà Giả Kim',
+    author: 'Paulo Coelho',
+    image: 'img/Book/Nhà_giả_kim.png', //
+    category: 'Tiểu thuyết',
+    description: 'Tiểu thuyết kể về hành trình của chàng chăn cừu Santiago đi tìm kho báu, nhưng giá trị lớn nhất mà cậu nhận được lại là sự thấu hiểu bản thân và thế giới.',
+    status: 'available' // 'available' hoặc 'borrowed'
+  },
+  {
+    id: 2,
+    title: 'Đắc Nhân Tâm',
+    author: 'Dale Carnegie',
+    image: 'img/Book/đắc_nhân_tâm.jpg', //
+    category: 'Kỹ năng sống',
+    description: 'Cuốn sách kinh điển về nghệ thuật giao tiếp và đối nhân xử thế, giúp bạn xây dựng những mối quan hệ tốt đẹp và thành công trong cuộc sống.',
+    status: 'available'
+  },
+  {
+    id: 3,
+    title: 'Thế Giới Phẳng',
+    author: 'Thomas L. Friedman',
+    image: 'img/Book/Thế_giới_phẳng.jpg', //
+    category: 'Kinh tế',
+    description: 'Một cái nhìn sâu sắc về toàn cầu hóa trong thế kỷ 21 và những thay đổi mang tính cách mạng mà nó mang lại cho thế giới.',
+    status: 'borrowed'
+  },
+  {
+    id: 4,
+    title: 'Hai Số Phận',
+    author: 'Jeffrey Archer',
+    image: 'img/Book/hai_số_phận.webp', //
+    category: 'Tiểu thuyết',
+    description: 'Câu chuyện song hành đầy kịch tính về cuộc đời của hai người đàn ông sinh cùng ngày nhưng ở hai hoàn cảnh trái ngược nhau.',
+    status: 'available'
+  },
+  {
+    id: 5,
+    title: 'Người Đua Diều',
+    author: 'Khaled Hosseini',
+    image: 'img/Book/nguoi-dua-dieu.png', //
+    category: 'Tiểu thuyết',
+    description: 'Một câu chuyện cảm động về tình bạn, sự phản bội và chuộc lỗi tại Afghanistan, lấy bối cảnh những biến động chính trị của đất nước này.',
+    status: 'available'
+  },
+  {
+    id: 6,
+    title: 'Điểm Đến Của Cuộc Đời',
+    author: 'Đặng Hoàng Giang',
+    image: 'img/Book/điểm_đến_của_cuộc_đời.jpg', //
+    category: 'Tâm lý học',
+    description: 'Cuốn sách là hành trình đồng hành cùng những người ở cận kề cái chết, mang đến những chiêm nghiệm sâu sắc về sự sống và ý nghĩa cuộc đời.',
+    status: 'borrowed'
+  },
+  {
+    id: 7,
+    title: 'Trăm Năm Cô Đơn',
+    author: 'Gabriel García Márquez',
+    image: 'img/Book/Trăm_năm_cô_đơn.jpeg', //
+    category: 'Tiểu thuyết',
+    description: 'Một kiệt tác của văn học hiện thực huyền ảo, kể về dòng họ Buendía ở ngôi làng Macondo hư cấu qua bảy thế hệ.',
+    status: 'available'
+  },
+  {
+    id: 8,
+    title: 'Số Đỏ',
+    author: 'Vũ Trọng Phụng',
+    image: 'img/Book/số_đỏ.webp', //
+    category: 'Tiểu thuyết',
+    description: 'Tác phẩm châm biếm kinh điển của văn học Việt Nam, đả kích sâu cay xã hội thành thị Việt Nam trong thời kỳ Pháp thuộc.',
+    status: 'available'
+  },
+  {
+    id: 9,
+    title: 'Súng, Vi Trùng và Thép',
+    author: 'Jared Diamond',
+    image: 'img/Book/súng_vi_trùng_và_thép.webp', //
+    category: 'Khoa học',
+    description: 'Lý giải tại sao các xã hội Á-Âu lại chinh phục và có ảnh hưởng lớn đến các xã hội khác, dưới góc độ địa lý, sinh học và môi trường.',
+    status: 'available'
+  },
+  {
+    id: 10,
+    title: 'Vũ Trụ Trong Vỏ Hạt Dẻ',
+    author: 'Stephen Hawking',
+    image: 'img/Book/vũ_trụ_trong_vỏ_hạt_dẻ.jpg', //
+    category: 'Khoa học',
+    description: 'Stephen Hawking dẫn dắt người đọc vào những khám phá kỳ thú của vật lý lý thuyết, từ những chiều không gian phụ đến du hành thời gian.',
+    status: 'borrowed'
+  },
+  {
+    id: 11,
+    title: 'Lược Sử Thời Gian',
+    author: 'Stephen Hawking',
+    image: 'img/Book/Lược_sử_thời_gian.jpg', //
+    category: 'Khoa học',
+    description: 'Một trong những cuốn sách khoa học phổ thông bán chạy nhất mọi thời đại, giải thích các khái niệm phức tạp về vũ trụ học.',
+    status: 'available'
+  },
+  {
+    id: 12,
+    title: 'Gen Vị Kỷ',
+    author: 'Richard Dawkins',
+    image: 'img/Book/gen_vị_kỷ.jpg', //
+    category: 'Khoa học',
+    description: 'Cuốn sách đưa ra quan điểm rằng gen là đơn vị trung tâm của sự tiến hóa, và các cơ thể sống chỉ là những "cỗ máy sinh tồn" cho gen.',
+    status: 'available'
+  },
+  {
+    id: 13,
+    title: 'Toán 12 (Giải tích & Hình học)',
+    author: 'Bộ Giáo dục và Đào tạo',
+    image: 'img/Book/Toán_12.jpg', //
+    category: 'Sách giáo khoa',
+    description: 'Bộ sách giáo khoa Toán lớp 12, bao gồm hai tập Giải tích và Hình học, theo chương trình chuẩn của Bộ Giáo dục và Đào tạo.',
+    status: 'available'
+  }
+];
+
+```
+
+### src\js\details.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- BƯỚC 1: LẤY VÀ KIỂM TRA ID TỪ URL ---
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookIdStr = urlParams.get('id'); // Lấy ID dưới dạng chuỗi '1', '2',...
+
+  // In ra Console để chúng ta có thể thấy những gì đang xảy ra
+  console.log("ID lấy từ URL (dạng chuỗi):", bookIdStr);
+
+  // KIỂM TRA 1: ID có tồn tại trên URL không?
+  if (!bookIdStr) {
+    displayError("Lỗi: Không có ID sách trong địa chỉ URL.", "Hãy quay lại trang danh mục và nhấn vào nút 'Xem chi tiết' của một cuốn sách.");
+    return; // Dừng thực thi ngay lập tức nếu không có ID
+  }
+
+  const bookId = parseInt(bookIdStr); // Chuyển ID từ chuỗi thành số
+  console.log("ID sau khi chuyển thành số:", bookId);
+
+  // KIỂM TRA 2: ID có phải là một số hợp lệ không?
+  if (isNaN(bookId)) {
+    displayError("Lỗi: ID sách không hợp lệ.", "ID trên URL không phải là một con số.");
+    return; // Dừng thực thi nếu ID không phải là số
+  }
+
+  // --- BƯỚC 2: TÌM SÁCH TRONG DATABASE ---
+  console.log("Đang tìm kiếm sách với ID:", bookId);
+  // Biến 'books' phải có sẵn từ tệp 'database.js'
+  const book = books.find(b => b.id === bookId);
+  console.log("Kết quả tìm sách:", book); // Sẽ in ra đối tượng sách nếu tìm thấy, hoặc 'undefined' nếu không thấy
+
+  // --- BƯỚC 3: HIỂN THỊ KẾT QUẢ ---
+  if (book) {
+    // Nếu tìm thấy sách, gọi hàm hiển thị chi tiết
+    displayBookDetails(book);
+  } else {
+    // Nếu không tìm thấy, hiển thị lỗi
+    displayError(`Lỗi: Không tìm thấy sách với ID = ${bookId}.`, "Cuốn sách này có thể không tồn tại trong cơ sở dữ liệu của chúng ta.");
+  }
+});
+
+/**
+ * Hàm này nhận vào một đối tượng sách và điền thông tin vào trang HTML.
+ * @param {object} book - Đối tượng sách cần hiển thị.
+ */
+function displayBookDetails(book) {
+  // --- Cập nhật tiêu đề trang ---
+  document.title = `${book.title} - Thư viện Cộng đồng`;
+
+  // --- Điền thông tin cho CỘT BÊN PHẢI ---
+  document.getElementById('book-title-main').textContent = book.title;
+  document.getElementById('book-author-main').textContent = book.author;
+  document.getElementById('book-category').textContent = book.category;
+
+  // Xử lý mô tả có nhiều dòng
+  const descriptionHTML = book.description.split('\n').map(p => `<p>${p}</p>`).join('');
+  document.getElementById('book-description').innerHTML = descriptionHTML;
+
+  // --- Điền thông tin cho CỘT BÊN TRÁI ---
+  document.getElementById('book-cover-img').src = book.image;
+  document.getElementById('book-cover-img').alt = book.title;
+  document.getElementById('book-title-left').textContent = book.title;
+  document.getElementById('book-author-left').textContent = book.author;
+
+  // Cập nhật link và trạng thái cho nút
+  const borrowLink = document.getElementById('borrow-link');
+  const statusBadge = document.getElementById('book-status-badge');
+
+  if (book.status === 'available') {
+    statusBadge.textContent = 'Có sẵn';
+    statusBadge.className = 'status-badge'; // Class mặc định màu xanh
+    borrowLink.href = `borrow-form.html?title=${encodeURIComponent(book.title)}`;
+    borrowLink.style.display = 'block'; // Hiển thị nút
+  } else {
+    statusBadge.textContent = 'Đã cho mượn';
+    statusBadge.className = 'status-badge borrowed'; // Class màu vàng
+    borrowLink.style.display = 'none'; // Ẩn nút mượn sách
+  }
+}
+/**
+ * Hàm này hiển thị một thông báo lỗi trên trang.
+ * @param {string} mainMessage - Thông báo lỗi chính.
+ * @param {string} secondaryMessage - Thông báo phụ, hướng dẫn.
+ */
+function displayError(mainMessage, secondaryMessage) {
+  const container = document.querySelector('.container.mx-auto');
+  if (container) {
+    container.innerHTML = `
+            <div class="text-center py-10">
+                <h1 class="text-3xl font-bold text-red-600">${mainMessage}</h1>
+                <p class="mt-4">${secondaryMessage}</p>
+                <a href="books.html" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Quay lại trang danh mục</a>
+            </div>
+        `;
+  }
+}
+
+```
+
+### src\js\donate.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+
+  const donationForm = document.getElementById('donationForm');
+
+  if (donationForm) {
+    donationForm.addEventListener('submit', function(event) {
+      // Ngăn chặn hành vi mặc định của form (tải lại trang)
+      event.preventDefault();
+
+      // 1. Thu thập dữ liệu từ các ô input
+      // 'this' ở đây chính là form đã được gửi đi
+      const formData = new FormData(this);
+
+      // Chuyển đổi FormData thành một đối tượng (object) thông thường
+      const donationData = {};
+      formData.forEach((value, key) => {
+        donationData[key] = value;
+      });
+
+      // 2. Kiểm tra dữ liệu (Validation đơn giản)
+      // Trong thực tế có thể kiểm tra kỹ hơn, ví dụ email có đúng định dạng không
+      if (!donationData.fullName || !donationData.email || !donationData.phone || !donationData.bookTitle) {
+        alert('Vui lòng điền đầy đủ các trường thông tin có dấu *.');
+        return; // Dừng lại nếu thiếu thông tin
+      }
+
+      // 3. Xử lý dữ liệu: In ra Console để kiểm tra
+      console.log("===== Thông tin quyên góp nhận được =====");
+      console.log("Họ tên:", donationData.fullName);
+      console.log("Email:", donationData.email);
+      console.log("Số điện thoại:", donationData.phone);
+      console.log("Tên sách:", donationData.bookTitle);
+      console.log("Tác giả:", donationData.author);
+      console.log("Tình trạng sách:", donationData.bookCondition);
+      console.log("-----------------------------------------");
+
+      // 4. Phản hồi cho người dùng và reset form
+      alert('Cảm ơn bạn đã gửi thông tin quyên góp sách! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.');
+
+      // Tự động xóa trắng form
+      this.reset();
+    });
+  }
+});
+
+```
+
+### src\js\IntegrateBooks.js
+```js
+
+
+  // Lọc sách theo thể loại
+  document.addEventListener('DOMContentLoaded', function() {
+  const categoryFilters = document.querySelectorAll('.category-filter');
+
+  categoryFilters.forEach(filter => {
+  filter.addEventListener('click', function() {
+  // Xóa active class từ tất cả các filter
+  categoryFilters.forEach(f => f.classList.remove('active'));
+
+  // Thêm active class vào filter được chọn
+  this.classList.add('active');
+
+  // Lọc sách theo thể loại (chức năng này sẽ được xây dựng sau)
+  // filterBooksByCategory(this.textContent);
+});
+});
+
+  // Xử lý sự kiện tìm kiếm
+  const searchInput = document.querySelector('.search-input input');
+  searchInput.addEventListener('input', function() {
+  // Chức năng tìm kiếm sẽ được xây dựng sau
+  // searchBooks(this.value);
+});
+
+  // Xử lý sự kiện lọc theo trạng thái
+  const statusFilter = document.querySelector('select[name="status"]');
+  statusFilter.addEventListener('change', function() {
+  // Chức năng lọc theo trạng thái sẽ được xây dựng sau
+  // filterBooksByStatus(this.value);
+});
+
+  // Xử lý sự kiện sắp xếp
+  const sortOption = document.querySelector('select[name="sort"]');
+  sortOption.addEventListener('change', function() {
+  // Chức năng sắp xếp sẽ được xây dựng sau
+  // sortBooks(this.value);
+});
+
+  // Xử lý sự kiện khi click vào nút chi tiết
+  const detailButtons = document.querySelectorAll('.btn-secondary');
+  detailButtons.forEach(button => {
+  button.addEventListener('click', function () {
+  window.location.href = 'demopage.html';
+});
+});
+
+  // Mô phỏng dữ liệu sách
+  const books = [
+{
+  id: 1,
+  title: 'Nhà Giả Kim',
+  author: 'Paulo Coelho',
+  category: 'Tiểu thuyết',
+  description: 'Tiểu thuyết kể về hành trình của chàng chăn cừu Santiago đi tìm kho báu...',
+  status: 'available',
+  coverImage: '/api/placeholder/220/250'
+},
+{
+  id: 2,
+  title: 'Trăm Năm Cô Đơn',
+  author: 'Gabriel García Márquez',
+  category: 'Tiểu thuyết',
+  description: 'Tác phẩm kể về lịch sử của gia đình Buendía qua nhiều thế hệ...',
+  status: 'borrowed',
+  coverImage: '/api/placeholder/220/250'
+},
+  // Thêm các sách khác...
+  ];
+
+  // Hiển thị modal chi tiết sách
+  function showBookDetails(bookId) {
+  // Tìm thông tin sách từ ID
+  const book = books.find(b => b.id === bookId);
+  if (!book) return;
+
+  // Tạo modal
+  const modal = document.createElement('div');
+  modal.className = 'book-modal';
+  modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <div class="modal-book-details">
+                            <div class="modal-book-cover">
+                                <img src="${book.coverImage}" alt="${book.title}">
+                                <div class="book-status ${book.status === 'available' ? 'status-available' : 'status-borrowed'}">
+                                    ${book.status === 'available' ? 'Có sẵn' : 'Đã cho mượn'}
+                                </div>
+                            </div>
+                            <div class="modal-book-info">
+                                <h2>${book.title}</h2>
+                                <p class="modal-book-author">Tác giả: ${book.author}</p>
+                                <p class="modal-book-category">Thể loại: ${book.category}</p>
+                                <p class="modal-book-description">${book.description}</p>
+                                <div class="modal-book-actions">
+                                    <button class="btn btn-primary" ${book.status === 'borrowed' ? 'disabled' : ''}>
+                                        Mượn sách
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+  // Thêm modal vào body
+  document.body.appendChild(modal);
+
+  // Hiển thị modal
+  setTimeout(() => {
+  modal.style.opacity = '1';
+}, 10);
+
+  // Xử lý sự kiện đóng modal
+  const closeBtn = modal.querySelector('.close-modal');
+  closeBtn.addEventListener('click', () => {
+  modal.style.opacity = '0';
+  setTimeout(() => {
+  document.body.removeChild(modal);
+}, 300);
+});
+}
+
+  // Chức năng lọc sách theo thể loại
+  function filterBooksByCategory(category) {
+  const bookSections = document.querySelectorAll('.books-section');
+
+  if (category === 'Tất cả') {
+  // Hiển thị tất cả các section
+  bookSections.forEach(section => {
+  section.style.display = 'block';
+});
+} else {
+  // Ẩn tất cả các section trước
+  bookSections.forEach(section => {
+  section.style.display = 'none';
+});
+
+  // Hiển thị section phù hợp với thể loại
+  const matchingSection = document.querySelector(`.books-section h2.section-title:contains("${category}")`).parentElement;
+  if (matchingSection) {
+  matchingSection.style.display = 'block';
+}
+}
+}
+
+  // Thêm hàm tiện ích cho việc tìm kiếm trong text
+  Element.prototype.contains = function(text) {
+  return this.textContent.includes(text);
+};
+
+  // Chức năng tìm kiếm sách
+  function searchBooks(query) {
+  if (!query) {
+  // Nếu không có từ khóa tìm kiếm, hiển thị tất cả sách
+  document.querySelectorAll('.book-card').forEach(card => {
+  card.style.display = 'block';
+});
+  return;
+}
+
+  query = query.toLowerCase();
+
+  // Lọc và hiển thị sách phù hợp
+  document.querySelectorAll('.book-card').forEach(card => {
+  const title = card.querySelector('.book-title').textContent.toLowerCase();
+  const author = card.querySelector('.book-author').textContent.toLowerCase();
+  const description = card.querySelector('.book-description').textContent.toLowerCase();
+
+  if (title.includes(query) || author.includes(query) || description.includes(query)) {
+  card.style.display = 'block';
+} else {
+  card.style.display = 'none';
+}
+});
+}
+
+  // Lọc sách theo trạng thái
+  function filterBooksByStatus(status) {
+  if (status === 'all') {
+  // Hiển thị tất cả sách
+  document.querySelectorAll('.book-card').forEach(card => {
+  card.style.display = 'block';
+});
+  return;
+}
+
+  // Lọc theo trạng thái
+  document.querySelectorAll('.book-card').forEach(card => {
+  const bookStatus = card.querySelector('.book-status').classList.contains('status-available') ? 'available' : 'borrowed';
+
+  if (bookStatus === status) {
+  card.style.display = 'block';
+} else {
+  card.style.display = 'none';
+}
+});
+}
+
+  // Sắp xếp sách
+  function sortBooks(sortOption) {
+  const booksGrids = document.querySelectorAll('.books-grid');
+
+  booksGrids.forEach(grid => {
+  const books = Array.from(grid.querySelectorAll('.book-card'));
+
+  books.sort((a, b) => {
+  const titleA = a.querySelector('.book-title').textContent;
+  const titleB = b.querySelector('.book-title').textContent;
+
+  switch (sortOption) {
+  case 'title_asc':
+  return titleA.localeCompare(titleB);
+  case 'title_desc':
+  return titleB.localeCompare(titleA);
+  case 'popular':
+  // Giả lập sắp xếp theo độ phổ biến (sẽ được thay thế bằng dữ liệu thực)
+  return Math.random() - 0.5;
+  case 'newest':
+  default:
+  // Giả lập sắp xếp theo thời gian (sẽ được thay thế bằng dữ liệu thực)
+  return Math.random() - 0.5;
+}
+});
+
+  // Xóa tất cả sách hiện tại
+  books.forEach(book => grid.removeChild(book));
+
+  // Thêm lại sách đã sắp xếp
+  books.forEach(book => grid.appendChild(book));
+});
+}
+
+
+  // Kết nối các chức năng với giao diện
+  document.querySelectorAll('.category-filter').forEach(filter => {
+  filter.addEventListener('click', function() {
+  const category = this.textContent;
+  filterBooksByCategory(category);
+});
+});
+
+  document.querySelector('.search-input input').addEventListener('input', function() {
+  searchBooks(this.value);
+});
+
+  document.querySelector('select[name="status"]').addEventListener('change', function() {
+  filterBooksByStatus(this.value);
+});
+
+  document.querySelector('select[name="sort"]').addEventListener('change', function() {
+  sortBooks(this.value);
+});
+});
+
+```
+
+### src\js\main.js
+```js
+document.addEventListener("DOMContentLoaded", function() {
+  // Hàm để tải nội dung từ một tệp và chèn vào một phần tử
+  const loadComponent = (url, elementId) => {
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById(elementId).innerHTML = data;
+      });
+  };
+
+  // Tải header và footer
+  if (document.getElementById('main-header')) {
+    loadComponent("layout/header.html", "main-header");
+  }
+  if (document.getElementById('main-footer')) {
+    loadComponent("layout/footer.html", "main-footer");
+  }
+
+  // Xử lý nút Back to Top
+  const backToTopButton = document.getElementById('backToTop');
+  if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block'; 
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
+
+
 
 ```
 

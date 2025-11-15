@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - Thư viện Cộng đồng</title>
     <link href="css/login-register.css" rel="stylesheet">
-    
+
 </head>
+
 <body>
 
     <!-- Register Modal Popup -->
@@ -17,97 +19,62 @@
                 <button class="modal-close" id="closeModal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="social-login">
-                    <button class="btn-social btn-microsoft">
-                        <img src="https://img.icons8.com/color/28/000000/microsoft.png" alt="Microsoft" style="margin-right: 10px;"> Microsoft
-                    </button>
-                    <button class="btn-social btn-google">
-                        <img src="https://img.icons8.com/color/28/000000/google-logo.png" alt="Google" style="margin-right: 10px;"> Google
-                    </button>
-                    <button class="btn-social btn-github">
-                        <img src="https://img.icons8.com/ios-glyphs/28/ffffff/github.png" alt="Github" style="margin-right: 10px;"> Github
-                    </button>
-                </div>
-                
-                <div class="divider">
-                    <span>HOẶC</span>
-                </div>
-                
+
                 <form id="registerForm">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Tên tài khoản" id="username" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email" id="email" required>
                     </div>
-                    
+
                     <div class="form-group password-field">
                         <input type="password" class="form-control" placeholder="Mật khẩu" id="password" required>
                         <span class="password-toggle" id="togglePassword">
-                            <img src="https://img.icons8.com/material-outlined/24/000000/visible.png" alt="Show Password">
+                            <img src="https://img.icons8.com/material-outlined/24/000000/visible.png"
+                                alt="Show Password">
                         </span>
                     </div>
-                    
+
                     <button type="submit" class="btn-primary">Đăng ký</button>
-                    
-                    <p class="alt-action-text">Đã có tài khoản? <a href="login.html" class="transfer-link">Đăng nhập</a></p>
+
+                    <p class="alt-action-text">Đã có tài khoản? <a href="login.html" class="transfer-link">Đăng nhập</a>
+                    </p>
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-        // Toggle password visibility
+    <script src="js/register.js" defer></script>
+</body>
+</html>
+<script>
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('img');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                this.innerHTML = '<img src="https://img.icons8.com/material-outlined/24/000000/invisible.png" alt="Hide Password">';
+                icon.src = 'https://img.icons8.com/material-outlined/24/000000/invisible.png';
+                icon.alt = 'Hide Password';
             } else {
                 passwordInput.type = 'password';
-                this.innerHTML = '<img src="https://img.icons8.com/material-outlined/24/000000/visible.png" alt="Show Password">';
+                icon.src = 'https://img.icons8.com/material-outlined/24/000000/visible.png';
+                icon.alt = 'Show Password';
             }
         });
         
-        // Open and close modal functionality
-        const modal = document.getElementById('registerModal');
+        const modal = document.getElementById('loginModal');
         const closeModalBtn = document.getElementById('closeModal');
         
-        // Xử lý sự kiện khi nhấn nút đóng - quay lại trang trước đó
         closeModalBtn.addEventListener('click', function() {
-            // Ẩn modal
             modal.style.display = 'none';
-            
-            // Quay lại trang trước đó
             window.history.back();
         });
         
-        // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
                 modal.style.display = 'none';
                 window.history.back();
             }
         });
-        
-        // Form submission
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Xử lý dữ liệu đăng ký
-            alert('Đăng ký thành công! Hệ thống sẽ chuyển đến trang đăng nhập.');
-            // Chuyển đến trang đăng nhập
-            // window.location.href = 'login.html';
-        });
-        
-        // Redirect to login page
-        document.querySelector('.alt-action-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Chuyển đến trang đăng nhập
-            // window.location.href = 'login.html';
-            alert('Chuyển đến trang đăng nhập');
-        });
-    </script>
-</body>
-</html>
+</script>

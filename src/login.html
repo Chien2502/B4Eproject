@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- Login Modal Popup -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal">
             <div class="modal-header">
@@ -16,25 +15,10 @@
                 <button class="modal-close" id="closeModal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="social-login">
-                    <button class="btn-social btn-microsoft">
-                        <img src="https://img.icons8.com/color/28/000000/microsoft.png" alt="Microsoft" style="margin-right: 10px;"> Microsoft
-                    </button>
-                    <button class="btn-social btn-google">
-                        <img src="https://img.icons8.com/color/28/000000/google-logo.png" alt="Google" style="margin-right: 10px;"> Google
-                    </button>
-                    <button class="btn-social btn-github">
-                        <img src="https://img.icons8.com/ios-glyphs/28/ffffff/github.png" alt="Github" style="margin-right: 10px;"> Github
-                    </button>
-                </div>
-                
-                <div class="divider">
-                    <span>HOẶC</span>
-                </div>
                 
                 <form id="loginForm">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email hoặc tên đăng nhập" id="username" required>
+                        <input type="text" class="form-control" placeholder="Email" id="username" required>
                     </div>
                     
                     <div class="form-group password-field">
@@ -62,62 +46,92 @@
     </div>
 
     <script>
-        // Toggle password visibility
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('img');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                this.innerHTML = '<img src="https://img.icons8.com/material-outlined/24/000000/invisible.png" alt="Hide Password">';
+                icon.src = 'https://img.icons8.com/material-outlined/24/000000/invisible.png';
+                icon.alt = 'Hide Password';
             } else {
                 passwordInput.type = 'password';
-                this.innerHTML = '<img src="https://img.icons8.com/material-outlined/24/000000/visible.png" alt="Show Password">';
+                icon.src = 'https://img.icons8.com/material-outlined/24/000000/visible.png';
+                icon.alt = 'Show Password';
             }
         });
         
-        // Open and close modal functionality
         const modal = document.getElementById('loginModal');
         const closeModalBtn = document.getElementById('closeModal');
         
-        // Xử lý sự kiện khi nhấn nút đóng - quay lại trang trước đó
         closeModalBtn.addEventListener('click', function() {
-            // Ẩn modal
             modal.style.display = 'none';
-            
-            // Quay lại trang trước đó
             window.history.back();
         });
         
-        // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
                 modal.style.display = 'none';
                 window.history.back();
             }
         });
-        
-        // Form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Giả lập đăng nhập thành công
-            alert('Đăng nhập thành công! Chuyển đến trang chính.');
-            // Chuyển đến trang chính sau khi đăng nhập
-            window.location.href = 'AccountManage.html';
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const loginData = {
+                email: email, // Key này phải khớp với key API 'login.php' mong đợi
+                password: password
+            };
+            
+            const apiUrl = '/api/auth/login.php';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+
+                // 5. Đọc phản hồi từ server
+                const result = await response.json();
+
+                // 6. Xử lý phản hồi
+                if (response.ok) { 
+                    
+                    // Lưu Token vào localStorage để dùng sau này
+                    localStorage.setItem('b4e_token', result.token);
+                    
+                    // Lưu cả thông tin user (để chào hỏi, v.v.)
+                    localStorage.setItem('b4e_user', JSON.stringify(result.user));
+                    
+                    alert(result.message);
+                    
+                
+                    window.location.href = 'AccountManage.html'; 
+
+                } else {
+                    alert('Lỗi: ' + result.error);
+                }
+
+            } catch (error) {
+
+                console.error('Lỗi khi gọi API:', error);
+                alert('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.');
+            }
         });
         
-        // Redirect to register page
-        document.querySelector('.register-link').addEventListener('click', function(e) {
+        document.querySelector('.transfer-link').addEventListener('click', function(e) {
             e.preventDefault();
-            // Chuyển đến trang đăng ký
-            // window.location.href = 'dang-ky.html';
-            alert('Chuyển đến trang đăng ký');
+            window.location.href = 'register.html';
         });
         
-        // Redirect to forgot password page
         document.querySelector('.forgot-password a').addEventListener('click', function(e) {
             e.preventDefault();
-            // Chuyển đến trang quên mật khẩu
-            // window.location.href = 'quen-mat-khau.html';
             alert('Chuyển đến trang quên mật khẩu');
         });
     </script>
