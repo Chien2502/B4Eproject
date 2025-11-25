@@ -1,13 +1,9 @@
-// file: src/js/book-browser.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Chúng ta chỉ cần kiểm tra một container duy nhất (trên trang borrow.html)
-    // Bạn có thể đổi class trong HTML thành .book-browser-container cho tổng quát nếu muốn
     if (document.querySelector('.search-container') || document.querySelector('.books-grid')) {
         setupBookBrowser({
             gridSelector: '.books-grid',
-            searchSelector: '.search-input input', // Đảm bảo class này khớp với HTML của bạn
-            categorySelector: '.category-filter',  // Đảm bảo class này khớp với HTML của bạn
+            searchSelector: '.search-input input',
+            categorySelector: '.category-filters',  
             sortSelector: 'select[name="sort"]',
             statusSelector: 'select[name="status"]'
         });
@@ -46,7 +42,7 @@ function setupBookBrowser(config) {
         }
     }
 
-    // 2. Hiển thị (Giao diện thống nhất)
+    // 2. Hiển thị
     function displayBooks(bookList) {
         bookGrid.innerHTML = '';
         if (bookList.length === 0) {
@@ -77,7 +73,7 @@ function setupBookBrowser(config) {
                                 ${!isAvailable ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
                             ${isAvailable ? 'Mượn sách' : 'Đang bận'}
                         </button>
-                        <a class="btn1 btn-secondary" href="demopage.html?id=${book.id}">Chi tiết</a>
+                        <a class="btn1 btn-secondary" href="books.html?id=${book.id}">Chi tiết</a>
                     </div>
                 </div>
             `;

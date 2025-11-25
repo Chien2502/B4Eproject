@@ -13,7 +13,7 @@
     rgba(41, 128, 185, 0.9),
     rgba(52, 152, 219, 0.8),
     rgba(33, 150, 243, 0.9)),
-    url('img/Book/white-library-with-shelves-and-stairs.jpg') center/cover;
+    url('/src/img/Book/white-library-with-shelves-and-stairs.jpg') center/cover;
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   margin-bottom: 3rem;
 }

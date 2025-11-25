@@ -1,95 +1,100 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Lấy ID từ URL (ví dụ: demopage.html?id=123)
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
 
-  // --- BƯỚC 1: LẤY VÀ KIỂM TRA ID TỪ URL ---
-  const urlParams = new URLSearchParams(window.location.search);
-  const bookIdStr = urlParams.get('id'); // Lấy ID dưới dạng chuỗi '1', '2',...
+    if (!bookId) {
+        alert('Không tìm thấy ID sách.');
+        window.location.href = 'borrow.html';
+        return;
+    }
 
-  // In ra Console để chúng ta có thể thấy những gì đang xảy ra
-  console.log("ID lấy từ URL (dạng chuỗi):", bookIdStr);
+    // 2. Gọi API lấy chi tiết sách
+    try {
+        const response = await fetch(`/api/books/read_single.php?id=${bookId}`);
+        
+        if (!response.ok) {
+            throw new Error('Không tìm thấy sách hoặc lỗi server.');
+        }
 
-  // KIỂM TRA 1: ID có tồn tại trên URL không?
-  if (!bookIdStr) {
-    displayError("Lỗi: Không có ID sách trong địa chỉ URL.", "Hãy quay lại trang danh mục và nhấn vào nút 'Xem chi tiết' của một cuốn sách.");
-    return; // Dừng thực thi ngay lập tức nếu không có ID
-  }
+        const book = await response.json();
+        renderBookDetails(book);
 
-  const bookId = parseInt(bookIdStr); // Chuyển ID từ chuỗi thành số
-  console.log("ID sau khi chuyển thành số:", bookId);
-
-  // KIỂM TRA 2: ID có phải là một số hợp lệ không?
-  if (isNaN(bookId)) {
-    displayError("Lỗi: ID sách không hợp lệ.", "ID trên URL không phải là một con số.");
-    return; // Dừng thực thi nếu ID không phải là số
-  }
-
-  // --- BƯỚC 2: TÌM SÁCH TRONG DATABASE ---
-  console.log("Đang tìm kiếm sách với ID:", bookId);
-  // Biến 'books' phải có sẵn từ tệp 'database.js'
-  const book = books.find(b => b.id === bookId);
-  console.log("Kết quả tìm sách:", book); // Sẽ in ra đối tượng sách nếu tìm thấy, hoặc 'undefined' nếu không thấy
-
-  // --- BƯỚC 3: HIỂN THỊ KẾT QUẢ ---
-  if (book) {
-    // Nếu tìm thấy sách, gọi hàm hiển thị chi tiết
-    displayBookDetails(book);
-  } else {
-    // Nếu không tìm thấy, hiển thị lỗi
-    displayError(`Lỗi: Không tìm thấy sách với ID = ${bookId}.`, "Cuốn sách này có thể không tồn tại trong cơ sở dữ liệu của chúng ta.");
-  }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('book-content').innerHTML = 
+            `<h2 style="text-align:center; color:red;">${error.message}</h2>`;
+    }
 });
 
-/**
- * Hàm này nhận vào một đối tượng sách và điền thông tin vào trang HTML.
- * @param {object} book - Đối tượng sách cần hiển thị.
- */
-function displayBookDetails(book) {
-  // --- Cập nhật tiêu đề trang ---
-  document.title = `${book.title} - Thư viện Cộng đồng`;
+// 3. Hàm hiển thị dữ liệu lên HTML
+function renderBookDetails(book) {
+    // Điền thông tin
+    document.title = `${book.title} - B4E Library`;
+    document.getElementById('book-img').src = book.image_url || 'img/default-book.png';
+    document.getElementById('book-title').textContent = book.title;
+    document.getElementById('book-author').textContent = book.author;
+    document.getElementById('book-category').textContent = book.category_name || 'Chưa phân loại';
+    document.getElementById('book-year').textContent = book.year || 'Đang cập nhật';
+    document.getElementById('book-publisher').textContent = book.publisher || 'Đang cập nhật';
+    document.getElementById('book-desc').textContent = book.description || 'Chưa có mô tả.';
 
-  // --- Điền thông tin cho CỘT BÊN PHẢI ---
-  document.getElementById('book-title-main').textContent = book.title;
-  document.getElementById('book-author-main').textContent = book.author;
-  document.getElementById('book-category').textContent = book.category;
+    // Xử lý trạng thái và nút bấm
+    const statusBadge = document.getElementById('status-badge');
+    const borrowBtn = document.getElementById('btn-borrow');
 
-  // Xử lý mô tả có nhiều dòng
-  const descriptionHTML = book.description.split('\n').map(p => `<p>${p}</p>`).join('');
-  document.getElementById('book-description').innerHTML = descriptionHTML;
-
-  // --- Điền thông tin cho CỘT BÊN TRÁI ---
-  document.getElementById('book-cover-img').src = book.image;
-  document.getElementById('book-cover-img').alt = book.title;
-  document.getElementById('book-title-left').textContent = book.title;
-  document.getElementById('book-author-left').textContent = book.author;
-
-  // Cập nhật link và trạng thái cho nút
-  const borrowLink = document.getElementById('borrow-link');
-  const statusBadge = document.getElementById('book-status-badge');
-
-  if (book.status === 'available') {
-    statusBadge.textContent = 'Có sẵn';
-    statusBadge.className = 'status-badge'; // Class mặc định màu xanh
-    borrowLink.href = `borrow-form.html?title=${encodeURIComponent(book.title)}`;
-    borrowLink.style.display = 'block'; // Hiển thị nút
-  } else {
-    statusBadge.textContent = 'Đã cho mượn';
-    statusBadge.className = 'status-badge borrowed'; // Class màu vàng
-    borrowLink.style.display = 'none'; // Ẩn nút mượn sách
-  }
+    if (book.status === 'available') {
+        statusBadge.textContent = 'Có sẵn';
+        statusBadge.className = 'book-status status-available';
+        
+        // Kích hoạt nút mượn
+        borrowBtn.disabled = false;
+        borrowBtn.textContent = 'Mượn sách này';
+        borrowBtn.onclick = () => handleBorrowDetail(book.id);
+    } else {
+        statusBadge.textContent = 'Đã được mượn';
+        statusBadge.className = 'book-status status-borrowed';
+        
+        // Vô hiệu hóa nút mượn
+        borrowBtn.disabled = true;
+        borrowBtn.textContent = 'Tạm hết sách';
+        borrowBtn.style.opacity = '0.5';
+        borrowBtn.style.cursor = 'not-allowed';
+    }
 }
-/**
- * Hàm này hiển thị một thông báo lỗi trên trang.
- * @param {string} mainMessage - Thông báo lỗi chính.
- * @param {string} secondaryMessage - Thông báo phụ, hướng dẫn.
- */
-function displayError(mainMessage, secondaryMessage) {
-  const container = document.querySelector('.container.mx-auto');
-  if (container) {
-    container.innerHTML = `
-            <div class="text-center py-10">
-                <h1 class="text-3xl font-bold text-red-600">${mainMessage}</h1>
-                <p class="mt-4">${secondaryMessage}</p>
-                <a href="books.html" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Quay lại trang danh mục</a>
-            </div>
-        `;
-  }
+
+// 4. Hàm xử lý mượn sách (Dành riêng cho trang chi tiết)
+async function handleBorrowDetail(bookId) {
+    const token = localStorage.getItem('b4e_token');
+
+    if (!token) {
+        alert('Bạn cần đăng nhập để mượn sách.');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    if (!confirm('Bạn có chắc chắn muốn mượn cuốn sách này?')) return;
+
+    try {
+        const response = await fetch('/api/borrowings/create.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ book_id: bookId })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Mượn sách thành công!');
+            location.reload(); // Tải lại trang để cập nhật trạng thái nút bấm
+        } else {
+            alert('Lỗi: ' + result.error);
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Không thể kết nối đến máy chủ.');
+    }
 }

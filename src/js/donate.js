@@ -62,4 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    else {
+        console.error("LỖI: Không tìm thấy form có id='donationForm'");
+    }
 });
