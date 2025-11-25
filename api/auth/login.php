@@ -1,23 +1,17 @@
 <?php
-// file: api/auth/login.php
 
-// 1. THIẾT LẬP HEADER (Giống register.php)
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *'); 
 header('Access-Control-Allow-Methods: POST, OPTIONS'); 
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 // 2. GỌI CÁC FILE CẦN THIẾT
-// Gọi file kết nối CSDL
 require_once '../config/database.php';
-// GỌI FILE AUTOLOAD CỦA COMPOSER (RẤT QUAN TRỌNG)
-// Đường dẫn này là đi lùi 2 cấp (từ auth/ ra api/, rồi ra gốc B4Eproject/)
 require_once '../../vendor/autoload.php'; 
 
 // Import thư viện JWT
 use \Firebase\JWT\JWT;
 
-// 3. XỬ LÝ OPTIONS REQUEST (Giống register.php)
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -30,21 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit;
 }
 
-// 4. KHỞI TẠO KẾT NỐI
 $database = new Database();
 $db = $database->connect();
 
-// 5. NHẬN DỮ LIỆU TỪ CLIENT
 $data = json_decode(file_get_contents('php://input'));
 
-// 6. KIỂM TRA DỮ LIỆU (VALIDATION)
 if (empty($data->email) || empty($data->password)) {
     http_response_code(400); // Bad Request
     echo json_encode(['error' => 'Vui lòng cung cấp đầy đủ email và password.']);
     exit;
 }
 
-// 7. XỬ LÝ LOGIC ĐĂNG NHẬP
 try {
     // Tìm người dùng bằng email
     $query_find_user = 'SELECT * FROM users WHERE email = ?';
@@ -63,26 +53,20 @@ try {
     $user = $stmt_find_user->fetch(PDO::FETCH_ASSOC);
 
     // 8. XÁC MINH MẬT KHẨU
-    // Đây là hàm "thần kỳ": nó so sánh $data->password (người dùng nhập) 
-    // với $user['password_hash'] (lưu trong CSDL)
     if (password_verify($data->password, $user['password_hash'])) {
         
         // Mật khẩu đúng! Tạo Token
         
         // 9. CHUẨN BỊ THÔNG TIN ĐỂ TẠO TOKEN
-        // QUAN TRỌNG: Đây là "chìa khóa bí mật" của bạn.
-        // Nó phải được giữ BÍ MẬT TUYỆT ĐỐI.
-        // Tốt nhất là lưu ở file config riêng, không nên viết cứng ở đây.
         $secret_key = "B4E_SECRET_KEY_123456"; // <-- ĐÂY LÀ CHÌA KHÓA BÍ MẬT
         
-        $issuer_claim = "http://localhost/B4Eproject"; // Domain của bạn
-        $audience_claim = "http://localhost"; // Audience
-        $issuedat_claim = time(); // Thời gian token được tạo
-        $notbefore_claim = $issuedat_claim; // Token có hiệu lực ngay
-        $expire_claim = $issuedat_claim + 3600; // Token hết hạn sau 1 giờ (3600 giây)
+        $issuer_claim = "http://localhost/B4Eproject";
+        $audience_claim = "http://localhost"; 
+        $issuedat_claim = time(); 
+        $notbefore_claim = $issuedat_claim; 
+        $expire_claim = $issuedat_claim + 360000; // Token hết hạn sau 100 giờ
 
-        // Dữ liệu "payload" bạn muốn lưu vào Token
-        // Đây là phần quan trọng nhất: chúng ta lưu user_id và role
+        // Dữ liệu "payload" lưu vào Token
         $payload = array(
             "iss" => $issuer_claim,
             "aud" => $audience_claim,
@@ -124,7 +108,6 @@ try {
     http_response_code(500);
     echo json_encode(['error' => 'Lỗi CSDL: ' . $e->getMessage()]);
 } catch (Exception $e) {
-    // Bắt lỗi chung, ví dụ lỗi từ thư viện JWT
     http_response_code(500);
     echo json_encode(['error' => 'Lỗi hệ thống: ' . $e->getMessage()]);
 }

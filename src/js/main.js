@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         ${avatarLetter}
                     </div>
                     <ul class="profile-dropdown">
-                        <li><a href="AccountManage.html">Chào, ${user.username}</a></li>
+                        <li><a href="AccountManage.html">Xin chào, ${user.username}</a></li>
                         <li><a href="AccountManage.html">Quản lý tài khoản</a></li>
                         <li><a href="#" id="logout-button">Đăng xuất</a></li>
                     </ul>
