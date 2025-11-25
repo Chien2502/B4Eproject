@@ -1,44 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const donationForm = document.getElementById('donationForm');
 
-  const donationForm = document.getElementById('donationForm');
+    const token = localStorage.getItem('b4e_token');
 
-  if (donationForm) {
-    donationForm.addEventListener('submit', function(event) {
-      // Ngăn chặn hành vi mặc định của form (tải lại trang)
-      event.preventDefault();
+    if (donationForm) {
+        donationForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-      // 1. Thu thập dữ liệu từ các ô input
-      // 'this' ở đây chính là form đã được gửi đi
-      const formData = new FormData(this);
+            if (!token) {
+                alert('Bạn cần đăng nhập để thực hiện quyên góp.');
+                window.location.href = 'login.html';
+                return;
+            }
 
-      // Chuyển đổi FormData thành một đối tượng (object) thông thường
-      const donationData = {};
-      formData.forEach((value, key) => {
-        donationData[key] = value;
-      });
+            const formData = new FormData(this);
+            
 
-      // 2. Kiểm tra dữ liệu (Validation đơn giản)
-      // Trong thực tế có thể kiểm tra kỹ hơn, ví dụ email có đúng định dạng không
-      if (!donationData.fullName || !donationData.email || !donationData.phone || !donationData.bookTitle) {
-        alert('Vui lòng điền đầy đủ các trường thông tin có dấu *.');
-        return; // Dừng lại nếu thiếu thông tin
-      }
+            const donationData = {
+                book_title: formData.get('bookTitle'),      
+                book_author: formData.get('author'),       
+                book_publisher: formData.get('publisher'),
+                book_year: formData.get('publicationYear'),         
+                book_condition: formData.get('bookCondition'),  
+                donation_type: formData.get('donationType') 
+            };
 
-      // 3. Xử lý dữ liệu: In ra Console để kiểm tra
-      console.log("===== Thông tin quyên góp nhận được =====");
-      console.log("Họ tên:", donationData.fullName);
-      console.log("Email:", donationData.email);
-      console.log("Số điện thoại:", donationData.phone);
-      console.log("Tên sách:", donationData.bookTitle);
-      console.log("Tác giả:", donationData.author);
-      console.log("Tình trạng sách:", donationData.bookCondition);
-      console.log("-----------------------------------------");
+            // Validation đơn giản phía Client
+            if (!donationData.book_title || !donationData.book_author) {
+                alert('Vui lòng điền Tên sách và Tác giả.');
+                return;
+            }
 
-      // 4. Phản hồi cho người dùng và reset form
-      alert('Cảm ơn bạn đã gửi thông tin quyên góp sách! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.');
+            // 3. Gọi API
+            try {
+                const response = await fetch('/api/donations/create.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(donationData)
+                });
 
-      // Tự động xóa trắng form
-      this.reset();
-    });
-  }
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message); // "Cảm ơn bạn!..."
+                    this.reset(); // Xóa trắng form
+                } else {
+                    // Xử lý lỗi (ví dụ 401 Unauthorized)
+                    if (response.status === 401) {
+                        alert('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('Lỗi: ' + result.error);
+                    }
+                }
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('Không thể kết nối đến máy chủ.');
+            }
+        });
+    }
 });

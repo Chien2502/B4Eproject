@@ -1,98 +1,153 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="./css/accountmanage.css" rel="stylesheet">
-  <link href="css/headerfooter.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <link href="css/animation.css" rel="stylesheet">
-  <title>Quản lý tài khoản</title>
-  <script src="js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Tài khoản - B4E</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/headerfooter.css" rel="stylesheet">
+    <link href="css/accountmanage.css" rel="stylesheet">
+
 </head>
-
-
 <body>
-  <header id="main-header"></header>
-  <section class="hero hero-section">
-    <div class="hero-content">
-      <h1 style="color: #f7f9fc">Quản lí tài khoản</h1>
-      <p>Nơi những hoạt động trong suốt thời gian qua của bạn được ghi lại</p>
-    </div>
-  </section>
 
-  <main class="container">
-    <div class="account-section">
-      <aside class="sidebar">
-        <ul class="sidebar-menu">
-          <li><a href="#" class="active">Thông tin cá nhân</a></li>
-          <li><a href="#">Sách đang mượn</a></li>
-          <li><a href="#">Lịch sử mượn sách</a></li>
-          <li><a href="#">Sách đã quyên góp</a></li>
-          <li><a href="#">Cài đặt tài khoản</a></li>
-          <li><a href="#">Đổi mật khẩu</a></li>
-        </ul>
-      </aside>
+    <div id="main-header"></div>
 
-      <div class="main-content">
-        <div class="profile-header">
-          <img src="./img/icon/vitmeme.jpg" alt="Avatar" class="profile-avatar">
-          <div class="profile-info">
-            <h2>Nguyễn Thanh Chiến</h2>
-            <p>Thành viên từ: 17/06/2025</p>
-          </div>
-        </div>
-
-        <form id="profile-form">
-          <div class="form-group">
-            <label for="fullName">Họ và tên</label>
-            <input type="text" id="fullName" value="Nguyễn Thanh Chiến">
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" value="nguyenthanhchien@gmail.com">
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Số điện thoại</label>
-            <input type="tel" id="phone" value="0234549878">
-          </div>
-
-          <div class="form-group">
-            <label for="address">Địa chỉ</label>
-            <input type="text" id="address" value="Đà Nẵng, Việt Nam">
-          </div>
-
-          <button type="submit" class="btn">Cập nhật thông tin</button>
+    <div class="container">
+        <h2>Quản lý Tài khoản</h2>
+        <p>Chỉnh sửa thông tin cá nhân của bạn.</p>
+        
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="email">Email (Không thể thay đổi)</label>
+                <input type="email" id="email" name="email" disabled>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Tên hiển thị (Username)</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <textarea id="address" name="address" rows="4" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">Lưu Thay Đổi</button>
         </form>
-
-        <div class="stats-grid">
-          <div class="stat-box">
-            <h3>5</h3>
-            <p>Sách đang mượn</p>
-          </div>
-          <div class="stat-box">
-            <h3>15</h3>
-            <p>Đã mượn</p>
-          </div>
-          <div class="stat-box">
-            <h3>3</h3>
-            <p>Đã quyên góp</p>
-          </div>
-        </div>
-      </div>
     </div>
-  </main>
-  <footer id="main-footer"></footer>
-  <script>
-    document.getElementById('profile-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Thông tin đã được cập nhật thành công!');
-    });
-  </script>
-</body>
 
+    <div id="main-footer"></div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const token = localStorage.getItem('b4e_token');
+            // Lấy các ô input
+            const emailInput = document.getElementById('email');
+            const usernameInput = document.getElementById('username');
+            const phoneInput = document.getElementById('phone');
+            const addressInput = document.getElementById('address');
+            const profileForm = document.getElementById('profileForm');
+
+            // HÀM 1: LẤY THÔNG TIN KHI TẢI TRANG
+            async function loadProfile() {
+                if (!token) {
+                    alert('Bạn cần đăng nhập để xem trang này.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const apiUrl = '/api/auth/get_profile.php';
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    });
+
+                    if (response.status === 401) {
+                        alert('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
+                        localStorage.removeItem('b4e_token');
+                        localStorage.removeItem('b4e_user');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi tải thông tin cá nhân.');
+                    }
+                    
+                    const user = await response.json();
+
+                    // Điền thông tin vào form
+                    emailInput.value = user.email;
+                    usernameInput.value = user.username;
+                    phoneInput.value = user.phone || ''; // Hiển thị rỗng nếu là null
+                    addressInput.value = user.address || ''; // Hiển thị rỗng nếu là null
+
+                } catch (error) {
+                    console.error('Lỗi:', error);
+                    alert(error.message);
+                }
+            }
+
+            // HÀM 2: GỬI CẬP NHẬT KHI SUBMIT FORM
+            profileForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const updatedData = {
+                    username: usernameInput.value,
+                    phone: phoneInput.value,
+                    address: addressInput.value
+                };
+
+                const apiUrl = '/B4Eproject/api/auth/update_profile.php';
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: JSON.stringify(updatedData)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        // Hiển thị lỗi từ server (ví dụ: username trùng)
+                        throw new Error(result.error || 'Lỗi không xác định');
+                    }
+                    
+                    // Cập nhật localStorage VỚI THÔNG TIN MỚI
+                    localStorage.setItem('b4e_user', JSON.stringify(result.user));
+                    
+                    alert(result.message); // "Cập nhật thông tin thành công."
+                    
+                    // Tải lại trang để header (chào, user) cũng được cập nhật
+                    location.reload();
+
+                } catch (error) {
+                    console.error('Lỗi:', error);
+                    alert('Lỗi: ' + error.message);
+                }
+            });
+
+            // Chạy hàm load profile ngay khi DOM đã tải xong
+            loadProfile();
+        });
+    </script>
+
+</body>
 </html>

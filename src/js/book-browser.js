@@ -1,181 +1,146 @@
-// Chờ cho toàn bộ cấu trúc HTML của trang được tải xong rồi mới chạy mã
-document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelector('.catalog-container')) {
-    // Đây là trang Danh mục sách (books.html)
-    setupBookBrowser({
-      gridSelector: '.books-grid',
-      searchSelector: '.search-box input',
-      categorySelector: '.filter-group a[data-category]',
-      sortSelector: '.sort-options select',
-      statusSelector: null, // Không có bộ lọc trạng thái ở trang này
-      getCategoryValue: (element) => element.dataset.category,
-      cardType: 'catalog'
-    });
-  }
+// file: src/js/book-browser.js
 
-  if (document.querySelector('.search-container')) {
-    // Đây là trang Mượn sách (borrow.html)
-    setupBookBrowser({
-      gridSelector: '.books-grid',
-      searchSelector: '.search-input input',
-      categorySelector: '.category-filter',
-      sortSelector: 'select[name="sort"]',
-      statusSelector: 'select[name="status"]',
-      getCategoryValue: (element) => element.textContent,
-      cardType: 'borrow'
-    });
-  }
+document.addEventListener('DOMContentLoaded', () => {
+    // Chúng ta chỉ cần kiểm tra một container duy nhất (trên trang borrow.html)
+    // Bạn có thể đổi class trong HTML thành .book-browser-container cho tổng quát nếu muốn
+    if (document.querySelector('.search-container') || document.querySelector('.books-grid')) {
+        setupBookBrowser({
+            gridSelector: '.books-grid',
+            searchSelector: '.search-input input', // Đảm bảo class này khớp với HTML của bạn
+            categorySelector: '.category-filter',  // Đảm bảo class này khớp với HTML của bạn
+            sortSelector: 'select[name="sort"]',
+            statusSelector: 'select[name="status"]'
+        });
+    }
 });
 
-
-
-// HÀM THIẾT LẬP TRÌNH DUYỆT SÁCH
-// Hàm này nhận một đối tượng cấu hình để biết cách tương tác với các phần tử trên trang
 function setupBookBrowser(config) {
+    const bookGrid = document.querySelector(config.gridSelector);
+    if (!bookGrid) return;
 
-  // --- Lấy các phần tử HTML dựa trên cấu hình ---
-  const bookGrid = document.querySelector(config.gridSelector);
-  const searchInput = document.querySelector(config.searchSelector);
-  const categoryFilters = document.querySelectorAll(config.categorySelector);
-  const sortSelect = document.querySelector(config.sortSelector);
-  const statusSelect = config.statusSelector ? document.querySelector(config.statusSelector) : null;
+    let currentFilters = {
+        search: '',
+        category: 'Tất cả',
+        status: 'all',
+        sort: 'newest'
+    };
 
-  // --- Biến lưu trữ trạng thái lọc hiện tại ---
-  let currentSearchTerm = '';
-  let currentCategory = 'Tất cả';
-  let currentSortOrder = sortSelect ? sortSelect.value : 'newest';
-  let currentStatus = 'all';
+    // 1. Gọi API
+    async function fetchBooks() {
+        const params = new URLSearchParams();
+        if (currentFilters.search) params.append('search', currentFilters.search);
+        if (currentFilters.category !== 'Tất cả') params.append('category', currentFilters.category);
+        if (currentFilters.status !== 'all') params.append('status', currentFilters.status);
+        params.append('sort', currentFilters.sort);
 
-  // Nếu không tìm thấy lưới sách, dừng lại để không gây lỗi
-  if (!bookGrid) {
-    console.error("Không tìm thấy phần tử lưới sách với selector:", config.gridSelector);
-    return;
-  }
+        const apiUrl = `/api/books/read.php?${params.toString()}`;
+        bookGrid.innerHTML = '<p style="text-align:center; width:100%;">Đang tải dữ liệu...</p>';
 
-  // =================================================================
-  // HÀM HIỂN THỊ SÁCH LÊN GIAO DIỆN
-  // =================================================================
-  function displayBooks(bookList) {
-    bookGrid.innerHTML = ''; // Xóa sạch lưới sách trước khi hiển thị
-
-    bookList.forEach(book => {
-      const bookCard = document.createElement('div');
-
-      // Chọn class và HTML dựa trên loại card từ config
-      if (config.cardType === 'borrow') {
-        bookCard.className = 'book-card';
-        const isAvailable = book.status === 'available';
-        bookCard.innerHTML = `
-                    <div class="book-cover">
-                        <img src="${book.image}" alt="${book.title}">
-                        <div class="book-status ${isAvailable ? 'status-available' : 'status-borrowed'}">
-                            ${isAvailable ? 'Có sẵn' : 'Đã cho mượn'}
-                        </div>
-                    </div>
-                    <div class="book-details">
-                        <h3 class="book-title">${book.title}</h3>
-                        <p class="book-author">${book.author}</p>
-                        <p class="book-description">${book.description}</p>
-                        <div class="book-actions">
-                            <a class="btn btn-primary ${!isAvailable ? 'disabled' : ''}" href="borrow-form.html?title=${encodeURIComponent(book.title)}" ${!isAvailable ? 'aria-disabled="true"' : ''}>Mượn sách</a>
-                            <a class="btn1 btn-secondary" href="demopage.html?id=${book.id}">Chi tiết</a>
-                        </div>
-                    </div>
-                `;
-      } else { // Mặc định là 'catalog'
-        bookCard.className = 'book-card';
-        bookCard.innerHTML = `
-                    <div class="book-cover">
-                        <img src="${book.image}" alt="${book.title}">
-                    </div>
-                    <div class="book-details">
-                        <h3 class="book-title">${book.title}</h3>
-                        <p class="book-author">${book.author}</p>
-                        <div class="book-actions">
-                             <a href="demopage.html?id=${book.id}" class="btn btn-primary">Xem chi tiết</a>
-                        </div>
-                    </div>
-                `;
-      }
-      bookGrid.appendChild(bookCard);
-    });
-  }
-
-  // HÀM LỌC VÀ SẮP XẾP TỔNG HỢP
-  function applyFiltersAndSort() {
-    let filteredBooks = [...books]; // Tạo một bản sao của mảng sách gốc
-
-    // 1. Lọc theo trạng thái (nếu có)
-    if (currentStatus !== 'all') {
-      filteredBooks = filteredBooks.filter(book => book.status === currentStatus);
+        try {
+            const response = await fetch(apiUrl);
+            const books = await response.json();
+            displayBooks(books);
+        } catch (error) {
+            console.error('Lỗi:', error);
+            bookGrid.innerHTML = '<p style="text-align:center; color:red;">Không thể tải sách.</p>';
+        }
     }
 
-    // 2. Lọc theo thể loại
-    if (currentCategory !== 'Tất cả') {
-      filteredBooks = filteredBooks.filter(book => book.category === currentCategory);
+    // 2. Hiển thị (Giao diện thống nhất)
+    function displayBooks(bookList) {
+        bookGrid.innerHTML = '';
+        if (bookList.length === 0) {
+            bookGrid.innerHTML = '<p style="text-align:center; width:100%;">Không tìm thấy sách.</p>';
+            return;
+        }
+
+        bookList.forEach(book => {
+            const bookCard = document.createElement('div');
+            bookCard.className = 'book-card';
+            
+            const isAvailable = book.status === 'available';
+            const statusClass = isAvailable ? 'status-available' : 'status-borrowed';
+            const statusText = isAvailable ? 'Có sẵn' : 'Đã mượn';
+
+            // Luôn luôn hiển thị đầy đủ nút bấm
+            bookCard.innerHTML = `
+                <div class="book-cover">
+                    <img src="${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
+                    <div class="book-status ${statusClass}">${statusText}</div>
+                </div>
+                <div class="book-details">
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">${book.author}</p>
+                    <div class="book-actions">
+                        <button class="btn btn-primary" 
+                                onclick="handleBorrow(${book.id})" 
+                                ${!isAvailable ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
+                            ${isAvailable ? 'Mượn sách' : 'Đang bận'}
+                        </button>
+                        <a class="btn1 btn-secondary" href="demopage.html?id=${book.id}">Chi tiết</a>
+                    </div>
+                </div>
+            `;
+            bookGrid.appendChild(bookCard);
+        });
     }
 
-    // 3. Lọc theo từ khóa tìm kiếm
-    if (currentSearchTerm) {
-      filteredBooks = filteredBooks.filter(book =>
-        book.title.toLowerCase().includes(currentSearchTerm) ||
-        book.author.toLowerCase().includes(currentSearchTerm)
-      );
-    }
-
-    // 4. Sắp xếp
-    switch (currentSortOrder) {
-      case 'popular':
-        filteredBooks.sort(() => 0.5 - Math.random()); // Giả lập phổ biến
-        break;
-      case 'title_asc':
-        filteredBooks.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
-        break;
-      case 'title_desc':
-        filteredBooks.sort((a, b) => b.title.localeCompare(a.title, 'vi'));
-        break;
-      case 'newest':
-      default:
-        filteredBooks.sort((a, b) => b.id - a.id); // Giả sử ID lớn hơn là mới hơn
-        break;
-    }
-
-    displayBooks(filteredBooks);
-  }
-
-  // GẮN CÁC EVENT LISTENERS
-  if (searchInput) {
-    searchInput.addEventListener('input', (event) => {
-      currentSearchTerm = event.target.value.toLowerCase().trim();
-      applyFiltersAndSort();
+    // 3. Gắn sự kiện (Giữ nguyên logic cũ)
+    const searchInput = document.querySelector(config.searchSelector);
+    if (searchInput) searchInput.addEventListener('input', (e) => {
+        currentFilters.search = e.target.value; fetchBooks();
     });
-  }
 
-  if (categoryFilters) {
-    categoryFilters.forEach(filter => {
-      filter.addEventListener('click', (event) => {
-        event.preventDefault();
-        categoryFilters.forEach(f => f.classList.remove('active'));
-        filter.classList.add('active');
-        currentCategory = config.getCategoryValue(filter).trim();
-        applyFiltersAndSort();
-      });
-    })
-  }
+    const categoryLinks = document.querySelectorAll(config.categorySelector);
+    categoryLinks.forEach(link => link.addEventListener('click', (e) => {
+        e.preventDefault();
+        categoryLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        currentFilters.category = link.dataset.category || link.textContent;
+        fetchBooks();
+    }));
 
-  if (sortSelect) {
-    sortSelect.addEventListener('change', (event) => {
-      currentSortOrder = event.target.value;
-      applyFiltersAndSort();
+    const sortSelect = document.querySelector(config.sortSelector);
+    if(sortSelect) sortSelect.addEventListener('change', (e) => {
+        currentFilters.sort = e.target.value; fetchBooks();
     });
-  }
 
-  if (statusSelect) {
-    statusSelect.addEventListener('change', (event) => {
-      currentStatus = event.target.value;
-      applyFiltersAndSort();
+    const statusSelect = document.querySelector(config.statusSelector);
+    if(statusSelect) statusSelect.addEventListener('change', (e) => {
+        currentFilters.status = e.target.value; fetchBooks();
     });
-  }
 
-  applyFiltersAndSort();
+    // Chạy lần đầu
+    fetchBooks();
 }
+
+// Hàm xử lý mượn sách toàn cục
+window.handleBorrow = async function(bookId) {
+    const token = localStorage.getItem('b4e_token');
+    if (!token) {
+        alert('Vui lòng đăng nhập để mượn sách.');
+        window.location.href = 'login.html';
+        return;
+    }
+    if (!confirm('Xác nhận mượn cuốn sách này?')) return;
+
+    try {
+        const response = await fetch('/api/borrowings/create.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ book_id: bookId })
+        });
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message);
+            location.reload();
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        alert('Lỗi kết nối server.');
+    }
+};
