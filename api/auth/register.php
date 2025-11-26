@@ -1,53 +1,30 @@
 <?php
-// file: api/auth/register.php
-
-// 1. THIẾT LẬP HEADER
-// (Báo cho client biết chúng ta sẽ trả về dữ liệu JSON)
 header('Content-Type: application/json');
-// (Cho phép nguồn gốc của bạn - 127.0.0.1:5500 - hoặc dùng * cho mọi nguồn)
 header('Access-Control-Allow-Origin: *'); 
 
-// ==========================================================
-// *** PHẦN SỬA LỖI CORS PREFLIGHT ***
-// ==========================================================
-// Kiểm tra xem request có phải là một 'OPTIONS' request (hỏi xin phép) không
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     
-    // Báo cho trình duyệt những phương thức nào được phép
-    // QUAN TRỌNG: Thêm 'POST' vào đây!
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
-    
-    // Báo cho trình duyệt những header nào được phép khi gửi
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
     
-    // Trả về 200 OK và thoát. Không chạy phần logic CSDL bên dưới.
     http_response_code(200);
     exit;
 }
 
-
-// 1. (tiếp) Chỉ cho phép POST cho logic chính
-// Bây giờ, nếu request KHÔNG PHẢI LÀ POST (và cũng không phải OPTIONS đã thoát ở trên), 
-// thì từ chối.
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    header('Allow: POST'); // Báo cho client biết phương thức đúng là POST
+    header('Allow: POST'); 
     http_response_code(405); // 405 Method Not Allowed
     echo json_encode(['error' => 'Method Not Allowed. Vui lòng sử dụng POST.']);
     exit;
 }
 
-// 2. GỌI CÁC FILE CẦN THIẾT
 require_once '../config/database.php';
 
-// 3. KHỞI TẠO KẾT NỐI
 $database = new Database();
 $db = $database->connect();
-// 4. NHẬN DỮ LIỆU TỪ CLIENT
 // Đọc dữ liệu JSON thô từ body của request
 $data = json_decode(file_get_contents('php://input'));
 
-// 5. KIỂM TRA DỮ LIỆU (VALIDATION)
-// Đảm bảo các trường bắt buộc không bị trống
 if (
     empty($data->username) ||
     empty($data->email) ||

@@ -1,0 +1,30 @@
+.book-detail-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            gap: 40px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .detail-image { flex: 1; }
+        .detail-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .detail-info { flex: 2; }
+        .book-meta { margin: 15px 0; color: #666; font-size: 0.95rem; }
+        .book-meta span { display: block; margin-bottom: 8px; }
+        .book-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .status-available { background-color: #e8f5e9; color: #2e7d32; }
+        .status-borrowed { background-color: #fff3e0; color: #ef6c00; }
+        .action-buttons { margin-top: 30px; display: flex; gap: 15px; }

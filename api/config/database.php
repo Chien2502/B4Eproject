@@ -1,5 +1,4 @@
 <?php
-// file: api/config/database.php
 
 class Database {
     // Thông tin CSDL
