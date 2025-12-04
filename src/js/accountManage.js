@@ -35,13 +35,29 @@
             loadDonationHistory();
 
             async function loadProfile() {
+                // ... (logic fetch giữ nguyên) ...
                 const res = await fetch('/api/auth/get_profile.php', { headers: { 'Authorization': 'Bearer ' + token } });
                 const user = await res.json();
+
+                // Điền thông tin vào form 
                 document.getElementById('display-name').textContent = user.username;
                 document.getElementById('email').value = user.email;
                 document.getElementById('username').value = user.username;
                 document.getElementById('phone').value = user.phone || '';
                 document.getElementById('address').value = user.address || '';
+
+                // Nếu role là admin hoặc super-admin, hiện nút truy cập
+                if (user.role === 'admin' || user.role === 'super-admin') {
+                    const adminDiv = document.getElementById('admin-dashboard-link');
+                    
+                    adminDiv.innerHTML = `
+                        <a href="/admin/index.php" 
+                           class="btn-submit" 
+                           style="background-color: #2c3e50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                           <i class="fas fa-user-shield"></i> Trang Quản Trị
+                        </a>
+                    `;
+                }
             }
         
             document.getElementById('profileForm').addEventListener('submit', async (e) => {

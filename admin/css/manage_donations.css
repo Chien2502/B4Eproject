@@ -1,0 +1,8 @@
+.badge { padding: 5px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; }
+    .bg-yellow { background-color: #fff3cd; color: #856404; }
+    .btn { margin-right: 5px; border: none; padding: 8px 12px; cursor: pointer; color: #fff; border-radius: 4px; }
+    .btn i { margin-right: 5px; }
+    .btn-green { background-color: #28a745; }
+    .btn-green:hover { background-color: #218838; }
+    .btn-red { background-color: #dc3545; }
+    .btn-red:hover { background-color: #c82333; }

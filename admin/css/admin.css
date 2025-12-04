@@ -1,0 +1,28 @@
+body { 
+    font-family: sans-serif; 
+    display: flex; margin: 0; 
+    background: #f4f6f9;
+}
+.sidebar { 
+    width: 250px; 
+    background: #343a40; 
+    color: #fff; min-height: 100vh; 
+    display: flex; flex-direction: column; 
+}
+.sidebar h2 { 
+    text-align: center; padding: 20px; margin: 0; background: #007bff; }
+.sidebar a { color: #c2c7d0; padding: 15px 20px; text-decoration: none; display: block; border-bottom: 1px solid #4b545c; }
+.sidebar a:hover, .sidebar a.active { background: #494e53; color: #fff; }
+.main-content { flex: 1; padding: 20px; }
+.header { background: #fff; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.card { background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
+.card h3 { margin: 0; font-size: 2rem; color: #007bff; }
+.card p { color: #666; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+th { background: #f8f9fa; }
+.btn { padding: 5px 10px; text-decoration: none; color: white; border-radius: 3px; border: none; cursor: pointer; }
+.btn-green { background: #28a745; }
+.btn-red { background: #dc3545; }
+.btn-blue { background: #007bff; }

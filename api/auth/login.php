@@ -5,11 +5,9 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS'); 
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-// 2. GỌI CÁC FILE CẦN THIẾT
 require_once '../config/database.php';
 require_once '../../vendor/autoload.php'; 
 
-// Import thư viện JWT
 use \Firebase\JWT\JWT;
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -17,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
 
-// Chỉ cho phép POST
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method Not Allowed. Vui lòng sử dụng POST.']);
@@ -30,13 +27,12 @@ $db = $database->connect();
 $data = json_decode(file_get_contents('php://input'));
 
 if (empty($data->email) || empty($data->password)) {
-    http_response_code(400); // Bad Request
+    http_response_code(400);
     echo json_encode(['error' => 'Vui lòng cung cấp đầy đủ email và password.']);
     exit;
 }
 
 try {
-    // Tìm người dùng bằng email
     $query_find_user = 'SELECT * FROM users WHERE email = ?';
     $stmt_find_user = $db->prepare($query_find_user);
     $stmt_find_user->execute([$data->email]);
@@ -55,11 +51,17 @@ try {
     // 8. XÁC MINH MẬT KHẨU
     if (password_verify($data->password, $user['password_hash'])) {
         
-        // Mật khẩu đúng! Tạo Token
+        if ($user['role'] === 'admin' || $user['role'] === 'super-admin') {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $_SESSION['admin_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
+        }
         
         // 9. CHUẨN BỊ THÔNG TIN ĐỂ TẠO TOKEN
-        $secret_key = "B4E_SECRET_KEY_123456"; // <-- ĐÂY LÀ CHÌA KHÓA BÍ MẬT
-        
+        $secret_key = "B4E_SECRET_KEY_123456";
         $issuer_claim = "http://localhost/B4Eproject";
         $audience_claim = "http://localhost"; 
         $issuedat_claim = time(); 
@@ -85,7 +87,7 @@ try {
         $jwt = JWT::encode($payload, $secret_key, 'HS256');
 
         // 11. TRẢ TOKEN VỀ CHO NGƯỜI DÙNG
-        http_response_code(200); // OK
+        http_response_code(200); 
         echo json_encode(
             array(
                 "message" => "Đăng nhập thành công.",

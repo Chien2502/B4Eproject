@@ -80,10 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('b4e_user', JSON.stringify(result.user));
                     
                     alert(result.message);
-                    
-                    // Chuyển hướng sau đăng nhập
-                    // Nếu có trang trước đó (ví dụ đang xem sách và bị bắt đăng nhập) thì quay lại đó sẽ tốt hơn
-                    // Tuy nhiên, mặc định vào AccountManage cũng ổn.
                     window.location.href = 'AccountManage.html'; 
 
                 } else {
