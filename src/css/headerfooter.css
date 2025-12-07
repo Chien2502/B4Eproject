@@ -1,6 +1,8 @@
 /* Header Styles */
 
 :root {
+    --hfcolor: white;
+    --bggray-color: hsl(0 0% 60);
     --primary-color: rgb(52, 73, 94);
     --secondary-color: #1d7edc;
     --accent-color: #e74c3c;
@@ -28,17 +30,16 @@ h4 {
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: white;
     color: #333;
     font-family: var(--body-font);
     line-height: 1.8;
 }
 
 header {
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--hfcolor);
+    color: black;
+    padding: 0.3rem;
 }
 
 .containerfe {
@@ -99,7 +100,7 @@ header {
 }
 
 .logo a {
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
@@ -113,20 +114,21 @@ header {
 }
 
 .nav-links a {
-    color: white;
+    color: black;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
-
+/*
 .nav-links a:hover {
     background-color: var(--secondary-color);
 }
-
+*/
 .btn {
     display: inline-block;
-    background-color: var(--secondary-color);
+    background-color: var(--bggray-color);
     color: white;
     padding: 8px 16px;
     border: none;
@@ -157,8 +159,8 @@ header {
 
 /* footer*/
 footer {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--hfcolor);
+    color: black;
     padding: 2rem;
     margin-top: 3rem;
 }
@@ -186,7 +188,7 @@ footer {
 }
 
 .footer-column ul li a {
-    color: #ddd;
+    color: hsl(0 0% 60%);
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -273,12 +275,12 @@ footer {
     display: inline-block;
 }
 
-/* Kiểu dáng cho avatar (chữ cái đầu) */
+/* Kiểu dáng cho avatar */
 .profile-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #3498db; /* Màu xanh dương (có thể đổi) */
+    background-color: black;
     color: white;
     font-weight: bold;
     display: flex;
@@ -286,14 +288,14 @@ footer {
     justify-content: center;
     font-size: 1.2rem;
     cursor: pointer;
-    user-select: none; /* Không cho phép bôi đen chữ */
+    user-select: none; 
 }
 
-/* Menu thả xuống (mặc định bị ẩn) */
+/* Menu thả xuống*/
 .profile-dropdown {
     display: none;
     position: absolute;
-    top: 50px; /* Ngay dưới avatar */
+    top: 50px; 
     right: 0;
     background-color: white;
     border: 1px solid #ddd;

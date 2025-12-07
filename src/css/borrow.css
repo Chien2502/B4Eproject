@@ -75,7 +75,7 @@ main {
 
 .category-filter:hover,
 .category-filter.active {
-    background-color: var(--secondary-color);
+    background-color: var(--bggray-color);
     color: white;
     border-color: transparent;
 }
@@ -189,7 +189,7 @@ main {
 }
 
 .btn-primary {
-    background-color: var(--secondary-color);
+    background-color: var(--bggray-color);
     color: white;
 }
 
@@ -204,8 +204,8 @@ main {
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--secondary-color);
-    border: 1px solid var(--secondary-color);
+    color: black;
+    border: 1px solid var(--bggray-color);
 }
 
 .btn-secondary:hover {
@@ -292,4 +292,40 @@ main {
 
 .modal-book-actions {
     margin-top: 2rem;
+}
+
+
+/* Pagination Styling */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.pagination-controls button {
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+.pagination-controls button.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

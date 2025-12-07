@@ -36,7 +36,7 @@ $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr id="row-<?php echo $book['id']; ?>">
                     <td>#<?php echo $book['id']; ?></td>
                     <td>
-                        <img src="/B4Eproject/<?php echo htmlspecialchars($book['image_url'] ?? 'img/default.png'); ?>" 
+                        <img src="../src/<?php echo htmlspecialchars($book['image_url'] ?? 'img/default.png'); ?>" 
                              style="width:40px; height:60px; object-fit:cover; border-radius:3px;">
                     </td>
                     <td>
@@ -55,6 +55,7 @@ $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a href="book_form.php?id=<?php echo $book['id']; ?>" class="btn btn-blue" title="Sửa">
                             <i class="fas fa-edit"></i>
                         </a>
+                        &nbsp;&nbsp;
                         <button class="btn btn-red" onclick="deleteBook(<?php echo $book['id']; ?>)" title="Xóa">
                             <i class="fas fa-trash"></i>
                         </button>

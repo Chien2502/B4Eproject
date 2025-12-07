@@ -27,11 +27,24 @@ try {
         echo json_encode(['error' => 'Không thể xóa! Sách này đang có người mượn.']);
         exit;
     }
+    // xóa ảnh trong máy chủ trước
+    $stmt_get = $db->prepare("SELECT image_url FROM books WHERE id = ?");
+    $stmt_get->execute([$data->id]);
+    $book = $stmt_get->fetch(PDO::FETCH_ASSOC);
 
-    // Thực hiện xóa
+    if ($book && !empty($book['image_url'])) {
+       
+        $file_path = "../../" . $book['image_url']; 
+        if (file_exists($file_path)) {
+            // Hàm unlink() dùng để xóa file
+            unlink($file_path); 
+        }
+    }
+
+    //Xóa dữ liệu trong CSDL
     $stmt = $db->prepare("DELETE FROM books WHERE id = ?");
     if ($stmt->execute([$data->id])) {
-        echo json_encode(['message' => 'Đã xóa sách thành công.']);
+        echo json_encode(['message' => 'Đã xóa sách và ảnh bìa thành công.']);
     } else {
         throw new Exception("Lỗi CSDL.");
     }

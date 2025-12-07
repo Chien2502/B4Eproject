@@ -12,13 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupBookBrowser(config) {
     const bookGrid = document.querySelector(config.gridSelector);
+    
+    // Tạo container cho phân trang nếu chưa có
+    let paginationContainer = document.querySelector('.pagination-controls');
+    if (!paginationContainer) {
+        paginationContainer = document.createElement('div');
+        paginationContainer.className = 'pagination-controls';
+        bookGrid.parentNode.insertBefore(paginationContainer, bookGrid.nextSibling);
+    }
+
     if (!bookGrid) return;
 
     let currentFilters = {
         search: '',
         category: 'Tất cả',
         status: 'all',
-        sort: 'newest'
+        sort: 'newest',
+        page: 1, 
+        limit: 12
     };
 
     // 1. Gọi API
@@ -28,28 +39,37 @@ function setupBookBrowser(config) {
         if (currentFilters.category !== 'Tất cả') params.append('category', currentFilters.category);
         if (currentFilters.status !== 'all') params.append('status', currentFilters.status);
         params.append('sort', currentFilters.sort);
+        
+        //Thêm params phân trang
+        params.append('page', currentFilters.page);
+        params.append('limit', currentFilters.limit);
 
         const apiUrl = `/api/books/read.php?${params.toString()}`;
-        bookGrid.innerHTML = '<p style="text-align:center; width:100%;">Đang tải dữ liệu...</p>';
+        
+        // Hiển thị loading nhẹ
+        bookGrid.style.opacity = '0.5';
 
         try {
             const response = await fetch(apiUrl);
-            const books = await response.json();
-            displayBooks(books);
+            const result = await response.json(); 
+            
+            displayBooks(result.data); // Chỉ truyền mảng sách vào hàm hiển thị
+            renderPagination(result.pagination); // Vẽ nút phân trang
+            
+            bookGrid.style.opacity = '1';
         } catch (error) {
             console.error('Lỗi:', error);
             bookGrid.innerHTML = '<p style="text-align:center; color:red;">Không thể tải sách.</p>';
         }
     }
 
-    // 2. Hiển thị
+    // 2. Hiển thị Sách
     function displayBooks(bookList) {
         bookGrid.innerHTML = '';
-        if (bookList.length === 0) {
+        if (!bookList || bookList.length === 0) {
             bookGrid.innerHTML = '<p style="text-align:center; width:100%;">Không tìm thấy sách.</p>';
             return;
         }
-
         bookList.forEach(book => {
             const bookCard = document.createElement('div');
             bookCard.className = 'book-card';
@@ -58,7 +78,6 @@ function setupBookBrowser(config) {
             const statusClass = isAvailable ? 'status-available' : 'status-borrowed';
             const statusText = isAvailable ? 'Có sẵn' : 'Đã mượn';
 
-            // Luôn luôn hiển thị đầy đủ nút bấm
             bookCard.innerHTML = `
                 <div class="book-cover">
                     <img src="${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
@@ -77,14 +96,52 @@ function setupBookBrowser(config) {
                     </div>
                 </div>
             `;
-            bookGrid.appendChild(bookCard);
+             bookGrid.appendChild(bookCard);
         });
     }
 
-    // 3. Gắn sự kiện (Giữ nguyên logic cũ)
+    // 3. Hàm Vẽ nút Phân trang
+    function renderPagination(pagination) {
+        paginationContainer.innerHTML = '';
+        
+        if (pagination.total_pages <= 1) return; 
+        // Nút Trước
+        const prevBtn = document.createElement('button');
+        prevBtn.innerText = '« Trước';
+        prevBtn.disabled = pagination.current_page === 1;
+        prevBtn.onclick = () => changePage(pagination.current_page - 1);
+        paginationContainer.appendChild(prevBtn);
+
+        // Các nút số trang (1, 2, 3...)
+        for (let i = 1; i <= pagination.total_pages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.innerText = i;
+            if (i === pagination.current_page) pageBtn.classList.add('active');
+            pageBtn.onclick = () => changePage(i);
+            paginationContainer.appendChild(pageBtn);
+        }
+
+        // Nút Sau
+        const nextBtn = document.createElement('button');
+        nextBtn.innerText = 'Sau »';
+        nextBtn.disabled = pagination.current_page === pagination.total_pages;
+        nextBtn.onclick = () => changePage(pagination.current_page + 1);
+        paginationContainer.appendChild(nextBtn);
+    }
+
+    // 4. Hàm đổi trang
+    function changePage(newPage) {
+        currentFilters.page = newPage;
+        fetchBooks();
+        bookGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 5. Gắn sự kiện (Cập nhật logic reset page về 1 khi lọc)
     const searchInput = document.querySelector(config.searchSelector);
     if (searchInput) searchInput.addEventListener('input', (e) => {
-        currentFilters.search = e.target.value; fetchBooks();
+        currentFilters.search = e.target.value; 
+        currentFilters.page = 1; // Reset về trang 1 khi tìm kiếm
+        fetchBooks();
     });
 
     const categoryLinks = document.querySelectorAll(config.categorySelector);
@@ -93,17 +150,22 @@ function setupBookBrowser(config) {
         categoryLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
         currentFilters.category = link.dataset.category || link.textContent;
+        currentFilters.page = 1;
         fetchBooks();
     }));
 
     const sortSelect = document.querySelector(config.sortSelector);
     if(sortSelect) sortSelect.addEventListener('change', (e) => {
-        currentFilters.sort = e.target.value; fetchBooks();
+        currentFilters.sort = e.target.value; 
+        currentFilters.page = 1;
+        fetchBooks();
     });
 
     const statusSelect = document.querySelector(config.statusSelector);
     if(statusSelect) statusSelect.addEventListener('change', (e) => {
-        currentFilters.status = e.target.value; fetchBooks();
+        currentFilters.status = e.target.value; 
+        currentFilters.page = 1;
+        fetchBooks();
     });
 
     // Chạy lần đầu

@@ -33,17 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['description'];
     
     // Xử lý Upload Ảnh
-    $image_path = "//src/"+$book['image_url']; // Mặc định giữ ảnh cũ
+    $image_path = $book['image_url']; // Mặc định giữ ảnh cũ
     
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $target_dir = "/src/img/Book/"; 
+        $target_dir = "../src/img/Book/"; // Lưu vào thư mục src/img/Book
         // Tạo tên file mới để tránh trùng (timestamp_filename)
         $filename = time() . "_" . basename($_FILES["image"]["name"]);
         $target_file = $target_dir . $filename;
         
         // Kiểm tra và di chuyển file
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image_path = "/src/img/Book/" . $filename; // Đường dẫn lưu vào DB
+            $image_path = "img/Book/" . $filename; // Đường dẫn lưu vào DB
         } else {
             $message = "<div style='color:red'>Lỗi upload ảnh!</div>";
         }
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="content">
     <div style="max-width: 800px; margin: 0 auto;">
-        <h1><?php echo $is_edit ? '✏️ Chỉnh sửa Sách' : '➕ Thêm Sách Mới'; ?></h1>
+        <h1><?php echo $is_edit ? '✏️ Chỉnh sửa Sách' : 'Thêm Sách Mới'; ?></h1>
         
         <?php echo $message; ?>
 

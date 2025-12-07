@@ -1,5 +1,4 @@
 <?php
-// file: api/books/read.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
@@ -8,55 +7,74 @@ require_once '../config/database.php';
 $database = new Database();
 $db = $database->connect();
 
-// 1. Xây dựng câu truy vấn cơ bản
-// Chúng ta JOIN với bảng categories để lấy tên thể loại thay vì chỉ lấy ID
-$query = "SELECT b.*, c.name as category_name 
-          FROM books b 
-          LEFT JOIN categories c ON b.category_id = c.id 
-          WHERE 1=1"; // Mẹo: WHERE 1=1 giúp dễ dàng nối thêm các điều kiện AND phía sau
+// 1. Nhận tham số phân trang
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 12; // Mặc định 12 cuốn
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 
+// 2. Xây dựng điều kiện lọc (WHERE clause)
+$where_sql = " WHERE 1=1";
 $params = [];
 
-// 2. Xử lý bộ lọc từ URL (Query Params)
-
-// Lọc theo từ khóa (Search)
+// Lọc theo từ khóa
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = "%" . $_GET['search'] . "%";
-    $query .= " AND (b.title LIKE ? OR b.author LIKE ?)";
+    $where_sql .= " AND (b.title LIKE ? OR b.author LIKE ?)";
     array_push($params, $search, $search);
 }
 
-// Lọc theo thể loại (Category) - Nhận tên thể loại
+// Lọc theo thể loại
 if (isset($_GET['category']) && $_GET['category'] != 'Tất cả' && !empty($_GET['category'])) {
-    $query .= " AND c.name = ?";
+    $where_sql .= " AND c.name = ?";
     array_push($params, $_GET['category']);
 }
 
-// Lọc theo trạng thái (Status)
+// Lọc theo trạng thái
 if (isset($_GET['status']) && $_GET['status'] != 'all' && !empty($_GET['status'])) {
-    $query .= " AND b.status = ?";
+    $where_sql .= " AND b.status = ?";
     array_push($params, $_GET['status']);
 }
 
-// 3. Xử lý Sắp xếp (Sort)
+// 3. Xử lý Sắp xếp
+$order_sql = " ORDER BY b.id DESC"; 
 if (isset($_GET['sort'])) {
     switch ($_GET['sort']) {
-        case 'title_asc': $query .= " ORDER BY b.title ASC"; break;
-        case 'title_desc': $query .= " ORDER BY b.title DESC"; break;
-        case 'popular': $query .= " ORDER BY RAND()"; break; // Giả lập phổ biến
-        default: $query .= " ORDER BY b.id DESC"; // Mặc định mới nhất
+        case 'title_asc': $order_sql = " ORDER BY b.title ASC"; break;
+        case 'title_desc': $order_sql = " ORDER BY b.title DESC"; break;
+        case 'popular': $order_sql = " ORDER BY RAND()"; break;
     }
-} else {
-    $query .= " ORDER BY b.id DESC";
 }
-
-// 4. Thực thi và Trả về kết quả
+//Pagination
 try {
-    $stmt = $db->prepare($query);
+    $count_query = "SELECT COUNT(*) as total 
+                    FROM books b 
+                    LEFT JOIN categories c ON b.category_id = c.id" . $where_sql;
+    
+    $stmt_count = $db->prepare($count_query);
+    $stmt_count->execute($params);
+    $total_books = $stmt_count->fetch(PDO::FETCH_ASSOC)['total'];
+    $total_pages = ceil($total_books / $limit);
+
+    $data_query = "SELECT b.*, c.name as category_name 
+                   FROM books b 
+                   LEFT JOIN categories c ON b.category_id = c.id" 
+                   . $where_sql 
+                   . $order_sql 
+                   . " LIMIT $limit OFFSET $offset";
+                   
+    $stmt = $db->prepare($data_query);
     $stmt->execute($params);
     $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    echo json_encode($books);
+    echo json_encode([
+        'data' => $books,
+        'pagination' => [
+            'current_page' => $page,
+            'total_pages' => $total_pages,
+            'total_items' => $total_books,
+            'limit' => $limit
+        ]
+    ]);
 
 } catch (PDOException $e) {
     http_response_code(500);

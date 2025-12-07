@@ -27,4 +27,41 @@
         }
         .status-available { background-color: #e8f5e9; color: #2e7d32; }
         .status-borrowed { background-color: #fff3e0; color: #ef6c00; }
-        .action-buttons { margin-top: 30px; display: flex; gap: 15px; }
+
+.btn-back{
+    color: hsl(0, 0%, 60%); 
+    background-color: white; 
+    text-decoration: none;  
+    display: inline-block;   
+    padding: 5px 12px;      
+    border-radius: 5px;     
+    font-weight: 500;       
+    transition: all 0.3s ease;
+}
+
+
+.btn-back:hover{
+    background-color: hsl(0, 0%, 60%); 
+    color: black;                    
+    border-color: hsl(0, 0%, 60%);   
+    cursor: pointer;
+}
+
+.action-buttons{
+    margin-top:2rem;
+    color: black;
+    background-color: white; 
+    display: inline-block;   
+    padding: 8px 16px;      
+    border-radius: 5px;     
+    border-color: white; 
+    font-weight: 500;       
+    transition: all 0.3s ease;
+}
+
+.action-buttons:hover{
+    background-color: hsl(0, 0%, 60%); 
+    color: black;                    
+    border-color: hsl(0, 0%, 60%);   
+    cursor: pointer;
+}

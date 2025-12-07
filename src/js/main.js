@@ -1,19 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // 1. HÀM TẢI COMPONENT (ĐÃ CẬP NHẬT)
-    // Chúng ta thêm một "callback" để nó chạy sau khi tải xong
     const loadComponent = (url, elementId, callback) => {
         fetch(url)
             .then(response => response.text())
             .then(data => {
                 document.getElementById(elementId).innerHTML = data;
                 if (callback) {
-                    callback(); // Gọi hàm callback (nếu có)
+                    callback();
                 }
             });
     };
 
-    // 2. HÀM CẬP NHẬT GIAO DIỆN HEADER (HÀM MỚI)
     function updateAuthUI() {
         const authContainer = document.getElementById('auth-container');
         if (!authContainer) {
@@ -30,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // Tạo một avatar giả bằng chữ cái đầu
             const avatarLetter = user.username.charAt(0).toUpperCase();
 
-            // Thay thế HTML bằng avatar và dropdown
             authContainer.innerHTML = `
                 <div class="profile-container">
                     <div class="profile-avatar" tabindex="0" aria-label="Mở menu người dùng">
@@ -60,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
             
-            // (Tùy chọn) Thêm logic để nhấp vào avatar thì hiện dropdown
+            //Thêm logic để nhấp vào avatar thì hiện dropdown
             const avatar = document.querySelector('.profile-avatar');
             const dropdown = document.querySelector('.profile-dropdown');
             avatar.addEventListener('click', () => {
@@ -68,20 +64,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
         } else {
-            // === Nếu CHƯA ĐĂNG NHẬP ===
-            // HTML mặc định đã là nút Đăng nhập/Đăng ký
-            // nên chúng ta không cần làm gì thêm ở đây.
-            // Đoạn code này chỉ để đảm bảo nếu cần:
-            /*
+
             authContainer.innerHTML = `
                 <a href="login.html" class="btn btn-outline">Đăng nhập</a>
-                <a href="register.html" class="btn">Đăng ký</a>
-            `;
-            */
+                <a href="register.html" class="btn">Đăng ký</a>`;
         }
     }
 
-    // 3. TẢI HEADER VÀ FOOTER (CẬP NHẬT)
+    // TẢI HEADER VÀ FOOTER
     // Tải header và TRUYỀN HÀM updateAuthUI làm callback
     if (document.getElementById('main-header')) {
         loadComponent("layout/header.html", "main-header", updateAuthUI);
@@ -90,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loadComponent("layout/footer.html", "main-footer");
     }
 
-    // 4. XỬ LÝ NÚT BACK TO TOP (Giữ nguyên)
+    // XỬ LÝ NÚT BACK TO TOP
     const backToTopButton = document.getElementById('backToTop');
     if (backToTopButton) {
         window.addEventListener('scroll', () => {

@@ -35,7 +35,6 @@
             loadDonationHistory();
 
             async function loadProfile() {
-                // ... (logic fetch giữ nguyên) ...
                 const res = await fetch('/api/auth/get_profile.php', { headers: { 'Authorization': 'Bearer ' + token } });
                 const user = await res.json();
 
@@ -53,8 +52,8 @@
                     adminDiv.innerHTML = `
                         <a href="/admin/index.php" 
                            class="btn-submit" 
-                           style="background-color: #2c3e50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                           <i class="fas fa-user-shield"></i> Trang Quản Trị
+                           style="background-color: rgb(52, 73, 94); text-decoration: none; display: inline-flex; align-items: center;">
+                           <i class="fas fa-user-shield"></i>Trang Quản Trị
                         </a>
                     `;
                 }
