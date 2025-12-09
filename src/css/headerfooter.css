@@ -131,11 +131,7 @@ header {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-/*
-.nav-links a:hover {
-    background-color: var(--secondary-color);
-}
-*/
+
 .btn {
     display: inline-block;
     background-color: var(--bggray-color);
@@ -167,6 +163,16 @@ header {
     display: flex;
     gap: 10px;
 }
+
+.menu-toggle {
+    display: none;
+    background: black;
+    border: none;
+    font-size: 1.8rem;
+    color: #fff;
+    cursor: pointer;
+}
+
 
 /* footer*/
 footer {
@@ -249,40 +255,70 @@ footer {
     margin-right: auto;
 }
 
-/* Responsive cho Footer */
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column; 
-    }
-
-    .footer-column {
-        border-right: none; 
-        border-bottom: 1px solid #eee; 
-        padding: 1.5rem 0; 
-        text-align: center; 
-    }
-    
-    .footer-column:last-child {
-        border-bottom: none;
-    }
-}
-
 /* Responsive */
 @media (max-width: 768px) {
+    /*responesive cho header*/
     .navbar {
-        flex-direction: column;
-        gap: 15px;
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;  
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 5px;
     }
 
     .nav-links {
-        flex-direction: column;
+        display: none;
         width: 100%;
+        flex-direction: column;
+        text-align: center;
+        background-color: var(--hfcolor);
+        padding: 10px 0;
+        border-top: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+
+    .auth-container {
+        display: none; /* Ẩn đi */
+        width: 100%;
+        justify-content: center;
+        padding-bottom: 10px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-links.active ~ .auth-container {
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Nút đăng nhập/đăng ký trên mobile */
+    .auth-container a {
+        width: 80%; 
         text-align: center;
     }
 
-    .nav-links li {
-        margin: 5px 0;
-    }
+    /* rsps cho phần body*/
 
     .auth-buttons {
         margin-top: 10px;
@@ -318,15 +354,30 @@ footer {
         margin: 0 auto;
         width: 200px;
     }
+
+    /* Responsive cho Footer */
+    .footer-content {
+        flex-direction: column; 
+    }
+
+    .footer-column {
+        border-right: none; 
+        border-bottom: 1px solid #eee; 
+        padding: 1.5rem 0; 
+        text-align: left; 
+        margin-left: 2rem;
+    }
+    
+    .footer-column:last-child {
+        border-bottom: none;
+    }
+
 }
 
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: #fff;
-    cursor: pointer;
+/* Hiệu ứng trượt xuống cho header */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- CSS cho Profile Avatar và Dropdown --- */

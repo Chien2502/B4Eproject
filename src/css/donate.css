@@ -224,9 +224,9 @@ button:hover {
         flex-basis: 100%;
     }
 
-    .navbar {
+    /* .navbar {
         flex-direction: column;
-    }
+    } */
 
     .nav-links {
         margin-top: 20px;

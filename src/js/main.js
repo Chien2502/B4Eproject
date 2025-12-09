@@ -1,6 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
-
-    const loadComponent = (url, elementId, callback) => {
+document.addEventListener('DOMContentLoaded', () => {
+        const loadComponent = (url, elementId, callback) => {
         fetch(url)
             .then(response => response.text())
             .then(data => {
@@ -98,4 +97,46 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     }
+
+    // Lắng nghe cú click trên toàn bộ trang web
+    document.addEventListener('click', (event) => {
+        
+        const toggleBtn = event.target.closest('#menu-toggle');
+        if (toggleBtn) {
+            const navLinks = document.querySelector('.nav-links');
+            const icon = toggleBtn.querySelector('i');
+            
+            if (navLinks) {
+                navLinks.classList.toggle('active');
+                
+                // Đổi icon
+                if (icon) {
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            }
+        }
+        
+        // //Click ra ngoài thì đóng menu
+        // if (!event.target.closest('#menu-toggle') && !event.target.closest('.nav-links')) {
+        //     const navLinks = document.querySelector('.nav-links');
+        //     const toggleBtn = document.getElementById('menu-toggle');
+            
+        //     if (navLinks && navLinks.classList.contains('active')) {
+        //         navLinks.classList.remove('active');
+        //         if (toggleBtn) {
+        //             const icon = toggleBtn.querySelector('i');
+        //             if (icon) {
+        //                 icon.classList.remove('fa-times');
+        //                 icon.classList.add('fa-bars');
+        //             }
+        //         }
+        //     }
+        // }
+    });
 });
