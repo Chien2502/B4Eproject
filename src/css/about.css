@@ -1,92 +1,59 @@
-body {
-    background-color: #f9f9f9;
-    color: var(--dark-color);
-    line-height: 1.8;
-}
-
-.hero {
-    background: #3498db;
-    color: var(--light-color);
-    text-align: center;
-    padding: 4rem 1rem;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 1rem;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-title h2 {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.section-title p {
-    max-width: 600px;
-    margin: 0 auto;
-    color: #555;
+    padding: 60px 20px;
 }
 
 .about-story {
-    background-color: var(--light-color);
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 4rem;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    line-height: 1.8;
+    color: #444;
 }
 
 .about-story p {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    text-align: justify;
 }
 
 .about-story blockquote {
+    font-size: 1.4rem;
     font-style: italic;
-    border-left: 4px solid var(--primary-color);
-    padding-left: 1rem;
-    margin: 1.5rem 0;
-    font-size: 1.2rem;
-    color: #555;
+    color: #3498db;
+    border-left: 5px solid #3498db;
+    padding-left: 20px;
+    margin: 30px 0;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
 }
 
 .founders {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
 }
 
 .founder-card {
-    background-color: var(--light-color);
-    border-radius: 10px;
+    background: white;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
 }
 
 .founder-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 .founder-img {
-    height: 250px;
+    height: 320px; /* Tăng chiều cao ảnh */
     overflow: hidden;
 }
 
@@ -94,117 +61,134 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.founder-card:hover .founder-img img {
+    transform: scale(1.05); 
 }
 
 .founder-bio {
-    padding: 1.5rem;
+    padding: 25px;
 }
 
 .founder-bio h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
 }
 
-.founder-bio p.position {
-    color: var(--secondary-color);
-    font-weight: 500;
-    margin-bottom: 1rem;
+.founder-bio .position {
+    color: #3498db;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .founder-bio ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.founder-bio ul li {
-    margin-bottom: 0.5rem;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.95rem;
 }
 
 .founder-contact {
-    margin-top: 1rem;
     display: flex;
-    gap: 1rem;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
 }
 
 .founder-contact a {
-    color: var(--primary-color);
+    color: #555;
     text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
     display: flex;
     align-items: center;
-}
-
-.founder-contact a i {
-    margin-right: 5px;
+    gap: 5px;
 }
 
 .founder-contact a:hover {
-    text-decoration: underline;
+    color: #3498db;
 }
 
 .contact-section {
-    background-color: var(--light-color);
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 4rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    align-items: start; /* Căn lề trên */
 }
 
 .contact-info h3 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
-.contact-info p {
-    margin-bottom: 1rem;
+.info-item {
     display: flex;
-    align-items: flex-start;
+    margin-bottom: 20px;
+    align-items: flex-start; 
 }
 
-.contact-info p i {
-    margin-right: 10px;
-    color: var(--secondary-color);
-    margin-top: 5px;
+.info-item i {
+    width: 25px; 
+    color: #3498db;
+    font-size: 1.2rem;
+    margin-top: 4px; 
+    flex-shrink: 0;
+}
+
+.info-content strong {
+    display: block;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.info-content span {
+    color: #666;
+}
+
+.icon{
+    margin-top: 7px;
+    margin-right: 5px;
 }
 
 .contact-map {
-    width: 100%;
-    max-height: 600px;
-    border-radius: 10px;
-    overflow: hidden;
+    height: 100%;
+    min-height: 450px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    position: relative;
 }
 
-.contact-map img {
+.contact-map iframe {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    display: block; 
 }
 
-.hours h4 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-}
-
-.hours ul {
-    list-style: none;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-    .hero h1 {
+    .contact-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-content h1 {
         font-size: 2rem;
     }
 
-    .nav-links {
-        display: none;
-    }
-
-    .founders {
-        grid-template-columns: 1fr;
+    .contact-map {
+        min-height: 300px;
     }
 }

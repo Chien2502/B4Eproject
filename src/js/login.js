@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const togglePasswordBtn = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-    const transferLink = document.querySelector('.transfer-link'); // Link chuyển sang đăng ký
+    const transferLink = document.querySelector('.transfer-link');
 
     // 2. HÀM XỬ LÝ ĐÓNG & ĐIỀU HƯỚNG (SMART BACK)
     function handleCloseAndNavigate() {

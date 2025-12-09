@@ -81,70 +81,129 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="content">
     <div style="max-width: 800px; margin: 0 auto;">
-        <h1><?php echo $is_edit ? '✏️ Chỉnh sửa Sách' : 'Thêm Sách Mới'; ?></h1>
-        
+        <h1><?php echo $is_edit ? 'Chỉnh sửa Sách' : 'Thêm Sách Mới'; ?></h1>
+
         <?php echo $message; ?>
 
         <div class="card">
-            <form method="POST" enctype="multipart/form-data">
-                <div class="form-group">
+            <form method="POST" enctype="multipart/form-data" class="form-grid">
+
+                <div class="form-group full-width">
                     <label>Tên sách (*)</label>
-                    <input type="text" name="title" value="<?php echo htmlspecialchars($book['title'] ?? ''); ?>" required style="width:100%; padding:8px;">
+                    <input type="text" name="title" class="form-control" required value="...">
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                    <div class="form-group">
-                        <label>Tác giả (*)</label>
-                        <input type="text" name="author" value="<?php echo htmlspecialchars($book['author'] ?? ''); ?>" required style="width:100%; padding:8px;">
-                    </div>
-                    <div class="form-group">
-                        <label>Thể loại</label>
-                        <select name="category_id" style="width:100%; padding:8px;">
+                <div class="form-group">
+                    <label>Tác giả (*)</label>
+                    <input type="text" name="author" class="form-control" required value="...">
+                </div>
+
+                <div class="form-group">
+                    <label>Thể loại</label>
+                    <div class="input-group">
+                        <select id="categorySelect" name="category_id" class="form-control">
                             <option value="">-- Chọn thể loại --</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo $cat['id']; ?>" 
-                                    <?php echo ($book['category_id'] ?? '') == $cat['id'] ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($cat['name']); ?>
-                                </option>
-                            <?php endforeach; ?>
                         </select>
+                        <button type="button" class="btn btn-blue" onclick="openCatModal()">+</button>
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:15px;">
-                    <div class="form-group">
-                        <label>Nhà xuất bản</label>
-                        <input type="text" name="publisher" value="<?php echo htmlspecialchars($book['publisher'] ?? ''); ?>" style="width:100%; padding:8px;">
-                    </div>
-                    <div class="form-group">
-                        <label>Năm xuất bản</label>
-                        <input type="number" name="year" value="<?php echo htmlspecialchars($book['year'] ?? ''); ?>" style="width:100%; padding:8px;">
-                    </div>
+                <div class="form-group">
+                    <label>Nhà xuất bản</label>
+                    <input type="text" name="publisher" class="form-control" value="...">
                 </div>
 
-                <div class="form-group" style="margin-top:15px;">
+                <div class="form-group">
+                    <label>Năm xuất bản</label>
+                    <input type="number" name="year" class="form-control" value="...">
+                </div>
+
+                <div class="form-group full-width">
                     <label>Mô tả</label>
-                    <textarea name="description" rows="5" style="width:100%; padding:8px;"><?php echo htmlspecialchars($book['description'] ?? ''); ?></textarea>
+                    <textarea name="description" rows="5" class="form-control">...</textarea>
                 </div>
 
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Ảnh bìa</label><br>
-                    <?php if (!empty($book['image_url'])): ?>
-                        <img src="/B4Eproject/<?php echo htmlspecialchars($book['image_url']); ?>" style="width:100px; margin-bottom:10px;"><br>
-                    <?php endif; ?>
-                    <input type="file" name="image" accept="image/*">
-                    <p style="font-size:0.8rem; color:#666;">Để trống nếu không muốn thay đổi ảnh.</p>
+                <div class="form-group full-width">
+                    <label>Ảnh bìa</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" name="image" accept="image/*">
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi
+                            ảnh.</p>
+                    </div>
                 </div>
 
-                <div style="margin-top:20px; text-align:right;">
-                    <a href="manage_books.php" class="btn btn-red" style="margin-right:10px;">Hủy</a>
-                    <button type="submit" class="btn btn-green">
-                        <?php echo $is_edit ? 'Cập nhật' : 'Thêm mới'; ?>
-                    </button>
+                <div class="form-actions">
+                    <a href="manage_books.php" class="btn btn-red">Hủy</a>
+                    <button type="submit" class="btn btn-green">Thêm mới</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<div id="catModal"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:5px; width:300px; box-shadow:0 0 10px rgba(0,0,0,0.3);">
+        <h3>Thêm Thể loại Mới</h3>
+        <input type="text" id="newCatName" placeholder="Nhập tên thể loại..."
+            style="width:100%; padding:8px; margin:10px 0; border:1px solid #ccc;">
+        <div style="text-align:right;">
+            <button type="button" class="btn btn-red" onclick="closeCatModal()">Hủy</button>
+            <button type="button" class="btn btn-green" onclick="saveCategory()">Lưu</button>
+        </div>
+    </div>
+</div>
 
+<script>
+function openCatModal() {
+    document.getElementById('catModal').style.display = 'flex';
+    document.getElementById('newCatName').focus();
+}
+
+function closeCatModal() {
+    document.getElementById('catModal').style.display = 'none';
+    document.getElementById('newCatName').value = ''; // Reset input
+}
+
+async function saveCategory() {
+    const name = document.getElementById('newCatName').value.trim();
+    if (!name) {
+        alert('Vui lòng nhập tên thể loại!');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/categories/create.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message);
+
+            const select = document.getElementById('categorySelect');
+
+            const option = document.createElement('option');
+            option.value = result.id;
+            option.text = result.name;
+            option.selected = true;
+
+            select.appendChild(option);
+
+            closeCatModal();
+        } else {
+            alert('Lỗi: ' + result.error);
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Lỗi kết nối server.');
+    }
+}
+</script>
 <?php require_once 'includes/footer.php'; ?>

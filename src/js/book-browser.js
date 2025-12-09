@@ -77,7 +77,7 @@ function setupBookBrowser(config) {
             const isAvailable = book.status === 'available';
             const statusClass = isAvailable ? 'status-available' : 'status-borrowed';
             const statusText = isAvailable ? 'Có sẵn' : 'Đã mượn';
-
+            const safeTitle = book.title.replace(/'/g, "\\'");
             bookCard.innerHTML = `
                 <div class="book-cover">
                     <img src="${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
@@ -88,7 +88,7 @@ function setupBookBrowser(config) {
                     <p class="book-author">${book.author}</p>
                     <div class="book-actions">
                         <button class="btn btn-primary" 
-                                onclick="handleBorrow(${book.id})" 
+                                onclick="openBorrowModal(${book.id}, '${safeTitle}')"
                                 ${!isAvailable ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
                             ${isAvailable ? 'Mượn sách' : 'Đang bận'}
                         </button>

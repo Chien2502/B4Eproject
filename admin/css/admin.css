@@ -16,7 +16,7 @@ body {
 .main-content { flex: 1; padding: 20px; }
 .header { background: #fff; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-.card { background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
+.card { background: #fff; padding: 28px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
 .card h3 { margin: 0; font-size: 2rem; color: #007bff; }
 .card p { color: #666; }
 table { width: 100%; border-collapse: collapse; background: #fff; }
@@ -26,3 +26,82 @@ th { background: #f8f9fa; }
 .btn-green { background: #28a745; }
 .btn-red { background: #dc3545; }
 .btn-blue { background: #007bff; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    text-align: left; 
+}
+
+
+.full-width {
+    grid-column: 1 / -1; 
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column; 
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    box-sizing: border-box; 
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group select {
+    flex: 1;
+}
+
+
+.file-upload-wrapper {
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px dashed #ddd;
+    border-radius: 5px;
+    text-align: center;
+    background: #fafafa;
+}
+
+.form-actions {
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn:hover {
+    opacity: 0.9;
+}

@@ -14,15 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => console.error('Lỗi tải thống kê:', err));
 
-        // 2. TẢI SÁCH MỚI NHẤT (New Books)
+        // 2. TẢI SÁCH MỚI NHẤT
         fetch('../../api/books/read.php?sort=newest')
             .then(res => res.json())
-            .then(books => {
+            .then(response => { 
                 const container = document.getElementById('new-books-list');
-                container.innerHTML = ''; // Xóa loading
-
-                // Lấy 4 cuốn mới nhất
-                const newBooks = books.slice(0, 4);
+                container.innerHTML = ''; 
+                const bookList = response.data || []; 
+                const newBooks = bookList.slice(0, 4); 
 
                 if (newBooks.length === 0) {
                     container.innerHTML = '<p>Chưa có sách nào.</p>';
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 newBooks.forEach(book => {
                     const div = document.createElement('div');
                     div.className = 'book-item';
-                    // Sự kiện click để xem chi tiết
+                    
                     div.onclick = () => window.location.href = `books.html?id=${book.id}`;
                     div.style.cursor = 'pointer';
 
@@ -45,4 +44,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .catch(err => console.error('Lỗi tải sách mới:', err));
-    });
+        });

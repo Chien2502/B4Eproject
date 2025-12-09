@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Lấy ID từ URL (ví dụ: demopage.html?id=123)
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
 
@@ -50,8 +49,9 @@ function renderBookDetails(book) {
         // Kích hoạt nút mượn
         borrowBtn.disabled = false;
         borrowBtn.textContent = 'Mượn sách này';
-        borrowBtn.onclick = () => handleBorrowDetail(book.id);
-    } else {
+        borrowBtn.onclick = () => {
+        window.openBorrowModal(book.id, book.title);
+    }} else {
         statusBadge.textContent = 'Đã được mượn';
         statusBadge.className = 'book-status status-borrowed';
         
@@ -63,7 +63,7 @@ function renderBookDetails(book) {
     }
 }
 
-// 4. Hàm xử lý mượn sách (Dành riêng cho trang chi tiết)
+// 4. Hàm xử lý mượn sách
 async function handleBorrowDetail(bookId) {
     const token = localStorage.getItem('b4e_token');
 
@@ -96,5 +96,13 @@ async function handleBorrowDetail(bookId) {
     } catch (error) {
         console.error(error);
         alert('Không thể kết nối đến máy chủ.');
+    }
+}
+
+//xử lí nút back
+function handleBack(e) {
+    if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+        e.preventDefault(); 
+        window.history.back();
     }
 }
