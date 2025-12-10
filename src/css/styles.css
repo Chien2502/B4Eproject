@@ -3,9 +3,8 @@ html {
 }
 
 .hero {
-  background-color: var(--secondary-color);
-  color: white;
   padding: 60px 0;
+  min-width: 400px;
   text-align: center;
 }
 
