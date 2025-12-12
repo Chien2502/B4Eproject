@@ -90,12 +90,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group full-width">
                     <label>Tên sách (*)</label>
-                    <input type="text" name="title" class="form-control" required value="...">
+                    <input type="text" name="title" class="form-control" required 
+                           value="<?php echo htmlspecialchars($book['title']); ?>">
                 </div>
 
                 <div class="form-group">
                     <label>Tác giả (*)</label>
-                    <input type="text" name="author" class="form-control" required value="...">
+                    <input type="text" name="author" class="form-control" required 
+                           value="<?php echo htmlspecialchars($book['author']); ?>">
                 </div>
 
                 <div class="form-group">
@@ -103,6 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="input-group">
                         <select id="categorySelect" name="category_id" class="form-control">
                             <option value="">-- Chọn thể loại --</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo $cat['id']; ?>" 
+                                    <?php echo ($book['category_id'] == $cat['id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($cat['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                         <button type="button" class="btn btn-blue" onclick="openCatModal()">+</button>
                     </div>
@@ -110,31 +118,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group">
                     <label>Nhà xuất bản</label>
-                    <input type="text" name="publisher" class="form-control" value="...">
+                    <input type="text" name="publisher" class="form-control" 
+                           value="<?php echo htmlspecialchars($book['publisher']); ?>">
                 </div>
 
                 <div class="form-group">
                     <label>Năm xuất bản</label>
-                    <input type="number" name="year" class="form-control" value="...">
+                    <input type="number" name="year" class="form-control" 
+                           value="<?php echo htmlspecialchars($book['year']); ?>">
                 </div>
 
                 <div class="form-group full-width">
                     <label>Mô tả</label>
-                    <textarea name="description" rows="5" class="form-control">...</textarea>
+                    <textarea name="description" rows="5" class="form-control"><?php echo htmlspecialchars($book['description']); ?></textarea>
                 </div>
 
                 <div class="form-group full-width">
                     <label>Ảnh bìa</label>
                     <div class="file-upload-wrapper">
+                        <?php if (!empty($book['image_url'])): ?>
+                            <div style="margin-bottom:10px;">
+                                <img src="/B4Eproject/<?php echo htmlspecialchars($book['image_url']); ?>" style="height: 100px; border-radius: 4px;">
+                                <br><small>Ảnh hiện tại</small>
+                            </div>
+                        <?php endif; ?>
+                        
                         <input type="file" name="image" accept="image/*">
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi
-                            ảnh.</p>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi ảnh.</p>
                     </div>
                 </div>
 
                 <div class="form-actions">
                     <a href="manage_books.php" class="btn btn-red">Hủy</a>
-                    <button type="submit" class="btn btn-green">Thêm mới</button>
+                    <button type="submit" class="btn btn-green">
+                        <?php echo $is_edit ? 'Cập nhật' : 'Thêm mới'; ?>
+                    </button>
                 </div>
             </form>
         </div>

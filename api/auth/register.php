@@ -50,7 +50,7 @@ try {
     $stmt_check_user = $db->prepare($query_check_user);
     $stmt_check_user->execute([$data->username]);
     if ($stmt_check_user->fetch()) {
-        http_response_code(409); // 409 Conflict (Xung đột)
+        http_response_code(response_code: 409); // 409 Conflict (Xung đột)
         echo json_encode(['error' => 'Username này đã tồn tại.']);
         exit;
     }

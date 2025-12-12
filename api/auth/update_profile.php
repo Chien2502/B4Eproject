@@ -1,4 +1,4 @@
-<?php
+    <?php
 // file: api/auth/update_profile.php
 
 header('Content-Type: application/json');

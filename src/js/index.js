@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
         
-        // 1. TẢI THỐNG KÊ (Stats)
-        fetch('../../api/public/status.php')
+        // 1. TẢI THỐNG KÊ
+        fetch('/api/public/stats.php')
             .then(res => res.json())
             .then(data => {
                 // Hàm định dạng số
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Lỗi tải thống kê:', err));
 
         // 2. TẢI SÁCH MỚI NHẤT
-        fetch('../../api/books/read.php?sort=newest')
+        fetch('/api/books/read.php?sort=newest')
             .then(res => res.json())
             .then(response => { 
                 const container = document.getElementById('new-books-list');

@@ -35,9 +35,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                     <td>
                         <?php 
-                        if ($u['role'] === 'admin' || $u['role'] === 'super-admin') {
+                        if ($u['role'] === 'admin') {
                             echo '<span class="badge" style="background:#6f42c1; color:white;">Admin</span>';
-                        } else {
+                        } if ($u['role'] === 'super-admin') {
+                            echo '<span class="badge" style="background:#6f42c1; color:white;">Super-Admin</span>';
+                        }else {
                             echo '<span class="badge" style="background:#17a2b8; color:white;">User</span>';
                         }
                         ?>
@@ -70,7 +72,7 @@ async function deleteUser(id) {
     if (!confirm('CẢNH BÁO: Xóa người dùng sẽ xóa luôn lịch sử mượn và quyên góp của họ. Bạn có chắc chắn không?')) return;
 
     try {
-        const response = await fetch('../api/admin/delete_user.php', {
+        const response = await fetch('/api/admin/delete_user.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: id })

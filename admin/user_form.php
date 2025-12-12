@@ -34,7 +34,7 @@ if (!$user) { echo "Người dùng không tồn tại!"; exit; }
 
 <div class="content">
     <div style="max-width: 600px; margin: 0 auto;">
-        <h1>✏️ Chỉnh sửa Người dùng</h1>
+        <h1>Chỉnh sửa Người dùng</h1>
         <?php echo $message; ?>
 
         <div class="card">
@@ -56,7 +56,7 @@ if (!$user) { echo "Người dùng không tồn tại!"; exit; }
                         <option value="admin" <?php echo ($user['role'] == 'admin') ? 'selected' : ''; ?>>Admin (Quản trị viên)</option>
                         <option value="super-admin" <?php echo ($user['role'] == 'super-admin') ? 'selected' : ''; ?>>Super Admin</option>
                     </select>
-                    <p style="font-size:0.8rem; color:#666;">⚠️ Cẩn trọng khi cấp quyền Admin.</p>
+                    <p style="font-size:0.8rem; color:#666;">Cẩn trọng khi cấp quyền Admin.</p>
                 </div>
 
                 <div class="form-group" style="margin-top:15px;">

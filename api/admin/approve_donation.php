@@ -36,7 +36,7 @@ $db = $database->connect();
 
 try {
     // 5. BẮT ĐẦU GIAO DỊCH (TRANSACTION)
-    // Quan trọng: Đảm bảo cả 2 việc (Thêm sách & Cập nhật quyên góp) cùng thành công hoặc cùng thất bại.
+    //Đảm bảo cả 2 việc (Thêm sách & Cập nhật quyên góp) cùng thành công hoặc cùng thất bại.
     $db->beginTransaction();
 
     // BƯỚC 5.1: Lấy thông tin từ bảng Donations
@@ -51,8 +51,6 @@ try {
     $donation = $stmt_get->fetch(PDO::FETCH_ASSOC);
 
     // BƯỚC 5.2: Thêm sách mới vào bảng Books
-    // Lưu ý: category_id tạm thời để NULL (Admin có thể cập nhật sau khi sách vào kho)
-    // image_url để NULL hoặc set ảnh mặc định
     $query_insert = "INSERT INTO books (title, author, publisher, year, description, status, created_at) 
                      VALUES (?, ?, ?, ?, ?, 'available', NOW())";
     

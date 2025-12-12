@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 session_start();
 
 // 1. Kiểm tra quyền truy cập ban đầu
-// Chỉ cho phép admin hoặc super-admin vào API này
 if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Unauthorized']);
@@ -49,7 +48,6 @@ try {
             echo json_encode(['error' => 'Quyền hạn không đủ: Admin không thể xóa Admin khác hoặc Super-Admin.']);
             exit;
         }
-        // Admin chỉ được xóa 'user' -> Code sẽ chạy tiếp xuống dưới
     }
     
     // 5. Thực hiện xóa
