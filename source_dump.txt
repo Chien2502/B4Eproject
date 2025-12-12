@@ -1,4 +1,5 @@
 # ==================================================
+# Path: C:\xampp\htdocs\B4Eproject
 # Detected tech: javascript, php
 # ==================================================
 
@@ -43,7 +44,8 @@ B4Eproject/
 │   ├── borrowings/
 │   │   └── create.php
 │   ├── categories/
-│   │   └── create.php
+│   │   ├── create.php
+│   │   └── read.php
 │   ├── config/
 │   │   ├── database.php
 │   │   ├── database.sql
@@ -51,7 +53,7 @@ B4Eproject/
 │   ├── donations/
 │   │   └── create.php
 │   ├── public/
-│   │   └── status.php
+│   │   └── stats.php
 │   ├── users/
 │   │   ├── borrowings.php
 │   │   ├── donations.php
@@ -74,6 +76,14 @@ B4Eproject/
 │   │   ├── Book/
 │   │   │   ├── 1764830698_Ảnh chụp màn hình 2025-11-26 141048.png
 │   │   │   ├── 1764926106_sapiens-luoc-su-ve-loai-nguoi-outline-5-7-2017-02.webp
+│   │   │   ├── 1765506122_sach-giao-khoa-toan-9-tap-2.png
+│   │   │   ├── 1765506181_sach-giao-khoa-toan-9-tap-2.png
+│   │   │   ├── 1765506235_Tắt_đèn-Nhã_Nam.jpeg
+│   │   │   ├── 1765506271_cha-giau-cha-ngheo.jpg
+│   │   │   ├── 1765506315_docvibatkiai.jpg
+│   │   │   ├── 1765506344_de_men_phieu_luu_ky_ban_du__to_hoai.jpg
+│   │   │   ├── 1765506377_nxbtre_full_21042022_030444.jpg
+│   │   │   ├── 1765506439_-1726817123.jpg
 │   │   │   ├── Lược_sử_thời_gian.jpg
 │   │   │   ├── Nha_gia_kim.png
 │   │   │   ├── Thế_giới_phẳng.jpg
@@ -104,6 +114,9 @@ B4Eproject/
 │   │   │   ├── icon.svg
 │   │   │   └── vitmeme.jpg
 │   │   ├── video/
+│   │   │   ├── about.mp4
+│   │   │   ├── borrow.mp4
+│   │   │   ├── donation.mp4
 │   │   │   └── intro.mp4
 │   │   └── default-book.png
 │   ├── js/
@@ -134,6 +147,8 @@ B4Eproject/
 │   ├── questionsyoumayhave.html
 │   └── register.html
 ├── vendor/
+├── CNAME
+├── README.md
 ├── composer.json
 ├── composer.lock
 └── index.html
@@ -235,12 +250,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group full-width">
                     <label>Tên sách (*)</label>
-                    <input type="text" name="title" class="form-control" required value="...">
+                    <input type="text" name="title" class="form-control" required 
+                           value="<?php echo htmlspecialchars($book['title']); ?>">
                 </div>
 
                 <div class="form-group">
                     <label>Tác giả (*)</label>
-                    <input type="text" name="author" class="form-control" required value="...">
+                    <input type="text" name="author" class="form-control" required 
+                           value="<?php echo htmlspecialchars($book['author']); ?>">
                 </div>
 
                 <div class="form-group">
@@ -248,6 +265,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="input-group">
                         <select id="categorySelect" name="category_id" class="form-control">
                             <option value="">-- Chọn thể loại --</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo $cat['id']; ?>" 
+                                    <?php echo ($book['category_id'] == $cat['id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($cat['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                         <button type="button" class="btn btn-blue" onclick="openCatModal()">+</button>
                     </div>
@@ -255,31 +278,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group">
                     <label>Nhà xuất bản</label>
-                    <input type="text" name="publisher" class="form-control" value="...">
+                    <input type="text" name="publisher" class="form-control" 
+                           value="<?php echo htmlspecialchars($book['publisher']); ?>">
                 </div>
 
                 <div class="form-group">
                     <label>Năm xuất bản</label>
-                    <input type="number" name="year" class="form-control" value="...">
+                    <input type="number" name="year" class="form-control" 
+                           value="<?php echo htmlspecialchars($book['year']); ?>">
                 </div>
 
                 <div class="form-group full-width">
                     <label>Mô tả</label>
-                    <textarea name="description" rows="5" class="form-control">...</textarea>
+                    <textarea name="description" rows="5" class="form-control"><?php echo htmlspecialchars($book['description']); ?></textarea>
                 </div>
 
                 <div class="form-group full-width">
                     <label>Ảnh bìa</label>
                     <div class="file-upload-wrapper">
+                        <?php if (!empty($book['image_url'])): ?>
+                            <div style="margin-bottom:10px;">
+                                <img src="/B4Eproject/<?php echo htmlspecialchars($book['image_url']); ?>" style="height: 100px; border-radius: 4px;">
+                                <br><small>Ảnh hiện tại</small>
+                            </div>
+                        <?php endif; ?>
+                        
                         <input type="file" name="image" accept="image/*">
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi
-                            ảnh.</p>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi ảnh.</p>
                     </div>
                 </div>
 
                 <div class="form-actions">
                     <a href="manage_books.php" class="btn btn-red">Hủy</a>
-                    <button type="submit" class="btn btn-green">Thêm mới</button>
+                    <button type="submit" class="btn btn-green">
+                        <?php echo $is_edit ? 'Cập nhật' : 'Thêm mới'; ?>
+                    </button>
                 </div>
             </form>
         </div>
@@ -816,9 +849,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                     <td>
                         <?php 
-                        if ($u['role'] === 'admin' || $u['role'] === 'super-admin') {
+                        if ($u['role'] === 'admin') {
                             echo '<span class="badge" style="background:#6f42c1; color:white;">Admin</span>';
-                        } else {
+                        } if ($u['role'] === 'super-admin') {
+                            echo '<span class="badge" style="background:#6f42c1; color:white;">Super-Admin</span>';
+                        }else {
                             echo '<span class="badge" style="background:#17a2b8; color:white;">User</span>';
                         }
                         ?>
@@ -851,7 +886,7 @@ async function deleteUser(id) {
     if (!confirm('CẢNH BÁO: Xóa người dùng sẽ xóa luôn lịch sử mượn và quyên góp của họ. Bạn có chắc chắn không?')) return;
 
     try {
-        const response = await fetch('../api/admin/delete_user.php', {
+        const response = await fetch('/api/admin/delete_user.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: id })
@@ -912,7 +947,7 @@ if (!$user) { echo "Người dùng không tồn tại!"; exit; }
 
 <div class="content">
     <div style="max-width: 600px; margin: 0 auto;">
-        <h1>✏️ Chỉnh sửa Người dùng</h1>
+        <h1>Chỉnh sửa Người dùng</h1>
         <?php echo $message; ?>
 
         <div class="card">
@@ -934,7 +969,7 @@ if (!$user) { echo "Người dùng không tồn tại!"; exit; }
                         <option value="admin" <?php echo ($user['role'] == 'admin') ? 'selected' : ''; ?>>Admin (Quản trị viên)</option>
                         <option value="super-admin" <?php echo ($user['role'] == 'super-admin') ? 'selected' : ''; ?>>Super Admin</option>
                     </select>
-                    <p style="font-size:0.8rem; color:#666;">⚠️ Cẩn trọng khi cấp quyền Admin.</p>
+                    <p style="font-size:0.8rem; color:#666;">Cẩn trọng khi cấp quyền Admin.</p>
                 </div>
 
                 <div class="form-group" style="margin-top:15px;">
@@ -1056,7 +1091,7 @@ $db = $database->connect();
 
 try {
     // 5. BẮT ĐẦU GIAO DỊCH (TRANSACTION)
-    // Quan trọng: Đảm bảo cả 2 việc (Thêm sách & Cập nhật quyên góp) cùng thành công hoặc cùng thất bại.
+    //Đảm bảo cả 2 việc (Thêm sách & Cập nhật quyên góp) cùng thành công hoặc cùng thất bại.
     $db->beginTransaction();
 
     // BƯỚC 5.1: Lấy thông tin từ bảng Donations
@@ -1071,8 +1106,6 @@ try {
     $donation = $stmt_get->fetch(PDO::FETCH_ASSOC);
 
     // BƯỚC 5.2: Thêm sách mới vào bảng Books
-    // Lưu ý: category_id tạm thời để NULL (Admin có thể cập nhật sau khi sách vào kho)
-    // image_url để NULL hoặc set ảnh mặc định
     $query_insert = "INSERT INTO books (title, author, publisher, year, description, status, created_at) 
                      VALUES (?, ?, ?, ?, ?, 'available', NOW())";
     
@@ -1189,7 +1222,6 @@ header('Content-Type: application/json');
 session_start();
 
 // 1. Kiểm tra quyền truy cập ban đầu
-// Chỉ cho phép admin hoặc super-admin vào API này
 if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Unauthorized']);
@@ -1235,7 +1267,6 @@ try {
             echo json_encode(['error' => 'Quyền hạn không đủ: Admin không thể xóa Admin khác hoặc Super-Admin.']);
             exit;
         }
-        // Admin chỉ được xóa 'user' -> Code sẽ chạy tiếp xuống dưới
     }
     
     // 5. Thực hiện xóa
@@ -1306,7 +1337,6 @@ try {
 ### api\auth\get_profile.php
 ```php
 <?php
-// file: api/auth/get_profile.php
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -1540,7 +1570,7 @@ try {
     $stmt_check_user = $db->prepare($query_check_user);
     $stmt_check_user->execute([$data->username]);
     if ($stmt_check_user->fetch()) {
-        http_response_code(409); // 409 Conflict (Xung đột)
+        http_response_code(response_code: 409); // 409 Conflict (Xung đột)
         echo json_encode(['error' => 'Username này đã tồn tại.']);
         exit;
     }
@@ -1588,7 +1618,7 @@ try {
 
 ### api\auth\update_profile.php
 ```php
-<?php
+    <?php
 // file: api/auth/update_profile.php
 
 header('Content-Type: application/json');
@@ -2005,12 +2035,40 @@ try {
 ?>
 ```
 
+### api\categories\read.php
+```php
+<?php
+// file: api/categories/read.php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+require_once '../config/database.php';
+
+try {
+    $database = new Database();
+    $db = $database->connect();
+
+    // Lấy tất cả thể loại, sắp xếp theo tên A-Z
+    $query = "SELECT * FROM categories ORDER BY name ASC";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($categories);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
 ### api\config\database.php
 ```php
 <?php
 
 class Database {
-    // Thông tin CSDL
     private $host = 'localhost';        
     private $db_name = 'b4e_library'; 
     private $username = 'root';        
@@ -2187,7 +2245,7 @@ try {
 ?>
 ```
 
-### api\public\status.php
+### api\public\stats.php
 ```php
 <?php
 
@@ -2200,16 +2258,12 @@ try {
     $database = new Database();
     $db = $database->connect();
 
-    // 1. Đếm tổng đầu sách
     $books = $db->query("SELECT COUNT(*) FROM books")->fetchColumn();
 
-    // 2. Đếm tổng thành viên (trừ admin)
     $users = $db->query("SELECT COUNT(*) FROM users WHERE role = 'user'")->fetchColumn();
 
-    // 3. Đếm người quyên góp (Đếm user_id duy nhất trong bảng donations)
     $donors = $db->query("SELECT COUNT(DISTINCT user_id) FROM donations")->fetchColumn();
 
-    // 4. Đếm lượt mượn sách
     $borrows = $db->query("SELECT COUNT(*) FROM borrowings")->fetchColumn();
 
     echo json_encode([
@@ -2697,24 +2751,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### src\js\book-browser.js
 ```js
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector('.search-container') || document.querySelector('.books-grid')) {
-        setupBookBrowser({
-            gridSelector: '.books-grid',
-            searchSelector: '.search-input input',
-            categorySelector: '.category-filters',  
-            sortSelector: 'select[name="sort"]',
-            statusSelector: 'select[name="status"]'
-        });
-    }
-});
-
 function setupBookBrowser(config) {
     const bookGrid = document.querySelector(config.gridSelector);
-    
-    // Tạo container cho phân trang nếu chưa có
+    const categoryContainer = document.getElementById('category-container'); 
+
+    //Tạo container phân trang
     let paginationContainer = document.querySelector('.pagination-controls');
-    if (!paginationContainer) {
+    if (!paginationContainer && bookGrid) {
         paginationContainer = document.createElement('div');
         paginationContainer.className = 'pagination-controls';
         bookGrid.parentNode.insertBefore(paginationContainer, bookGrid.nextSibling);
@@ -2722,43 +2765,98 @@ function setupBookBrowser(config) {
 
     if (!bookGrid) return;
 
+    // Biến lưu trạng thái lọc hiện tại
     let currentFilters = {
         search: '',
-        category: 'Tất cả',
+        category: 'Tất cả', // Mặc định
         status: 'all',
         sort: 'newest',
-        page: 1, 
+        page: 1,
         limit: 12
     };
+
+    // --- 1. HÀM TẢI DANH MỤC TỪ DATABASE ---
+    async function loadCategories() {
+        try {
+            const res = await fetch('/api/categories/read.php');
+            const categories = await res.json();
+
+            categoryContainer.innerHTML = '';
+
+            // 1. Tạo nút "Tất cả" đầu tiên
+            const allBtn = document.createElement('div');
+            allBtn.className = 'category-filter active'; // Mặc định active
+            allBtn.innerText = 'Tất cả';
+            allBtn.dataset.name = 'Tất cả';
+            allBtn.onclick = () => handleCategoryClick(allBtn, 'Tất cả');
+            categoryContainer.appendChild(allBtn);
+
+            // 2. Tạo nút cho từng thể loại từ DB
+            categories.forEach(cat => {
+                const btn = document.createElement('div');
+                btn.className = 'category-filter';
+                btn.innerText = cat.name;
+                btn.dataset.name = cat.name; // Lưu tên để lọc
+                btn.onclick = () => handleCategoryClick(btn, cat.name);
+                categoryContainer.appendChild(btn);
+            });
+
+        } catch (error) {
+            console.error('Lỗi tải danh mục:', error);
+            categoryContainer.innerHTML = '<div class="category-filter active">Tất cả</div>';
+        }
+    }
+
+    // --- 2. XỬ LÝ KHI CLICK CHỌN THỂ LOẠI ---
+    function handleCategoryClick(clickedBtn, categoryName) {
+        // Xóa class active ở tất cả các nút
+        const allBtns = categoryContainer.querySelectorAll('.category-filter');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+
+        // Thêm class active cho nút vừa bấm
+        clickedBtn.classList.add('active');
+
+        // Cập nhật bộ lọc và tải lại sách
+        currentFilters.category = categoryName;
+        currentFilters.page = 1; // Reset về trang 1
+        fetchBooks();
+    }
 
     // 1. Gọi API
     async function fetchBooks() {
         const params = new URLSearchParams();
         if (currentFilters.search) params.append('search', currentFilters.search);
-        if (currentFilters.category !== 'Tất cả') params.append('category', currentFilters.category);
+        
+        // Chỉ gửi param category nếu khác "Tất cả"
+        if (currentFilters.category !== 'Tất cả') {
+            params.append('category', currentFilters.category);
+        }
+        
         if (currentFilters.status !== 'all') params.append('status', currentFilters.status);
         params.append('sort', currentFilters.sort);
-        
-        //Thêm params phân trang
         params.append('page', currentFilters.page);
         params.append('limit', currentFilters.limit);
 
         const apiUrl = `/api/books/read.php?${params.toString()}`;
         
-        // Hiển thị loading nhẹ
         bookGrid.style.opacity = '0.5';
 
         try {
             const response = await fetch(apiUrl);
-            const result = await response.json(); 
+            const result = await response.json();
             
-            displayBooks(result.data); // Chỉ truyền mảng sách vào hàm hiển thị
-            renderPagination(result.pagination); // Vẽ nút phân trang
+            // Xử lý dữ liệu trả về (Object {data, pagination} hay Array)
+            const books = result.data ? result.data : result;
+            const pagination = result.pagination || null;
+
+            displayBooks(books);
+            
+            if(pagination) renderPagination(pagination);
             
             bookGrid.style.opacity = '1';
         } catch (error) {
             console.error('Lỗi:', error);
-            bookGrid.innerHTML = '<p style="text-align:center; color:red;">Không thể tải sách.</p>';
+            bookGrid.innerHTML = '<p style="text-align:center; color:red;">Lỗi kết nối.</p>';
         }
     }
 
@@ -2837,11 +2935,30 @@ function setupBookBrowser(config) {
 
     // 5. Gắn sự kiện (Cập nhật logic reset page về 1 khi lọc)
     const searchInput = document.querySelector(config.searchSelector);
-    if (searchInput) searchInput.addEventListener('input', (e) => {
-        currentFilters.search = e.target.value; 
-        currentFilters.page = 1; // Reset về trang 1 khi tìm kiếm
-        fetchBooks();
-    });
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentFilters.search = e.target.value;
+            currentFilters.page = 1;
+            fetchBooks();
+        });
+    }
+
+    const sortSelect = document.querySelector('select[name="sort"]');
+    if(sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+            currentFilters.sort = e.target.value;
+            fetchBooks();
+        });
+    }
+
+    const statusSelect = document.querySelector('select[name="status"]');
+    if(statusSelect) {
+        statusSelect.addEventListener('change', (e) => {
+            currentFilters.status = e.target.value;
+            currentFilters.page = 1;
+            fetchBooks();
+        });
+    }
 
     const categoryLinks = document.querySelectorAll(config.categorySelector);
     categoryLinks.forEach(link => link.addEventListener('click', (e) => {
@@ -2853,23 +2970,19 @@ function setupBookBrowser(config) {
         fetchBooks();
     }));
 
-    const sortSelect = document.querySelector(config.sortSelector);
-    if(sortSelect) sortSelect.addEventListener('change', (e) => {
-        currentFilters.sort = e.target.value; 
-        currentFilters.page = 1;
-        fetchBooks();
-    });
-
-    const statusSelect = document.querySelector(config.statusSelector);
-    if(statusSelect) statusSelect.addEventListener('change', (e) => {
-        currentFilters.status = e.target.value; 
-        currentFilters.page = 1;
-        fetchBooks();
-    });
-
     // Chạy lần đầu
-    fetchBooks();
+    loadCategories(); // Tải danh mục trước
+    fetchBooks();     // Tải sách sau
 }
+
+// Gọi hàm setup khi trang load
+document.addEventListener('DOMContentLoaded', () => {
+    setupBookBrowser({
+        gridSelector: '.books-grid',
+        searchSelector: '.search-input input',
+        categorySelector: '.category-filter'
+    });
+});
 
 // Hàm xử lý mượn sách toàn cục
 window.handleBorrow = async function(bookId) {
@@ -3229,8 +3342,8 @@ document.addEventListener('DOMContentLoaded', () => {
 ```js
 document.addEventListener('DOMContentLoaded', () => {
         
-        // 1. TẢI THỐNG KÊ (Stats)
-        fetch('../../api/public/status.php')
+        // 1. TẢI THỐNG KÊ
+        fetch('/api/public/stats.php')
             .then(res => res.json())
             .then(data => {
                 // Hàm định dạng số
@@ -3244,7 +3357,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Lỗi tải thống kê:', err));
 
         // 2. TẢI SÁCH MỚI NHẤT
-        fetch('../../api/books/read.php?sort=newest')
+        fetch('/api/books/read.php?sort=newest')
             .then(res => res.json())
             .then(response => { 
                 const container = document.getElementById('new-books-list');
