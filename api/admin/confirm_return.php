@@ -1,57 +1,67 @@
 <?php
-header('Content-Type: application/json');
-session_start();
+// 1. Cấu hình CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// 1. Kiểm tra quyền Admin
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+// Xử lý Preflight
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
-$data = json_decode(file_get_contents('php://input'));
-
-if (empty($data->borrow_id)) {
-    http_response_code(400); echo json_encode(['error' => 'Thiếu ID lượt mượn.']); exit;
-}
-
-$database = new Database();
-$db = $database->connect();
+require_once '../config/middleware.php';
 
 try {
-    $db->beginTransaction();
+    // 2. Kiểm tra Admin
+    checkAdminAuth();
 
-    // 2. Lấy thông tin lượt mượn để biết Book ID là gì
-    $stmt = $db->prepare("SELECT book_id, status FROM borrowings WHERE id = ?");
-    $stmt->execute([$data->borrow_id]);
-    $borrow = $stmt->fetch(PDO::FETCH_ASSOC);
+    // 3. NHẬN DỮ LIỆU JSON
+    $data = json_decode(file_get_contents("php://input"));
 
-    if (!$borrow) {
-        throw new Exception("Lượt mượn không tồn tại.");
+    if (!isset($data->borrow_id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu ID phiếu mượn']);
+        exit;
+    }
+
+    $db = (new Database())->connect();
+
+    // 4. Kiểm tra trạng thái hiện tại
+    // Chỉ xử lý nếu đang mượn (borrowed) hoặc đang trả (returning) hoặc quá hạn (overdue)
+    $stmtCheck = $db->prepare("SELECT book_id, status FROM borrowings WHERE id = ?");
+    $stmtCheck->execute([$data->borrow_id]);
+    $borrowing = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+    if (!$borrowing) {
+        throw new Exception("Không tìm thấy phiếu mượn.");
     }
     
-    // Chỉ cho phép xác nhận nếu đang mượn hoặc đang trả
-    if ($borrow['status'] == 'returned') {
-        throw new Exception("Lượt mượn này đã được hoàn tất trước đó.");
+    // Nếu đã trả rồi thì thôi
+    if ($borrowing['status'] === 'returned') {
+        echo json_encode(['message' => 'Sách này đã được trả trước đó rồi.']);
+        exit;
     }
 
-    // 3. Cập nhật bảng Borrowings (Đánh dấu đã trả + Ngày trả thực tế)
-    $update_borrow = "UPDATE borrowings SET status = 'returned', return_date = CURDATE() WHERE id = ?";
-    $stmt1 = $db->prepare($update_borrow);
-    $stmt1->execute([$data->borrow_id]);
+    // 5. Cập nhật phiếu mượn -> returned
+    $stmt = $db->prepare("UPDATE borrowings SET status = 'returned', return_date = NOW() WHERE id = ?");
+    if (!$stmt->execute([$data->borrow_id])) {
+        throw new Exception("Lỗi khi cập nhật phiếu mượn.");
+    }
 
-    // 4. Cập nhật bảng Books (Đánh dấu sách có sẵn)
-    $update_book = "UPDATE books SET status = 'available' WHERE id = ?";
-    $stmt2 = $db->prepare($update_book);
-    $stmt2->execute([$borrow['book_id']]);
+    // 6. Cập nhật sách -> available (Trả kho)
+    // Chỉ cập nhật nếu sách chưa bị xóa mềm (is_deleted = 0)
+    if ($borrowing['book_id']) {
+        $stmtBook = $db->prepare("UPDATE books SET status = 'available' WHERE id = ?");
+        $stmtBook->execute([$borrowing['book_id']]);
+    }
 
-    $db->commit();
-    echo json_encode(['message' => 'Đã xác nhận trả sách. Sách đã có sẵn trong kho.']);
+    echo json_encode(['message' => 'Đã xác nhận trả sách thành công!']);
 
 } catch (Exception $e) {
-    if ($db->inTransaction()) $db->rollBack();
     http_response_code(500);
-    echo json_encode(['error' => 'Lỗi: ' . $e->getMessage()]);
+    echo json_encode(['error' => $e->getMessage()]);
 }
 ?>

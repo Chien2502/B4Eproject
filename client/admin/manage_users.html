@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Người dùng</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+</head>
+<body>
+    
+    <div class="main-content">
+        <div class="content">
+            <h1>Quản lý Người dùng</h1>
+            <p>Danh sách tất cả tài khoản trong hệ thống.</p>
+
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên đăng nhập / Email</th>
+                            <th>Vai trò (Role)</th>
+                            <th>Thông tin liên hệ</th>
+                            <th>Ngày tham gia</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align:center; padding: 20px;">Đang tải dữ liệu...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="js/admin-layout.js"></script>
+    <script src="js/manage_users.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

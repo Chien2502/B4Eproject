@@ -1,52 +1,50 @@
 <?php
-header('Content-Type: application/json');
-session_start();
+// 1. Cấu hình CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// Kiểm tra quyền Admin
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
-$data = json_decode(file_get_contents('php://input'));
-
-if (empty($data->id)) {
-    http_response_code(400); echo json_encode(['error' => 'Thiếu ID sách.']); exit;
-}
+require_once '../config/middleware.php';
 
 try {
-    $db = (new Database())->connect();
-    
-    // Kiểm tra xem sách có đang được mượn không? (Nếu đang mượn thì không được xóa)
-    $check = $db->prepare("SELECT COUNT(*) FROM borrowings WHERE book_id = ? AND status = 'borrowed'");
-    $check->execute([$data->id]);
-    if ($check->fetchColumn() > 0) {
-        http_response_code(409); // Conflict
-        echo json_encode(['error' => 'Không thể xóa! Sách này đang có người mượn.']);
+    // 2. Kiểm tra Auth
+    $admin_data = checkAdminAuth();
+
+    // 3. Lấy dữ liệu ID
+    $data = json_decode(file_get_contents("php://input"));
+    if (!isset($data->id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu ID sách cần xóa.']);
         exit;
     }
-    // xóa ảnh trong máy chủ trước
-    $stmt_get = $db->prepare("SELECT image_url FROM books WHERE id = ?");
-    $stmt_get->execute([$data->id]);
-    $book = $stmt_get->fetch(PDO::FETCH_ASSOC);
 
-    if ($book && !empty($book['image_url'])) {
-       
-        $file_path = "../../" . $book['image_url']; 
-        if (file_exists($file_path)) {
-            // Hàm unlink() dùng để xóa file
-            unlink($file_path); 
-        }
+    $db = (new Database())->connect();
+    
+    // 4. Kiểm tra sách có đang được mượn không?
+    $check = $db->prepare("SELECT COUNT(*) FROM borrowings WHERE book_id = ? AND (status = 'borrowed' OR status = 'returning' OR status = 'overdue')");
+    $check->execute([$data->id]);
+    
+    if ($check->fetchColumn() > 0) {
+        http_response_code(409); 
+        echo json_encode(['error' => 'Không thể xóa! Sách đang trong quá trình mượn/trả.']);
+        exit;
     }
 
-    //Xóa dữ liệu trong CSDL
-    $stmt = $db->prepare("DELETE FROM books WHERE id = ?");
+    // 5. THỰC HIỆN SOFT DELETE
+    // Chỉ cập nhật trạng thái is_deleted thành 1
+    $stmt = $db->prepare("UPDATE books SET is_deleted = 1 WHERE id = ?");
+    
     if ($stmt->execute([$data->id])) {
-        echo json_encode(['message' => 'Đã xóa sách và ảnh bìa thành công.']);
+        echo json_encode(['message' => 'Đã chuyển sách vào thùng rác.']);
     } else {
-        throw new Exception("Lỗi CSDL.");
+        throw new Exception("Lỗi khi cập nhật trạng thái sách.");
     }
 
 } catch (Exception $e) {

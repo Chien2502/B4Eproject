@@ -10,18 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit; 
 }
 
-// 2. Kết nối Database
 require_once '../config/database.php';
+require_once '../config/middleware.php';
 
-// 3. Kiểm tra Quyền Admin (Sử dụng PHP Session)
-// Vì file này được gọi từ trang Admin Dashboard (cùng domain), ta dùng Session để bảo mật.
-session_start();
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized access.']);
-    exit;
-}
-
+$admin_data = checkAdminAuth();
 // 4. Nhận dữ liệu đầu vào
 $data = json_decode(file_get_contents('php://input'));
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Thư viện Cộng đồng</title>
+    <link href="css/login-register.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 style="color: #3498db;">Đăng nhập</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email" id="username" required>
+                    </div>
+                    
+                    <div class="form-group password-field">
+                        <input type="password" class="form-control" placeholder="Mật khẩu" id="password" required>
+                        <span class="password-toggle" id="togglePassword">
+                            <img src="https://img.icons8.com/material-outlined/24/000000/visible.png" alt="Show Password">
+                        </span>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="#" id="forgotPasswordLink">Quên mật khẩu?</a>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Ghi nhớ đăng nhập</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Đăng nhập</button>
+                    
+                    <p class="register-text">Chưa có tài khoản? <a href="register.html" class="transfer-link">Đăng ký ngay</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/login.js" defer></script>
+</body>
+</html>

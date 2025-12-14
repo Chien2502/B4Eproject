@@ -13,7 +13,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // 2. Xây dựng điều kiện lọc (WHERE clause)
-$where_sql = " WHERE 1=1";
+$where_sql = " WHERE 1=1 AND b.is_deleted = 0";
 $params = [];
 
 // Lọc theo từ khóa

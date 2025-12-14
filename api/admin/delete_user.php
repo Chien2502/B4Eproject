@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
 session_start();
 
 // 1. Kiểm tra quyền truy cập ban đầu
@@ -10,6 +11,10 @@ if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'sup
 }
 
 require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+$admin_data = checkAdminAuth(); 
+
 $data = json_decode(file_get_contents('php://input'));
 
 if (empty($data->id)) {
