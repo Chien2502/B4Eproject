@@ -1,9 +1,10 @@
 <?php
 // 1. Cấu hình CORS và Headers
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 header("Content-Type: application/json; charset=UTF-8");
 header('Access-Control-Allow-Methods: GET, OPTIONS');
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
 
 // Xử lý Preflight Request
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -13,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 // 2. Nhúng file cấu hình 
 require_once '../config/database.php';
-require_once '../config/middleware.php'; // Middleware chứa hàm checkAdminAuth
+require_once '../config/middleware.php';
+ // Middleware chứa hàm checkAdminAuth
 
 try {
     // 3. Xác thực JWT bằng Middleware
@@ -27,7 +29,7 @@ try {
     // 5. Tính toán số liệu
     $stats = [];
     $stats['books'] = $conn->query("SELECT COUNT(*) FROM books")->fetchColumn();
-    $stats['users'] = $conn->query("SELECT COUNT(*) FROM users WHERE role='user'")->fetchColumn();
+    $stats['users'] = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
     $stats['pending_donations'] = $conn->query("SELECT COUNT(*) FROM donations WHERE status='pending'")->fetchColumn();
     $stats['returning_books'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='returning'")->fetchColumn();
 

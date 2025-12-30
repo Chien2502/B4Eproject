@@ -193,18 +193,63 @@ body {
     padding: 0 30px 30px 30px;
 }
 
-/* Responsive Tablet/Mobile */
+/* ... Các code CSS cũ giữ nguyên ... */
+
+/* Thêm Class cho Overlay (Màn hình tối đen che nội dung) */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Màu đen mờ 50% */
+    z-index: 999; /* Nằm dưới Sidebar nhưng trên nội dung */
+    display: none; /* Mặc định ẩn */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Nút Close (X) chỉ hiện trên mobile */
+.sidebar-close-btn {
+    display: none; /* Ẩn trên Desktop */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
+    /* Sidebar mặc định ẩn sang trái */
     .sidebar {
-        transform: translateX(-100%); /* Ẩn sidebar */
+        transform: translateX(-100%);
+        width: 280px; /* Rộng hơn chút cho dễ nhìn trên mobile */
+        z-index: 1000; /* Cao nhất, đè lên mọi thứ */
     }
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-    }
-    
-    /* Khi toggle */
-    .sidebar.collapsed {
+
+    /* Khi có class 'mobile-active' thì trượt ra */
+    .sidebar.mobile-active {
         transform: translateX(0);
+        box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* Main content giữ nguyên, không bị đẩy, nhưng bị Sidebar đè lên */
+    .main-content {
+        margin-left: 0 !important; /* Luôn full màn hình */
+        width: 100% !important;
+    }
+
+    /* Hiện nút Close trên mobile */
+    .sidebar-close-btn {
+        display: block;
     }
 }

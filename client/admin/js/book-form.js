@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadCategories() {
     try {
-        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/categories/read.php`);
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/categories/read.php`);
         const categories = await response.json(); 
         
         const select = document.getElementById('categorySelect');
@@ -38,7 +38,7 @@ async function loadCategories() {
 
 async function loadBookDetails(id) {
     try {
-        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/books/read_single.php?id=${id}`);
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/read_single.php?id=${id}`);
         const book = await response.json();
 
         // Điền dữ liệu vào form

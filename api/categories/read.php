@@ -2,6 +2,7 @@
 // file: api/categories/read.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET");
 
 require_once '../config/database.php';
 
@@ -10,7 +11,7 @@ try {
     $db = $database->connect();
 
     // Lấy tất cả thể loại, sắp xếp theo tên A-Z
-    $query = "SELECT * FROM categories ORDER BY name ASC";
+    $query = "SELECT * FROM categories ORDER BY id";
     $stmt = $db->prepare($query);
     $stmt->execute();
     

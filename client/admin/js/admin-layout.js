@@ -3,20 +3,34 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAdminAuth();
 
     // 2. Render giao diện chung
+
+    createOverlay();
+
     renderSidebar();
     renderHeader();
     
     displayAdminInfo();
 });
 
+// Hàm tạo Overlay động
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    overlay.onclick = toggleSidebar; // Bấm vào vùng tối thì đóng sidebar
+    document.body.appendChild(overlay);
+}
+
 // --- 1. RENDER SIDEBAR ---
 function renderSidebar() {
-    // Xác định file hiện tại để active menu
     const path = window.location.pathname;
-    const page = path.split("/").pop(); // Lấy tên file (vd: index.html)
+    const page = path.split("/").pop();
 
     const sidebarHTML = `
-        <div class="sidebar">
+        <div class="sidebar" id="adminSidebar">
+            <button class="sidebar-close-btn" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+
             <div class="sidebar-brand">
                 <h2>B4E Admin</h2>
             </div>
@@ -28,6 +42,11 @@ function renderSidebar() {
                 <a href="manage_books.html" class="${page.includes('book') ? 'active' : ''}">
                     <i class="fas fa-book"></i> Quản lý Sách
                 </a>
+
+                <a href="manage_categories.html" class="${page.includes('categor') ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Quản lý Thể loại sách
+                </a>
+    
                 <a href="manage_donations.html" class="${page.includes('donation') ? 'active' : ''}">
                     <i class="fas fa-gift"></i> Duyệt Quyên góp
                 </a>
@@ -36,6 +55,11 @@ function renderSidebar() {
                 </a>
                 <a href="manage_users.html" class="${page.includes('user') ? 'active' : ''}">
                     <i class="fas fa-users"></i> Quản lý Người dùng
+                </a>
+
+                </a>
+                <a href="../index.html">
+                    <i class="fas fa-home"></i> Quay về trang chủ
                 </a>
                 
                 <div class="sidebar-divider"></div>
@@ -47,7 +71,6 @@ function renderSidebar() {
         </div>
     `;
 
-    // Chèn vào đầu thẻ body
     document.body.insertAdjacentHTML('afterbegin', sidebarHTML);
 }
 
@@ -68,9 +91,7 @@ function renderHeader() {
             
             <div class="header-right">
                 <div class="admin-profile">
-                    <img src="../../img/default-avatar.png" alt="Admin" class="admin-avatar">
                     <div class="admin-info">
-                        <span class="admin-name" id="layoutAdminName">Admin</span>
                         <small class="admin-role">Quản trị viên</small>
                     </div>
                 </div>
@@ -135,7 +156,25 @@ window.handleLogout = function() {
 // Toggle Sidebar (Cho mobile)
 window.toggleSidebar = function() {
     const sidebar = document.querySelector('.sidebar');
-    const main = document.querySelector('.main-content');
-    if (sidebar) sidebar.classList.toggle('collapsed');
-    if (main) main.classList.toggle('expanded');
+    const overlay = document.querySelector('.sidebar-overlay');
+    const body = document.body;
+
+    if (window.innerWidth <= 768) {
+        // --- LOGIC MOBILE ---
+        // Thay vì dùng 'collapsed', ta dùng 'mobile-active' để trượt ra
+        sidebar.classList.toggle('mobile-active');
+        overlay.classList.toggle('active');
+
+        // Khóa cuộn trang khi mở menu (để tránh user cuộn nội dung bên dưới)
+        if (sidebar.classList.contains('mobile-active')) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
+    } else {
+        // --- LOGIC DESKTOP ---
+        sidebar.classList.toggle('collapsed');
+        const main = document.querySelector('.main-content');
+        if (main) main.classList.toggle('expanded');
+    }
 };

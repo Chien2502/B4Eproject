@@ -1,13 +1,14 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-session_start();
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// 1. Kiểm tra quyền truy cập ban đầu
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+
+// Xử lý Preflight
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
@@ -19,13 +20,6 @@ $data = json_decode(file_get_contents('php://input'));
 
 if (empty($data->id)) {
     http_response_code(400); echo json_encode(['error' => 'Thiếu ID người dùng.']); exit;
-}
-
-// 2. Không cho phép tự xóa chính mình (Dù là Super Admin cũng không được tự sát)
-if ($data->id == $_SESSION['admin_id']) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Bạn không thể tự xóa tài khoản của chính mình!']);
-    exit;
 }
 
 try {
@@ -42,7 +36,7 @@ try {
     }
 
     $target_role = $target_user['role'];     // Role của người bị xóa
-    $current_role = $_SESSION['role'];       // Role của người đang thao tác (Admin/Super)
+    $current_role = $admin_data->role;       // Role của người đang thao tác (Admin/Super)
 
     // 4. Logic so sánh quyền hạn
     if ($current_role === 'admin') {

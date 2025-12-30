@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchBooks() {
     try {
         // Gọi API lấy danh sách sách (API này trả về JSON mảng các sách)
-        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/read.php`);
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/readAll.php`);
         const result = await response.json();
 
         const books = result.data ? result.data : result;

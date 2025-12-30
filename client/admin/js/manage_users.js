@@ -1,14 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     Auth.requireLogin();
-    // Gọi hàm tải danh sách
     fetchUsers();
 });
 
 let currentAdminId = null; 
 
-// --- 1. TẢI DANH SÁCH ---
+// --- 1. HÀM QUY ĐỔI ROLE THÀNH ĐIỂM SỐ ---
+function getRolePower(role) {
+    switch(role) {
+        case 'super-admin': return 3;
+        case 'admin': return 2;
+        default: return 1; // user
+    }
+}
+
+// --- 2. TẢI DANH SÁCH ---
 async function fetchUsers() {
-    const token = localStorage.getItem('b4e_token'); // Lấy token để gửi đi
+    // 1. Lấy thông tin Admin hiện tại từ LocalStorage
+    const userStr = localStorage.getItem('b4e_user');
+    if (!userStr) return; // Auth.requireLogin đã xử lý redirect rồi
+
+    const currentUser = JSON.parse(userStr);
+    const myRolePower = getRolePower(currentUser.role); 
+    currentAdminId = currentUser.id;
 
     try {
         const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/users.php`, {
@@ -18,6 +32,7 @@ async function fetchUsers() {
         const result = await response.json();
         const users = result.data || [];
         
+        // Cập nhật lại ID từ server nếu cần thiết (ưu tiên localstorage để render nhanh, nhưng server là chuẩn nhất)
         if (result.current_admin_id) {
             currentAdminId = result.current_admin_id;
         }
@@ -34,7 +49,7 @@ async function fetchUsers() {
             const tr = document.createElement('tr');
             tr.id = `row-${u.id}`;
 
-            // Xử lý Role Badge
+            // --- Xử lý Role Badge ---
             let roleBadge = '';
             if (u.role === 'admin') {
                 roleBadge = '<span class="badge" style="background:#6f42c1; color:white;">Admin</span>';
@@ -44,18 +59,35 @@ async function fetchUsers() {
                 roleBadge = '<span class="badge" style="background:#17a2b8; color:white;">User</span>';
             }
 
-            // Xử lý Nút Xóa (Logic: Không hiện nút xóa nếu là chính mình)
-            let deleteBtn = '';
-            
-            // So sánh ID (chuyển về string để so sánh cho chắc chắn)
-            if (String(u.id) !== String(currentAdminId)) {
-                deleteBtn = `
+            // --- LOGIC ẨN/HIỆN NÚT ---
+            const targetUserPower = getRolePower(u.role);
+            let actionButtons = '';
+
+            // Trường hợp 1: Là chính mình -> Hiện nút Sửa (thường mình được sửa thông tin mình), Ẩn nút Xóa
+            // Lưu ý: So sánh lỏng (==) vì ID từ API có thể là number hoặc string
+            if (u.id == currentAdminId) {
+                actionButtons = `
+                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa thông tin cá nhân" style="padding: 5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <span style="color:#aaa; font-size:0.8rem; margin-left:5px;">(Bạn)</span>
+                `;
+            } 
+            // Trường hợp 2: Quyền của mình CAO HƠN người kia -> Hiện đủ nút
+            else if (myRolePower > targetUserPower) {
+                actionButtons = `
+                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa quyền/Thông tin" style="padding: 5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    &nbsp;
                     <button class="btn btn-red" onclick="deleteUser(${u.id})" title="Xóa tài khoản" style="padding: 5px 10px;">
                         <i class="fas fa-trash"></i>
                     </button>
                 `;
-            } else {
-                deleteBtn = `<span style="color:#aaa; font-size:0.8rem;">(Bạn)</span>`;
+            } 
+            // Trường hợp 3: Quyền thấp hơn hoặc bằng (Admin nhìn Admin khác, hoặc Admin nhìn Super-Admin) -> Ẩn hết
+            else {
+                actionButtons = `<span style="color:#aaa; font-style:italic; font-size:0.9rem;">Không đủ quyền hạn</span>`;
             }
 
             // Định dạng ngày
@@ -76,11 +108,7 @@ async function fetchUsers() {
                 </td>
                 <td>${joinDate}</td>
                 <td>
-                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa quyền/Thông tin" style="padding: 5px 10px;">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    &nbsp;
-                    ${deleteBtn}
+                    ${actionButtons}
                 </td>
             `;
             tbody.appendChild(tr);
@@ -93,6 +121,8 @@ async function fetchUsers() {
     }
 }
 
+// ... (Giữ nguyên hàm deleteUser)
+
 // --- 2. HÀM XÓA USER ---
 async function deleteUser(id) {
     if (!confirm('CẢNH BÁO: Xóa người dùng sẽ xóa luôn lịch sử mượn và quyên góp của họ. Bạn có chắc chắn không?')) return;
@@ -100,12 +130,8 @@ async function deleteUser(id) {
     const token = localStorage.getItem('b4e_token'); // Lấy token
 
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/delete_user.php`, {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/delete_user.php`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token // <--- QUAN TRỌNG: Gửi token khi xóa
-            },
             body: JSON.stringify({ id: id })
         });
         
