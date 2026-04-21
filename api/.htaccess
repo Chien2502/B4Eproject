@@ -1,0 +1,14 @@
+Options -MultiViews
+
+RewriteEngine On
+
+# Trả về 200 cho mọi preflight OPTIONS request (cả PHP lẫn file tĩnh)
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* - [R=200,END]
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, ngrok-skip-browser-warning"
+    Header always set Access-Control-Max-Age "3600"
+</IfModule>

@@ -32,6 +32,7 @@ try {
     $stats['users'] = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
     $stats['pending_donations'] = $conn->query("SELECT COUNT(*) FROM donations WHERE status='pending'")->fetchColumn();
     $stats['returning_books'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='returning'")->fetchColumn();
+    $stats['categories'] = $conn->query("SELECT COUNT(*) FROM categories")->fetchColumn();
 
     // 6. Đính kèm ID Admin (để đồng bộ với logic Frontend)
     $stats['current_admin_id'] = $admin_data->id;

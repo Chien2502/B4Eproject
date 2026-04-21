@@ -1,4 +1,5 @@
 # ==================================================
+# Path: C:\xampp\htdocs\B4Eproject
 # Detected tech: javascript, php
 # ==================================================
 
@@ -7,58 +8,126 @@
 B4Eproject/
 ├── .git/
 ├── .vscode/
-├── admin/
-│   ├── css/
-│   │   ├── admin.css
-│   │   ├── manage_books.css
-│   │   └── manage_donations.css
-│   ├── includes/
-│   │   ├── auth.php
-│   │   ├── footer.php
-│   │   ├── header.php
-│   │   └── sidebar.php
-│   ├── book_form.php
-│   ├── index.php
-│   ├── logout.php
-│   ├── manage_books.php
-│   ├── manage_borrowings.php
-│   ├── manage_donations.php
-│   ├── manage_users.php
-│   └── user_form.php
 ├── api/
 │   ├── admin/
 │   │   ├── approve_donation.php
+│   │   ├── borrowings.php
 │   │   ├── confirm_return.php
 │   │   ├── delete_user.php
-│   │   └── reject_donation.php
+│   │   ├── donations.php
+│   │   ├── get_stats.php
+│   │   ├── get_user.php
+│   │   ├── reject_donation.php
+│   │   ├── update_user.php
+│   │   └── users.php
 │   ├── auth/
 │   │   ├── get_profile.php
 │   │   ├── login.php
 │   │   ├── register.php
 │   │   └── update_profile.php
 │   ├── books/
+│   │   ├── create.php
 │   │   ├── delete.php
 │   │   ├── read.php
-│   │   └── read_single.php
+│   │   ├── readAll.php
+│   │   ├── read_single.php
+│   │   └── update.php
 │   ├── borrowings/
 │   │   └── create.php
 │   ├── categories/
 │   │   ├── create.php
-│   │   └── read.php
+│   │   ├── delete.php
+│   │   ├── read.php
+│   │   └── update.php
 │   ├── config/
 │   │   ├── database.php
 │   │   ├── database.sql
-│   │   └── install.php
+│   │   ├── install.php
+│   │   └── middleware.php
 │   ├── donations/
 │   │   └── create.php
 │   ├── public/
 │   │   └── stats.php
+│   ├── uploads/
+│   │   └── img/
+│   │       ├── Book/
+│   │       │   ├── 1764926106_sapiens-luoc-su-ve-loai-nguoi-outline-5-7-2017-02.webp
+│   │       │   ├── 1765506122_sach-giao-khoa-toan-9-tap-2.png
+│   │       │   ├── 1765506181_sach-giao-khoa-toan-9-tap-2.png
+│   │       │   ├── 1765506235_Tắt_đèn-Nhã_Nam.jpeg
+│   │       │   ├── 1765506271_cha-giau-cha-ngheo.jpg
+│   │       │   ├── 1765506315_docvibatkiai.jpg
+│   │       │   ├── 1765506344_de_men_phieu_luu_ky_ban_du__to_hoai.jpg
+│   │       │   ├── 1765506377_nxbtre_full_21042022_030444.jpg
+│   │       │   ├── 1765506439_-1726817123.jpg
+│   │       │   ├── 1765718230_8935236424851.webp
+│   │       │   ├── 1765727361_dangian.jpg
+│   │       │   ├── 1767022373_1.webp
+│   │       │   ├── 1767022469_1.webp
+│   │       │   ├── 1767022529_haiduatre.jpg
+│   │       │   ├── 1767022544_haiduatre.jpg
+│   │       │   ├── 1767022580_matbiec.jpg
+│   │       │   ├── Lược_sử_thời_gian.jpg
+│   │       │   ├── Nha_gia_kim.png
+│   │       │   ├── Thế_giới_phẳng.jpg
+│   │       │   ├── Toán_12.jpg
+│   │       │   ├── Trăm_năm_cô_đơn.jpeg
+│   │       │   ├── adress.png
+│   │       │   ├── authorbao.jpg
+│   │       │   ├── authorchien.jpg
+│   │       │   ├── authordoanh.jpg
+│   │       │   ├── authorthong.jpg
+│   │       │   ├── chieens.png
+│   │       │   ├── gen_vị_kỷ.jpg
+│   │       │   ├── hai_số_phận.webp
+│   │       │   ├── lịch_sử_10.jpg
+│   │       │   ├── nguoi-dua-dieu.png
+│   │       │   ├── ngữ_văn_11.jpg
+│   │       │   ├── reading-communities.webp
+│   │       │   ├── súng_vi_trùng_và_thép.webp
+│   │       │   ├── số_đỏ.webp
+│   │       │   ├── vũ_trụ_trong_vỏ_hạt_dẻ.jpg
+│   │       │   ├── white-library-with-shelves-and-stairs.jpg
+│   │       │   ├── điểm_đến_của_cuộc_đời.jpg
+│   │       │   ├── đắc_nhân_tâm.jpg
+│   │       │   └── địa_lý_12.png
+│   │       ├── default-avatar.png
+│   │       └── default-book.png
 │   ├── users/
 │   │   ├── borrowings.php
 │   │   ├── donations.php
 │   │   └── return.php
 │   └── .htaccess
-├── src/
+├── client/
+│   ├── admin/
+│   │   ├── css/
+│   │   │   ├── admin.css
+│   │   │   ├── manage_books.css
+│   │   │   └── manage_donations.css
+│   │   ├── includes/
+│   │   │   ├── footer.html
+│   │   │   ├── header.html
+│   │   │   └── sidebar.html
+│   │   ├── js/
+│   │   │   ├── admin-layout.js
+│   │   │   ├── auth.js
+│   │   │   ├── book-form.js
+│   │   │   ├── dashboard.js
+│   │   │   ├── manage_books.js
+│   │   │   ├── manage_borrowings.js
+│   │   │   ├── manage_categories.js
+│   │   │   ├── manage_donations.js
+│   │   │   ├── manage_users.js
+│   │   │   └── user_form.js
+│   │   ├── book_form.html
+│   │   ├── index.html
+│   │   ├── manage_books.html
+│   │   ├── manage_borrowings.html
+│   │   ├── manage_categories.html
+│   │   ├── manage_donations.html
+│   │   ├── manage_users.html
+│   │   └── user_form.html
+│   ├── assets/
 │   ├── css/
 │   │   ├── about.css
 │   │   ├── accountmanage.css
@@ -72,41 +141,6 @@ B4Eproject/
 │   │   ├── login-register.css
 │   │   └── styles.css
 │   ├── img/
-│   │   ├── Book/
-│   │   │   ├── 1764830698_Ảnh chụp màn hình 2025-11-26 141048.png
-│   │   │   ├── 1764926106_sapiens-luoc-su-ve-loai-nguoi-outline-5-7-2017-02.webp
-│   │   │   ├── 1765506122_sach-giao-khoa-toan-9-tap-2.png
-│   │   │   ├── 1765506181_sach-giao-khoa-toan-9-tap-2.png
-│   │   │   ├── 1765506235_Tắt_đèn-Nhã_Nam.jpeg
-│   │   │   ├── 1765506271_cha-giau-cha-ngheo.jpg
-│   │   │   ├── 1765506315_docvibatkiai.jpg
-│   │   │   ├── 1765506344_de_men_phieu_luu_ky_ban_du__to_hoai.jpg
-│   │   │   ├── 1765506377_nxbtre_full_21042022_030444.jpg
-│   │   │   ├── 1765506439_-1726817123.jpg
-│   │   │   ├── Lược_sử_thời_gian.jpg
-│   │   │   ├── Nha_gia_kim.png
-│   │   │   ├── Thế_giới_phẳng.jpg
-│   │   │   ├── Toán_12.jpg
-│   │   │   ├── Trăm_năm_cô_đơn.jpeg
-│   │   │   ├── adress.png
-│   │   │   ├── authorbao.jpg
-│   │   │   ├── authorchien.jpg
-│   │   │   ├── authordoanh.jpg
-│   │   │   ├── authorthong.jpg
-│   │   │   ├── chieens.png
-│   │   │   ├── gen_vị_kỷ.jpg
-│   │   │   ├── hai_số_phận.webp
-│   │   │   ├── lịch_sử_10.jpg
-│   │   │   ├── nguoi-dua-dieu.png
-│   │   │   ├── ngữ_văn_11.jpg
-│   │   │   ├── reading-communities.webp
-│   │   │   ├── súng_vi_trùng_và_thép.webp
-│   │   │   ├── số_đỏ.webp
-│   │   │   ├── vũ_trụ_trong_vỏ_hạt_dẻ.jpg
-│   │   │   ├── white-library-with-shelves-and-stairs.jpg
-│   │   │   ├── điểm_đến_của_cuộc_đời.jpg
-│   │   │   ├── đắc_nhân_tâm.jpg
-│   │   │   └── địa_lý_12.png
 │   │   ├── icon/
 │   │   │   ├── favicon.ico
 │   │   │   ├── icon.png
@@ -117,6 +151,7 @@ B4Eproject/
 │   │   │   ├── borrow.mp4
 │   │   │   ├── donation.mp4
 │   │   │   └── intro.mp4
+│   │   ├── default-avatar.png
 │   │   └── default-book.png
 │   ├── js/
 │   │   ├── IntegrateBooks.js
@@ -124,6 +159,7 @@ B4Eproject/
 │   │   ├── app.js
 │   │   ├── book-browser.js
 │   │   ├── borrow-module.js
+│   │   ├── config.js
 │   │   ├── details.js
 │   │   ├── donate.js
 │   │   ├── index.js
@@ -142,7 +178,6 @@ B4Eproject/
 │   ├── donate.html
 │   ├── index.html
 │   ├── login.html
-│   ├── package.json
 │   ├── questionsyoumayhave.html
 │   └── register.html
 ├── vendor/
@@ -154,901 +189,6 @@ B4Eproject/
 ```
 
 ## FILE CONTENTS
-
-### admin\book_form.php
-```php
-<?php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-// Khởi tạo biến
-$id = $_GET['id'] ?? null;
-$book = [
-    'title' => '', 'author' => '', 'category_id' => '', 
-    'publisher' => '', 'year' => '', 'description' => '', 'image_url' => ''
-];
-$is_edit = false;
-$message = '';
-
-// 1. Nếu là Edit -> Lấy dữ liệu cũ
-if ($id) {
-    $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
-    $stmt->execute([$id]);
-    $book = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!$book) { echo "Sách không tồn tại!"; exit; }
-    $is_edit = true;
-}
-
-// 2. Lấy danh sách Thể loại cho Select box
-$categories = $conn->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
-
-// 3. XỬ LÝ FORM SUBMIT (POST)
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $category_id = $_POST['category_id'];
-    $publisher = $_POST['publisher'];
-    $year = $_POST['year'];
-    $description = $_POST['description'];
-    
-    // Xử lý Upload Ảnh
-    $image_path = $book['image_url']; // Mặc định giữ ảnh cũ
-    
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $target_dir = "../src/img/Book/"; // Lưu vào thư mục src/img/Book
-        // Tạo tên file mới để tránh trùng (timestamp_filename)
-        $filename = time() . "_" . basename($_FILES["image"]["name"]);
-        $target_file = $target_dir . $filename;
-        
-        // Kiểm tra và di chuyển file
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image_path = "img/Book/" . $filename; // Đường dẫn lưu vào DB
-        } else {
-            $message = "<div style='color:red'>Lỗi upload ảnh!</div>";
-        }
-    }
-
-    try {
-        if ($is_edit) {
-            // UPDATE
-            $sql = "UPDATE books SET title=?, author=?, category_id=?, publisher=?, year=?, description=?, image_url=? WHERE id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$title, $author, $category_id, $publisher, $year, $description, $image_path, $id]);
-            $message = "<div style='color:green; margin-bottom:15px;'>Cập nhật thành công! <a href='manage_books.php'>Quay lại danh sách</a></div>";
-        } else {
-            // INSERT (CREATE)
-            $sql = "INSERT INTO books (title, author, category_id, publisher, year, description, image_url, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'available')";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$title, $author, $category_id, $publisher, $year, $description, $image_path]);
-            $message = "<div style='color:green; margin-bottom:15px;'>Thêm sách mới thành công! <a href='manage_books.php'>Quay lại danh sách</a></div>";
-            // Reset form nếu thêm mới thành công
-            if(!$is_edit) $book = []; 
-        }
-        
-        // Cập nhật lại biến $book để hiển thị trên form (nếu là edit)
-        if($is_edit) {
-            $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
-            $stmt->execute([$id]);
-            $book = $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-
-    } catch (Exception $e) {
-        $message = "<div style='color:red'>Lỗi CSDL: " . $e->getMessage() . "</div>";
-    }
-}
-?>
-
-<div class="content">
-    <div style="max-width: 800px; margin: 0 auto;">
-        <h1><?php echo $is_edit ? 'Chỉnh sửa Sách' : 'Thêm Sách Mới'; ?></h1>
-
-        <?php echo $message; ?>
-
-        <div class="card">
-            <form method="POST" enctype="multipart/form-data" class="form-grid">
-
-                <div class="form-group full-width">
-                    <label>Tên sách (*)</label>
-                    <input type="text" name="title" class="form-control" required 
-                           value="<?php echo htmlspecialchars($book['title']); ?>">
-                </div>
-
-                <div class="form-group">
-                    <label>Tác giả (*)</label>
-                    <input type="text" name="author" class="form-control" required 
-                           value="<?php echo htmlspecialchars($book['author']); ?>">
-                </div>
-
-                <div class="form-group">
-                    <label>Thể loại</label>
-                    <div class="input-group">
-                        <select id="categorySelect" name="category_id" class="form-control">
-                            <option value="">-- Chọn thể loại --</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo $cat['id']; ?>" 
-                                    <?php echo ($book['category_id'] == $cat['id']) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($cat['name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <button type="button" class="btn btn-blue" onclick="openCatModal()">+</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Nhà xuất bản</label>
-                    <input type="text" name="publisher" class="form-control" 
-                           value="<?php echo htmlspecialchars($book['publisher']); ?>">
-                </div>
-
-                <div class="form-group">
-                    <label>Năm xuất bản</label>
-                    <input type="number" name="year" class="form-control" 
-                           value="<?php echo htmlspecialchars($book['year']); ?>">
-                </div>
-
-                <div class="form-group full-width">
-                    <label>Mô tả</label>
-                    <textarea name="description" rows="5" class="form-control"><?php echo htmlspecialchars($book['description']); ?></textarea>
-                </div>
-
-                <div class="form-group full-width">
-                    <label>Ảnh bìa</label>
-                    <div class="file-upload-wrapper">
-                        <?php if (!empty($book['image_url'])): ?>
-                            <div style="margin-bottom:10px;">
-                                <img src="/B4Eproject/<?php echo htmlspecialchars($book['image_url']); ?>" style="height: 100px; border-radius: 4px;">
-                                <br><small>Ảnh hiện tại</small>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <input type="file" name="image" accept="image/*">
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi ảnh.</p>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <a href="manage_books.php" class="btn btn-red">Hủy</a>
-                    <button type="submit" class="btn btn-green">
-                        <?php echo $is_edit ? 'Cập nhật' : 'Thêm mới'; ?>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div id="catModal"
-    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
-    <div style="background:white; padding:20px; border-radius:5px; width:300px; box-shadow:0 0 10px rgba(0,0,0,0.3);">
-        <h3>Thêm Thể loại Mới</h3>
-        <input type="text" id="newCatName" placeholder="Nhập tên thể loại..."
-            style="width:100%; padding:8px; margin:10px 0; border:1px solid #ccc;">
-        <div style="text-align:right;">
-            <button type="button" class="btn btn-red" onclick="closeCatModal()">Hủy</button>
-            <button type="button" class="btn btn-green" onclick="saveCategory()">Lưu</button>
-        </div>
-    </div>
-</div>
-
-<script>
-function openCatModal() {
-    document.getElementById('catModal').style.display = 'flex';
-    document.getElementById('newCatName').focus();
-}
-
-function closeCatModal() {
-    document.getElementById('catModal').style.display = 'none';
-    document.getElementById('newCatName').value = ''; // Reset input
-}
-
-async function saveCategory() {
-    const name = document.getElementById('newCatName').value.trim();
-    if (!name) {
-        alert('Vui lòng nhập tên thể loại!');
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/categories/create.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name
-            })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(result.message);
-
-            const select = document.getElementById('categorySelect');
-
-            const option = document.createElement('option');
-            option.value = result.id;
-            option.text = result.name;
-            option.selected = true;
-
-            select.appendChild(option);
-
-            closeCatModal();
-        } else {
-            alert('Lỗi: ' + result.error);
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Lỗi kết nối server.');
-    }
-}
-</script>
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\index.php
-```php
-<?php
-// admin/index.php
-require_once 'includes/auth.php';   // 1. Kiểm tra đăng nhập
-require_once 'includes/header.php'; // 2. Kết nối DB và Giao diện
-
-// Lấy thống kê
-$count_books = $conn->query("SELECT COUNT(*) FROM books")->fetchColumn();
-$count_users = $conn->query("SELECT COUNT(*) FROM users WHERE role='user'")->fetchColumn();
-// Đếm quyên góp đang chờ
-$count_pending_donations = $conn->query("SELECT COUNT(*) FROM donations WHERE status='pending'")->fetchColumn();
-// Đếm sách đang chờ trả (returning)
-$count_returning = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='returning'")->fetchColumn();
-?>
-
-<div class="content">
-    <h1>Tổng quan hệ thống</h1>
-    
-    <div class="card-grid">
-        <div class="card">
-            <h3><?php echo $count_books; ?></h3>
-            <p>Tổng đầu sách</p>
-        </div>
-        <div class="card">
-            <h3><?php echo $count_users; ?></h3>
-            <p>Thành viên</p>
-        </div>
-        <div class="card" style="border-left: 5px solid #ffc107;">
-            <h3 style="color: #ffc107;"><?php echo $count_pending_donations; ?></h3>
-            <p>Yêu cầu Quyên góp mới</p>
-            <?php if($count_pending_donations > 0): ?>
-                <a href="manage_donations.php" class="btn btn-blue">Xử lý ngay</a>
-            <?php endif; ?>
-        </div>
-        <div class="card" style="border-left: 5px solid #28a745;">
-            <h3 style="color: #28a745;"><?php echo $count_returning; ?></h3>
-            <p>Sách đang trả về</p>
-            <?php if($count_returning > 0): ?>
-                <a href="manage_borrowings.php" class="btn btn-blue">Xác nhận</a>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\logout.php
-```php
-<?php
-session_start();
-session_destroy(); // Hủy session PHP
-header('Location: /src/index.html'); 
-?>
-```
-
-### admin\manage_books.php
-```php
-<?php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-// Lấy danh sách sách (Kèm tên thể loại)
-$query = "SELECT b.*, c.name as category_name 
-          FROM books b 
-          LEFT JOIN categories c ON b.category_id = c.id 
-          ORDER BY b.id DESC";
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-
-<link href="css/manage_books.css" rel="stylesheet">
-<div class="content">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <h1>Quản lý Kho Sách</h1>
-        <a href="book_form.php" class="btn btn-blue"><i class="fas fa-plus"></i> Thêm sách mới</a>
-    </div>
-
-    <div class="card">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Ảnh</th>
-                    <th>Tên sách / Tác giả</th>
-                    <th>Thể loại</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($books as $book): ?>
-                <tr id="row-<?php echo $book['id']; ?>">
-                    <td>#<?php echo $book['id']; ?></td>
-                    <td>
-                        <img src="../src/<?php echo htmlspecialchars($book['image_url'] ?? 'img/default.png'); ?>" 
-                             style="width:40px; height:60px; object-fit:cover; border-radius:3px;">
-                    </td>
-                    <td>
-                        <b><?php echo htmlspecialchars($book['title']); ?></b><br>
-                        <small><?php echo htmlspecialchars($book['author']); ?></small>
-                    </td>
-                    <td><?php echo htmlspecialchars($book['category_name'] ?? 'Chưa phân loại'); ?></td>
-                    <td>
-                        <?php if($book['status'] == 'available'): ?>
-                            <span class="badge bg-green">Có sẵn</span>
-                        <?php else: ?>
-                            <span class="badge bg-yellow">Đang mượn</span>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <a href="book_form.php?id=<?php echo $book['id']; ?>" class="btn btn-blue" title="Sửa">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        &nbsp;&nbsp;
-                        <button class="btn btn-red" onclick="deleteBook(<?php echo $book['id']; ?>)" title="Xóa">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-async function deleteBook(id) {
-    if (!confirm('Bạn có chắc chắn muốn xóa cuốn sách này? Hành động này không thể hoàn tác.')) return;
-
-    try {
-        const response = await fetch('/api/books/delete.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id })
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok) {
-            alert(result.message);
-            document.getElementById('row-' + id).remove();
-        } else {
-            alert('Lỗi: ' + result.error);
-        }
-    } catch (error) {
-        alert('Lỗi kết nối.');
-    }
-}
-</script>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\manage_borrowings.php
-```php
-<?php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-// Query phức tạp: JOIN 3 bảng (borrowings, users, books)
-// Sắp xếp: Ưu tiên trạng thái 'returning' lên đầu, sau đó đến 'borrowed', rồi mới đến ngày tháng.
-$query = "SELECT br.*, u.username, u.email, u.phone, b.title as book_title, b.image_url 
-          FROM borrowings br
-          JOIN users u ON br.user_id = u.id
-          JOIN books b ON br.book_id = b.id
-          ORDER BY 
-            CASE 
-                WHEN br.status = 'returning' THEN 1 
-                WHEN br.status = 'borrowed' THEN 2 
-                WHEN br.status = 'overdue' THEN 3
-                ELSE 4 
-            END,
-            br.due_date DESC";
-
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$borrowings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-
-<div class="content">
-    <h1>Quản lý Mượn & Trả Sách</h1>
-
-    <div class="card">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Người mượn
-                        <br>
-                        ID/Tên/SĐT
-                    </th>
-                    <th>Sách</th>
-                    <th>Ngày mượn / Hạn trả</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($borrowings as $item): ?>
-                <tr>
-                    <td>
-                        <b># <?php echo htmlspecialchars( $item['user_id']);?> </b><br>
-                        <b><?php echo htmlspecialchars( $item['username']); ?></b><br>
-                        <small><?php echo htmlspecialchars($item['phone'] ?? 'Chưa có SĐT'); ?></small>
-
-                    </td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <img src="../src/<?php echo htmlspecialchars($item['image_url']); ?>"
-                                style="width:30px; height:45px; object-fit:cover; border-radius:3px;">
-                            <span><?php echo htmlspecialchars($item['book_title']); ?></span>
-                        </div>
-                    </td>
-                    <td>
-                        Mượn: <?php echo date('d/m/Y', strtotime($item['borrow_date'])); ?><br>
-
-                        <span style="color: #d9534f;">
-                            Hạn: <?php echo date('d/m/Y', strtotime($item['due_date'])); ?><br>
-                        </span>
-                        Ngày trả: <?php echo date('d/m/Y', strtotime($item['return_date'])); ?>
-                    </td>
-                    <td>
-                        <?php
-    $badgeStyle = 'display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 4px;';
-
-    switch($item['status']) {
-        case 'returning':
-            echo '<span class="badge" style="' . $badgeStyle . ' background-color: #3498db;">User báo đã trả</span>';
-            break;
-        case 'borrowed':
-            echo '<span class="badge" style="' . $badgeStyle . ' background-color: #f39c12;">Đang mượn</span>';
-            break;
-        case 'returned':
-            echo '<span class="badge" style="' . $badgeStyle . ' background-color: #27ae60;">Đã trả sách</span>';
-            
-            if (!empty($item['return_date'])) {
-                echo '<br>'; 
-                if (strtotime($item['return_date']) <= strtotime($item['due_date'])) {
-                    echo '<span class="badge" style="' . $badgeStyle . ' background-color: #2ecc71; font-size: 0.75rem; margin-top: 2px;"> Đúng hạn </span>';
-                } else {
-                    echo '<span class="badge" style="' . $badgeStyle . ' background-color: #e74c3c; font-size: 0.75rem; margin-top: 2px;">  Trả muộn  </span>';
-                }
-            }
-            break;
-        case 'overdue':
-            echo '<span class="badge" style="' . $badgeStyle . ' background-color: #c0392b;"> Quá hạn </span>';
-            break;
-    }
-    ?>
-                    </td>
-                    <td>
-                        <?php if ($item['status'] == 'returning' || $item['status'] == 'borrowed' || $item['status'] == 'overdue'): ?>
-                        <button class="btn btn-green" onclick="confirmReturn(<?php echo $item['id']; ?>)">
-                            <i class="fas fa-check-circle"></i> Xác nhận đã nhận sách
-                        </button>
-                        <?php else: ?>
-                        <span style="color:#aaa;"><i class="fas fa-check"></i> Đã xử lí</span>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-async function confirmReturn(borrowId) {
-    if (!confirm('Xác nhận bạn đã nhận được sách và sách còn nguyên vẹn? Hành động này sẽ cập nhật kho sách.'))
-        return;
-
-    try {
-        const response = await fetch('../api/admin/confirm_return.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                borrow_id: borrowId
-            })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(result.message);
-            location.reload();
-        } else {
-            alert('Lỗi: ' + result.error);
-        }
-    } catch (error) {
-        alert('Lỗi kết nối.');
-    }
-}
-</script>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\manage_donations.php
-```php
-<?php
-// admin/manage_donations.php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-// Lấy danh sách đang chờ (Pending)
-// JOIN với bảng users để lấy tên người quyên góp
-$query = "SELECT d.*, u.username, u.email 
-          FROM donations d 
-          JOIN users u ON d.user_id = u.id 
-          WHERE d.status = 'pending' 
-          ORDER BY d.created_at ASC";
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-<link href="css/manage_donations.css" rel="stylesheet">
-<div class="content">
-    <h1>Duyệt Quyên Góp Sách</h1>
-    <p>Danh sách các sách đang chờ xác nhận nhập kho.</p>
-
-    <?php if (count($donations) > 0): ?>
-    <div class="card">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Người gửi</th>
-                    <th>Thông tin Sách</th>
-                    <th>Tình trạng</th>
-                    <th>Hình thức</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($donations as $item): ?>
-                <tr id="row-<?php echo $item['id']; ?>">
-                    <td>
-                        <b><?php echo htmlspecialchars($item['username']); ?></b><br>
-                        <small><?php echo htmlspecialchars($item['email']); ?></small>
-                    </td>
-                    <td>
-                        <span style="color:#007bff; font-weight:bold; font-size:1.1rem;">
-                            <?php echo htmlspecialchars($item['book_title']); ?>
-                        </span><br>
-                        TG: <?php echo htmlspecialchars($item['book_author']); ?><br>
-                        <small>NXB: <?php echo htmlspecialchars($item['book_publisher'] ?? 'N/A'); ?> (<?php echo $item['book_year'] ?? '-'; ?>)</small>
-                    </td>
-                    <td>
-                        <span class="badge bg-yellow"><?php echo htmlspecialchars($item['book_condition']); ?></span>
-                    </td>
-                    <td><?php echo htmlspecialchars($item['donation_type']); ?></td>
-                    <td>
-                        <button class="btn btn-green" onclick="processDonation(<?php echo $item['id']; ?>, 'approve')">
-                            <i class="fas fa-check"></i> Tiếp nhận
-                        </button>
-                        <button class="btn btn-red" onclick="processDonation(<?php echo $item['id']; ?>, 'reject')">
-                            <i class="fas fa-times"></i> Từ chối
-                        </button>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <?php else: ?>
-        <div class="card" style="text-align:center; padding:50px;">
-            <i class="fas fa-check-circle" style="font-size:3rem; color:#28a745;"></i>
-            <h3>Tuyệt vời! Không có yêu cầu nào đang chờ.</h3>
-        </div>
-    <?php endif; ?>
-</div>
-
-<script>
-async function processDonation(id, action) {
-    const confirmMsg = action === 'approve' 
-        ? 'Bạn có chắc chắn muốn DUYỆT sách này? Nó sẽ được thêm vào kho sách ngay lập tức.' 
-        : 'Bạn có chắc chắn muốn TỪ CHỐI yêu cầu này?';
-
-    if (!confirm(confirmMsg)) return;
-
-    // Xác định API endpoint
-    const apiEndpoint = action === 'approve' 
-        ? '/api/admin/approve_donation.php' 
-        : '/api/admin/reject_donation.php';
-
-    try {
-        const response = await fetch(apiEndpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ donation_id: id })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(result.message);
-            // Xóa dòng tương ứng khỏi bảng (Hiệu ứng UI tức thì)
-            const row = document.getElementById('row-' + id);
-            if (row) {
-                row.style.transition = 'all 0.5s';
-                row.style.opacity = '0';
-                setTimeout(() => row.remove(), 500);
-            }
-            // Nếu bảng trống thì reload để hiện thông báo "Không có yêu cầu"
-            if (document.querySelectorAll('tbody tr').length <= 1) {
-                setTimeout(() => location.reload(), 1000);
-            }
-        } else {
-            alert('Lỗi: ' + result.error);
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Lỗi kết nối đến server.');
-    }
-}
-</script>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\manage_users.php
-```php
-<?php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-// Lấy danh sách users
-$query = "SELECT * FROM users ORDER BY created_at DESC";
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-
-<div class="content">
-    <h1>Quản lý Người dùng</h1>
-    <p>Danh sách tất cả tài khoản trong hệ thống.</p>
-
-    <div class="card">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên đăng nhập / Email</th>
-                    <th>Vai trò (Role)</th>
-                    <th>Thông tin liên hệ</th>
-                    <th>Ngày tham gia</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $u): ?>
-                <tr id="row-<?php echo $u['id']; ?>">
-                    <td>#<?php echo $u['id']; ?></td>
-                    <td>
-                        <b><?php echo htmlspecialchars($u['username']); ?></b><br>
-                        <small><?php echo htmlspecialchars($u['email']); ?></small>
-                    </td>
-                    <td>
-                        <?php 
-                        if ($u['role'] === 'admin') {
-                            echo '<span class="badge" style="background:#6f42c1; color:white;">Admin</span>';
-                        } if ($u['role'] === 'super-admin') {
-                            echo '<span class="badge" style="background:#6f42c1; color:white;">Super-Admin</span>';
-                        }else {
-                            echo '<span class="badge" style="background:#17a2b8; color:white;">User</span>';
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <i class="fas fa-phone"></i> <?php echo htmlspecialchars($u['phone'] ?? '---'); ?><br>
-                        <i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($u['address'] ?? '---'); ?>
-                    </td>
-                    <td><?php echo date('d/m/Y', strtotime($u['created_at'])); ?></td>
-                    <td>
-                        <a href="user_form.php?id=<?php echo $u['id']; ?>" class="btn btn-blue" title="Sửa quyền/Thông tin">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        &nbsp;&nbsp;
-                        <?php if($u['id'] != $_SESSION['admin_id']): ?>
-                        <button class="btn btn-red" onclick="deleteUser(<?php echo $u['id']; ?>)" title="Xóa tài khoản">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-async function deleteUser(id) {
-    if (!confirm('CẢNH BÁO: Xóa người dùng sẽ xóa luôn lịch sử mượn và quyên góp của họ. Bạn có chắc chắn không?')) return;
-
-    try {
-        const response = await fetch('/api/admin/delete_user.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id })
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok) {
-            alert(result.message);
-            document.getElementById('row-' + id).remove();
-        } else {
-            alert('Lỗi: ' + result.error);
-        }
-    } catch (error) {
-        alert('Lỗi kết nối.');
-    }
-}
-</script>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\user_form.php
-```php
-<?php
-require_once 'includes/auth.php';
-require_once 'includes/header.php';
-
-$id = $_GET['id'] ?? null;
-if (!$id) { echo "Không tìm thấy ID người dùng!"; exit; }
-
-$message = '';
-
-// XỬ LÝ POST (Cập nhật)
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $role = $_POST['role'];
-
-    try {
-        $sql = "UPDATE users SET username=?, phone=?, address=?, role=? WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$username, $phone, $address, $role, $id]);
-        $message = "<div style='color:green; margin-bottom:15px;'>Cập nhật thành công! <a href='manage_users.php'>Quay lại danh sách</a></div>";
-    } catch (Exception $e) {
-        $message = "<div style='color:red'>Lỗi: " . $e->getMessage() . "</div>";
-    }
-}
-
-// LẤY DỮ LIỆU HIỂN THỊ
-$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->execute([$id]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$user) { echo "Người dùng không tồn tại!"; exit; }
-?>
-
-<div class="content">
-    <div style="max-width: 600px; margin: 0 auto;">
-        <h1>Chỉnh sửa Người dùng</h1>
-        <?php echo $message; ?>
-
-        <div class="card">
-            <form method="POST">
-                <div class="form-group">
-                    <label>Email (Không thể sửa)</label>
-                    <input type="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled style="width:100%; padding:8px; background:#eee;">
-                </div>
-
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required style="width:100%; padding:8px;">
-                </div>
-
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Phân quyền (Role)</label>
-                    <select name="role" style="width:100%; padding:8px; border:2px solid #007bff; border-radius:4px;">
-                        <option value="user" <?php echo ($user['role'] == 'user') ? 'selected' : ''; ?>>User (Thành viên)</option>
-                        <option value="admin" <?php echo ($user['role'] == 'admin') ? 'selected' : ''; ?>>Admin (Quản trị viên)</option>
-                        <option value="super-admin" <?php echo ($user['role'] == 'super-admin') ? 'selected' : ''; ?>>Super Admin</option>
-                    </select>
-                    <p style="font-size:0.8rem; color:#666;">Cẩn trọng khi cấp quyền Admin.</p>
-                </div>
-
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Số điện thoại</label>
-                    <input type="text" name="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" style="width:100%; padding:8px;">
-                </div>
-
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Địa chỉ</label>
-                    <textarea name="address" rows="3" style="width:100%; padding:8px;"><?php echo htmlspecialchars($user['address'] ?? ''); ?></textarea>
-                </div>
-
-                <div style="margin-top:20px; text-align:right;">
-                    <a href="manage_users.php" class="btn btn-red" style="margin-right:10px;">Hủy</a>
-                    <button type="submit" class="btn btn-green">Lưu thay đổi</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php require_once 'includes/footer.php'; ?>
-```
-
-### admin\includes\auth.php
-```php
-<?php
-session_start();
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    // Chuyển hướng về trang login chính
-    echo("Bạn không có quyền truy cập vào trang này, vui lòng đăng nhập!");
-    header('Location: /src/login.html'); 
-    exit;
-}
-?>
-```
-
-### admin\includes\footer.php
-```php
-</div> </body>
-</html>
-```
-
-### admin\includes\header.php
-```php
-<?php
-// admin/includes/header.php
-require_once __DIR__ . '/../../api/config/database.php'; // Đường dẫn tới file config
-$database = new Database();
-$conn = $database->connect();
-?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Trang quản trị</title>
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <?php include 'sidebar.php'; ?>
-    <div class="main-content">
-        <div class="header">
-            <span>Xin chào, <b><?php echo $_SESSION['username']; ?></b></span>
-            <span style="font-size: 0.9rem; color: #888;">Quản trị viên</span>
-        </div>
-```
-
-### admin\includes\sidebar.php
-```php
-<div class="sidebar">
-    <h2>Trang quản trị</h2>
-    <a href="index.php">Tổng quan</a>
-    <a href="manage_books.php">Quản lý Sách</a>
-    <a href="manage_donations.php">Duyệt Quyên góp</a>
-    <a href="manage_borrowings.php">Quản lý Mượn/Trả</a>
-    <a href="manage_users.php">Quản lý Người dùng</a>
-    <a href="logout.php" style="color: #ff6b6b;">Đăng xuất</a>
-</div>
-```
 
 ### api\admin\approve_donation.php
 ```php
@@ -1064,18 +204,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit; 
 }
 
-// 2. Kết nối Database
 require_once '../config/database.php';
+require_once '../config/middleware.php';
 
-// 3. Kiểm tra Quyền Admin (Sử dụng PHP Session)
-// Vì file này được gọi từ trang Admin Dashboard (cùng domain), ta dùng Session để bảo mật.
-session_start();
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized access.']);
-    exit;
-}
-
+$admin_data = checkAdminAuth();
 // 4. Nhận dữ liệu đầu vào
 $data = json_decode(file_get_contents('php://input'));
 
@@ -1153,63 +285,115 @@ try {
 ?>
 ```
 
-### api\admin\confirm_return.php
+### api\admin\borrowings.php
 ```php
 <?php
-header('Content-Type: application/json');
-session_start();
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
-// 1. Kiểm tra quyền Admin
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
-$data = json_decode(file_get_contents('php://input'));
-
-if (empty($data->borrow_id)) {
-    http_response_code(400); echo json_encode(['error' => 'Thiếu ID lượt mượn.']); exit;
-}
-
-$database = new Database();
-$db = $database->connect();
+require_once '../config/middleware.php';
 
 try {
-    $db->beginTransaction();
 
-    // 2. Lấy thông tin lượt mượn để biết Book ID là gì
-    $stmt = $db->prepare("SELECT book_id, status FROM borrowings WHERE id = ?");
-    $stmt->execute([$data->borrow_id]);
-    $borrow = $stmt->fetch(PDO::FETCH_ASSOC);
+    $admin_data = checkAdminAuth();
+    $database = new Database();
+    $conn = $database->connect();
 
-    if (!$borrow) {
-        throw new Exception("Lượt mượn không tồn tại.");
-    }
-    
-    // Chỉ cho phép xác nhận nếu đang mượn hoặc đang trả
-    if ($borrow['status'] == 'returned') {
-        throw new Exception("Lượt mượn này đã được hoàn tất trước đó.");
-    }
+    // Query phức tạp: Join bảng borrowings, users và books
+    $query = "SELECT br.*, u.username, u.phone, b.title as book_title, b.image_url 
+              FROM borrowings br
+              JOIN users u ON br.user_id = u.id
+              JOIN books b ON br.book_id = b.id
+              ORDER BY br.borrow_date DESC";
+              
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 3. Cập nhật bảng Borrowings (Đánh dấu đã trả + Ngày trả thực tế)
-    $update_borrow = "UPDATE borrowings SET status = 'returned', return_date = CURDATE() WHERE id = ?";
-    $stmt1 = $db->prepare($update_borrow);
-    $stmt1->execute([$data->borrow_id]);
-
-    // 4. Cập nhật bảng Books (Đánh dấu sách có sẵn)
-    $update_book = "UPDATE books SET status = 'available' WHERE id = ?";
-    $stmt2 = $db->prepare($update_book);
-    $stmt2->execute([$borrow['book_id']]);
-
-    $db->commit();
-    echo json_encode(['message' => 'Đã xác nhận trả sách. Sách đã có sẵn trong kho.']);
+    echo json_encode(['data' => $data]);
 
 } catch (Exception $e) {
-    if ($db->inTransaction()) $db->rollBack();
     http_response_code(500);
-    echo json_encode(['error' => 'Lỗi: ' . $e->getMessage()]);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
+### api\admin\confirm_return.php
+```php
+<?php
+// 1. Cấu hình CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// Xử lý Preflight
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+try {
+    // 2. Kiểm tra Admin
+    checkAdminAuth();
+
+    // 3. NHẬN DỮ LIỆU JSON
+    $data = json_decode(file_get_contents("php://input"));
+
+    if (!isset($data->borrow_id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu ID phiếu mượn']);
+        exit;
+    }
+
+    $db = (new Database())->connect();
+
+    // 4. Kiểm tra trạng thái hiện tại
+    // Chỉ xử lý nếu đang mượn (borrowed) hoặc đang trả (returning) hoặc quá hạn (overdue)
+    $stmtCheck = $db->prepare("SELECT book_id, status FROM borrowings WHERE id = ?");
+    $stmtCheck->execute([$data->borrow_id]);
+    $borrowing = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+    if (!$borrowing) {
+        throw new Exception("Không tìm thấy phiếu mượn.");
+    }
+    
+    // Nếu đã trả rồi thì thôi
+    if ($borrowing['status'] === 'returned') {
+        echo json_encode(['message' => 'Sách này đã được trả trước đó rồi.']);
+        exit;
+    }
+
+    // 5. Cập nhật phiếu mượn -> returned
+    $stmt = $db->prepare("UPDATE borrowings SET status = 'returned', return_date = NOW() WHERE id = ?");
+    if (!$stmt->execute([$data->borrow_id])) {
+        throw new Exception("Lỗi khi cập nhật phiếu mượn.");
+    }
+
+    // 6. Cập nhật sách -> available (Trả kho)
+    // Chỉ cập nhật nếu sách chưa bị xóa mềm (is_deleted = 0)
+    if ($borrowing['book_id']) {
+        $stmtBook = $db->prepare("UPDATE books SET status = 'available' WHERE id = ?");
+        $stmtBook->execute([$borrowing['book_id']]);
+    }
+
+    echo json_encode(['message' => 'Đã xác nhận trả sách thành công!']);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
 ```
@@ -1217,28 +401,27 @@ try {
 ### api\admin\delete_user.php
 ```php
 <?php
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
-session_start();
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// 1. Kiểm tra quyền truy cập ban đầu
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+
+// Xử lý Preflight
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+$admin_data = checkAdminAuth(); 
+
 $data = json_decode(file_get_contents('php://input'));
 
 if (empty($data->id)) {
     http_response_code(400); echo json_encode(['error' => 'Thiếu ID người dùng.']); exit;
-}
-
-// 2. Không cho phép tự xóa chính mình (Dù là Super Admin cũng không được tự sát)
-if ($data->id == $_SESSION['admin_id']) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Bạn không thể tự xóa tài khoản của chính mình!']);
-    exit;
 }
 
 try {
@@ -1255,7 +438,7 @@ try {
     }
 
     $target_role = $target_user['role'];     // Role của người bị xóa
-    $current_role = $_SESSION['role'];       // Role của người đang thao tác (Admin/Super)
+    $current_role = $admin_data->role;       // Role của người đang thao tác (Admin/Super)
 
     // 4. Logic so sánh quyền hạn
     if ($current_role === 'admin') {
@@ -1283,6 +466,148 @@ try {
 ?>
 ```
 
+### api\admin\donations.php
+```php
+<?php
+// 1. Cấu hình CORS và JSON Header (BẮT BUỘC ĐẶT TRÊN CÙNG)
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+// Xử lý Preflight
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+
+try {
+    require_once "../config/database.php";
+    require_once "../config/middleware.php";
+
+    $admin_data = checkAdminAuth();
+
+    // 3. Kết nối CSDL
+    $database = new Database();
+    $conn = $database->connect();
+
+    // 4. Truy vấn dữ liệu
+    $query = "SELECT d.*, u.username, u.email 
+              FROM donations d 
+              LEFT JOIN users u ON d.user_id = u.id 
+              WHERE d.status = 'pending' 
+              ORDER BY d.created_at ASC";
+              
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 5. Trả về kết quả JSON
+    echo json_encode($donations);
+
+} catch (Exception $e) {
+    // Nếu có lỗi, trả về JSON lỗi (HTTP 500)
+    http_response_code(500);
+    echo json_encode([
+        'error' => true,
+        'message' => $e->getMessage()
+    ]);
+}
+?>
+```
+
+### api\admin\get_stats.php
+```php
+<?php
+// 1. Cấu hình CORS và Headers
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+
+
+// Xử lý Preflight Request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// 2. Nhúng file cấu hình 
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+ // Middleware chứa hàm checkAdminAuth
+
+try {
+    // 3. Xác thực JWT bằng Middleware
+    // Nếu token sai/hết hạn, hàm này tự động trả về 401 và exit.
+    $admin_data = checkAdminAuth(); 
+    
+    // 4. Kết nối Database
+    $database = new Database();
+    $conn = $database->connect();
+
+    // 5. Tính toán số liệu
+    $stats = [];
+    $stats['books'] = $conn->query("SELECT COUNT(*) FROM books")->fetchColumn();
+    $stats['users'] = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
+    $stats['pending_donations'] = $conn->query("SELECT COUNT(*) FROM donations WHERE status='pending'")->fetchColumn();
+    $stats['returning_books'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='returning'")->fetchColumn();
+
+    // 6. Đính kèm ID Admin (để đồng bộ với logic Frontend)
+    $stats['current_admin_id'] = $admin_data->id;
+
+    echo json_encode($stats);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
+### api\admin\get_user.php
+```php
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+
+// Xử lý Preflight Request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+require_once '../config/database.php';
+require_once '../config/middleware.php'; 
+
+$admin_data = checkAdminAuth();
+
+$id = isset($_GET['id']) ? $_GET['id'] : die();
+
+try {
+    $database = new Database();
+    $conn = $database->connect();
+
+    $stmt = $conn->prepare("SELECT id, username, email, phone, address, role FROM users WHERE id = ?");
+    $stmt->execute([$id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        echo json_encode($user);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Người dùng không tồn tại.']);
+    }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
 ### api\admin\reject_donation.php
 ```php
 <?php
@@ -1292,22 +617,15 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../config/database.php';
-require_once '../../vendor/autoload.php';
-use \Firebase\JWT\JWT;
-use \Firebase\JWT\Key;
-
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') { http_response_code(200); exit; }
-
-// --- PHẦN NÀY CẦN KIỂM TRA SESSION ADMIN (PHP SESSION) ---
-// Vì admin gọi API này từ trang admin (cùng domain), ta có thể dùng check session
-// Thay vì check JWT như app client.
-session_start();
-if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin' ||  $_SESSION['role'] !== 'super-admin') {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+$admin_data = checkAdminAuth();
 
 $data = json_decode(file_get_contents('php://input'));
 
@@ -1331,6 +649,95 @@ try {
     echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
+```
+
+### api\admin\update_user.php
+```php
+<?php
+// file: server/api/admin/update_user.php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') { http_response_code(200); exit(); }
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+$admin_data = checkAdminAuth(); 
+$data = json_decode(file_get_contents("php://input"));
+
+if (!isset($data->id) || !isset($data->username)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Thiếu dữ liệu bắt buộc.']);
+    exit();
+}
+
+try {
+    $database = new Database();
+    $conn = $database->connect();
+
+    $query = "UPDATE users SET username = ?, phone = ?, address = ?, role = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    
+    if ($stmt->execute([$data->username, $data->phone, $data->address, $data->role, $data->id])) {
+        echo json_encode(['message' => 'Cập nhật thông tin thành công.']);
+    } else {
+        throw new Exception("Lỗi khi cập nhật.");
+    }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
+### api\admin\users.php
+```php
+<?php
+// 1. Cấu hình CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+// Xử lý Preflight Request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+try {
+    require_once '../config/database.php'; 
+    require_once '../config/middleware.php';  
+
+    $admin_data = checkAdminAuth(); 
+    $current_admin_id = $admin_data->id;
+
+    // 4. Kết nối Database
+    $database = new Database();
+    $conn = $database->connect();
+
+    // 5. Truy vấn danh sách
+    $query = "SELECT id, username, email, phone, address, role, created_at FROM users ORDER BY created_at DESC";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 6. Trả về JSON sạch
+    echo json_encode([
+        'data' => $users,
+        'current_admin_id' => $current_admin_id
+    ]);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => true,
+        'message' => $e->getMessage()
+    ]);
+}
 ```
 
 ### api\auth\get_profile.php
@@ -1713,57 +1120,111 @@ try {
 ?>
 ```
 
-### api\books\delete.php
+### api\books\create.php
 ```php
 <?php
-header('Content-Type: application/json');
-session_start();
-
-// Kiểm tra quyền Admin
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
-}
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
 
 require_once '../config/database.php';
-$data = json_decode(file_get_contents('php://input'));
-
-if (empty($data->id)) {
-    http_response_code(400); echo json_encode(['error' => 'Thiếu ID sách.']); exit;
-}
+require_once '../config/middleware.php';
 
 try {
-    $db = (new Database())->connect();
-    
-    // Kiểm tra xem sách có đang được mượn không? (Nếu đang mượn thì không được xóa)
-    $check = $db->prepare("SELECT COUNT(*) FROM borrowings WHERE book_id = ? AND status = 'borrowed'");
-    $check->execute([$data->id]);
-    if ($check->fetchColumn() > 0) {
-        http_response_code(409); // Conflict
-        echo json_encode(['error' => 'Không thể xóa! Sách này đang có người mượn.']);
-        exit;
-    }
-    // xóa ảnh trong máy chủ trước
-    $stmt_get = $db->prepare("SELECT image_url FROM books WHERE id = ?");
-    $stmt_get->execute([$data->id]);
-    $book = $stmt_get->fetch(PDO::FETCH_ASSOC);
+$admin_data= checkAdminAuth();
 
-    if ($book && !empty($book['image_url'])) {
-       
-        $file_path = "../../" . $book['image_url']; 
-        if (file_exists($file_path)) {
-            // Hàm unlink() dùng để xóa file
-            unlink($file_path); 
+    $database = new Database();
+    $conn = $database->connect();
+
+    // Lấy dữ liệu từ $_POST (vì dùng FormData để gửi ảnh)
+    $title = $_POST['title'] ?? '';
+    $author = $_POST['author'] ?? '';
+    $category_id = $_POST['category_id'] ?? null;
+    $publisher = $_POST['publisher'] ?? '';
+    $year = $_POST['year'] ?? '';
+    $description = $_POST['description'] ?? '';
+
+    // Xử lý Upload Ảnh
+    $image_url = '';
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $target_dir = "../uploads/img/Book/"; // Lưu vào thư mục api/uploads
+        if (!file_exists($target_dir)) mkdir($target_dir, 0777, true);
+        
+        $filename = time() . "_" . basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . $filename;
+        
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            $image_url = "img/Book/" . $filename; // Đường dẫn tương đối để lưu DB
         }
     }
 
-    //Xóa dữ liệu trong CSDL
-    $stmt = $db->prepare("DELETE FROM books WHERE id = ?");
-    if ($stmt->execute([$data->id])) {
-        echo json_encode(['message' => 'Đã xóa sách và ảnh bìa thành công.']);
+    $sql = "INSERT INTO books (title, author, category_id, publisher, year, description, image_url, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'available')";
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt->execute([$title, $author, $category_id, $publisher, $year, $description, $image_url])) {
+        http_response_code(201);
+        echo json_encode(['message' => 'Thêm sách thành công', 'id' => $conn->lastInsertId()]);
     } else {
-        throw new Exception("Lỗi CSDL.");
+        throw new Exception("Lỗi khi thêm sách");
+    }
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
+### api\books\delete.php
+```php
+<?php
+// 1. Cấu hình CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+try {
+    // 2. Kiểm tra Auth
+    $admin_data = checkAdminAuth();
+
+    // 3. Lấy dữ liệu ID
+    $data = json_decode(file_get_contents("php://input"));
+    if (!isset($data->id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu ID sách cần xóa.']);
+        exit;
+    }
+
+    $db = (new Database())->connect();
+    
+    // 4. Kiểm tra sách có đang được mượn không?
+    $check = $db->prepare("SELECT COUNT(*) FROM borrowings WHERE book_id = ? AND (status = 'borrowed' OR status = 'returning' OR status = 'overdue')");
+    $check->execute([$data->id]);
+    
+    if ($check->fetchColumn() > 0) {
+        http_response_code(409); 
+        echo json_encode(['error' => 'Không thể xóa! Sách đang trong quá trình mượn/trả.']);
+        exit;
+    }
+
+    // 5. THỰC HIỆN SOFT DELETE
+    // Chỉ cập nhật trạng thái is_deleted thành 1
+    $stmt = $db->prepare("UPDATE books SET is_deleted = 1 WHERE id = ?");
+    
+    if ($stmt->execute([$data->id])) {
+        echo json_encode(['message' => 'Đã chuyển sách vào thùng rác.']);
+    } else {
+        throw new Exception("Lỗi khi cập nhật trạng thái sách.");
     }
 
 } catch (Exception $e) {
@@ -1790,7 +1251,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // 2. Xây dựng điều kiện lọc (WHERE clause)
-$where_sql = " WHERE 1=1";
+$where_sql = " WHERE 1=1 AND b.is_deleted = 0";
 $params = [];
 
 // Lọc theo từ khóa
@@ -1860,6 +1321,59 @@ try {
 ?>
 ```
 
+### api\books\readAll.php
+```php
+<?php
+// 1. Cấu hình Headers (CORS)
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// 2. Nhúng các file cấu hình
+require_once '../config/database.php';
+
+try {
+
+    // 4. Kết nối Database
+    $database = new Database();
+    $conn = $database->connect();
+
+    $query = "SELECT 
+                b.*, 
+                c.name as category_name 
+              FROM books b
+              LEFT JOIN categories c ON b.category_id = c.id
+              WHERE b.is_deleted = 0
+              ORDER BY b.id DESC";
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    
+    $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 6. Trả về kết quả JSON
+    echo json_encode([
+        'success' => true,
+        'count' => count($books),
+        'data' => $books
+    ]);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+}
+?>
+```
+
 ### api\books\read_single.php
 ```php
 <?php
@@ -1883,7 +1397,8 @@ try {
     $query = "SELECT b.*, c.name as category_name 
               FROM books b 
               LEFT JOIN categories c ON b.category_id = c.id 
-              WHERE b.id = ?";
+              WHERE b.id = ?
+              AND is_deleted = 0";
               
     $stmt = $db->prepare($query);
     $stmt->execute([$_GET['id']]);
@@ -1903,6 +1418,114 @@ try {
 ?>
 ```
 
+### api\books\update.php
+```php
+<?php
+// 1. Cấu hình Headers & CORS
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // Dùng POST cho Form Data chứa file
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// Xử lý Preflight Request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// 2. Nhúng file cấu hình (Lùi ra 2 cấp thư mục: server/api/books/ -> server/)
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+try {
+    // 3. Xác thực Admin
+    $admin_data = checkAdminAuth();
+
+    $database = new Database();
+    $conn = $database->connect();
+
+    // 4. Lấy ID và Validate
+    $id = $_POST['id'] ?? null;
+    if (!$id) {
+        http_response_code(400);
+        throw new Exception("Thiếu ID sách cần cập nhật");
+    }
+
+    // 5. Lấy thông tin sách cũ 
+    $stmtGet = $conn->prepare("SELECT image_url FROM books WHERE id = ?");
+    $stmtGet->execute([$id]);
+    $oldBook = $stmtGet->fetch(PDO::FETCH_ASSOC);
+
+    if (!$oldBook) {
+        http_response_code(404);
+        throw new Exception("Sách không tồn tại");
+    }
+
+    $image_url_to_save = $oldBook['image_url']; // Mặc định giữ ảnh cũ
+
+    // 6. Xử lý Upload Ảnh Mới (Nếu có)
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $upload_root = "../uploads/img/Book/"; 
+        
+        // Tạo thư mục nếu chưa có
+        if (!is_dir($upload_root)) {
+            mkdir($upload_root, 0777, true);
+        }
+
+        // Tạo tên file an toàn
+        $filename = time() . "_" . basename($_FILES["image"]["name"]);
+        $target_file = $upload_root . $filename;
+        
+        // Kiểm tra định dạng ảnh
+        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowed)) {
+            throw new Exception("Chỉ cho phép định dạng ảnh (JPG, PNG, GIF, WEBP)");
+        }
+
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            $image_url_to_save = "img/Book/" . $filename;
+
+            if (!empty($oldBook['image_url'])) {
+                $old_file_phys = "../uploads/" . $oldBook['image_url'];
+                if (file_exists("../" . $oldBook['image_url'])) { 
+                     unlink("../" . $oldBook['image_url']);
+                }
+            }
+        } else {
+            throw new Exception("Lỗi khi tải ảnh lên server.");
+        }
+    }
+
+    // 7. Cập nhật Database
+    $sql = "UPDATE books SET title=?, author=?, category_id=?, publisher=?, year=?, description=?, image_url=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    
+    // Sử dụng $_POST có kiểm tra null để tránh lỗi Undefined index
+    $result = $stmt->execute([
+        $_POST['title'] ?? '', 
+        $_POST['author'] ?? '', 
+        $_POST['category_id'] ?? null, 
+        $_POST['publisher'] ?? '', 
+        $_POST['year'] ?? '', 
+        $_POST['description'] ?? '', 
+        $image_url_to_save, 
+        $id
+    ]);
+
+    if ($result) {
+        echo json_encode(['message' => 'Cập nhật sách thành công']);
+    } else {
+        throw new Exception("Lỗi khi cập nhật cơ sở dữ liệu");
+    }
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
 ### api\borrowings\create.php
 ```php
 <?php
@@ -1913,7 +1536,7 @@ header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 require_once '../config/database.php';
-require_once '../../vendor/autoload.php'; // Gọi thư viện JWT
+require_once '../../vendor/autoload.php'; // Gọi thư viện JWTz
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
@@ -1988,15 +1611,20 @@ try {
 ### api\categories\create.php
 ```php
 <?php
-header('Content-Type: application/json');
-session_start();
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
-// 1. Kiểm tra quyền Admin
-if (!isset($_SESSION['admin_id']) || !in_array($_SESSION['role'], ['admin', 'super-admin'])) {
-    http_response_code(401); echo json_encode(['error' => 'Unauthorized']); exit;
+// Xử lý Preflight Request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
 require_once '../config/database.php';
+require_once '../config/middleware.php';
+$admin_data = checkAdminAuth();
 $data = json_decode(file_get_contents('php://input'));
 
 if (empty($data->name)) {
@@ -2034,12 +1662,68 @@ try {
 ?>
 ```
 
+### api\categories\delete.php
+```php
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') { http_response_code(200); exit(); }
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+try {
+    checkAdminAuth();
+
+    $data = json_decode(file_get_contents("php://input"));
+    if (empty($data->id)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu ID']);
+        exit;
+    }
+
+    $db = (new Database())->connect();
+
+    // 1. Kiểm tra xem có sách nào thuộc thể loại này không?
+    // (Bao gồm cả sách đã xóa mềm is_deleted=1 cũng nên check để bảo toàn lịch sử, hoặc tùy bạn)
+    $checkQuery = "SELECT COUNT(*) FROM books WHERE category_id = ?";
+    $stmtCheck = $db->prepare($checkQuery);
+    $stmtCheck->execute([$data->id]);
+    $bookCount = $stmtCheck->fetchColumn();
+
+    if ($bookCount > 0) {
+        http_response_code(409); // Conflict
+        echo json_encode([
+            'error' => "Không thể xóa! Có $bookCount cuốn sách đang thuộc thể loại này. Hãy chuyển sách sang thể loại khác trước."
+        ]);
+        exit;
+    }
+
+    // 2. Nếu không có sách nào thì xóa
+    $stmt = $db->prepare("DELETE FROM categories WHERE id = ?");
+    if ($stmt->execute([$data->id])) {
+        echo json_encode(['message' => 'Đã xóa thể loại thành công']);
+    } else {
+        throw new Exception("Lỗi CSDL");
+    }
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
 ### api\categories\read.php
 ```php
 <?php
 // file: api/categories/read.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET");
 
 require_once '../config/database.php';
 
@@ -2048,13 +1732,54 @@ try {
     $db = $database->connect();
 
     // Lấy tất cả thể loại, sắp xếp theo tên A-Z
-    $query = "SELECT * FROM categories ORDER BY name ASC";
+    $query = "SELECT * FROM categories ORDER BY id";
     $stmt = $db->prepare($query);
     $stmt->execute();
     
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($categories);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+?>
+```
+
+### api\categories\update.php
+```php
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') { http_response_code(200); exit(); }
+
+require_once '../config/database.php';
+require_once '../config/middleware.php';
+
+try {
+    checkAdminAuth();
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    if (empty($data->id) || empty($data->name)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Thiếu dữ liệu (ID hoặc Tên)']);
+        exit;
+    }
+
+    $db = (new Database())->connect();
+    
+    $stmt = $db->prepare("UPDATE categories SET name = ? WHERE id = ?");
+    
+    if ($stmt->execute([$data->name, $data->id])) {
+        echo json_encode(['message' => 'Cập nhật thể loại thành công']);
+    } else {
+        throw new Exception("Lỗi khi cập nhật");
+    }
 
 } catch (Exception $e) {
     http_response_code(500);
@@ -2155,6 +1880,52 @@ try {
     echo "<h3 style='color:red'>Lỗi CSDL: " . $e->getMessage() . "</h3>";
 } catch (Exception $e) {
     echo "<h3 style='color:red'>Lỗi: " . $e->getMessage() . "</h3>";
+}
+?>
+```
+
+### api\config\middleware.php
+```php
+<?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
+
+function checkAdminAuth() {
+    // 1. Lấy Token từ Header
+    $headers = apache_request_headers(); 
+    $authHeader = $headers['Authorization'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    
+    $arr = explode(" ", $authHeader);
+    $token = $arr[1] ?? '';
+
+    if (!$token) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized: Token not found']);
+        exit();
+    }
+
+    try {
+        // 2. Giải mã Token
+        $key = "B4E_SECRET_KEY_123456"; 
+        $decoded = JWT::decode($token, new Key($key, 'HS256'));
+        
+        // 3. Kiểm tra Role trong Token
+        $role = $decoded->data->role;
+        if ($role !== 'admin' && $role !== 'super-admin') {
+            http_response_code(403);
+            echo json_encode(['error' => 'Forbidden: Admin access required']);
+            exit();
+        }
+
+        // Trả về thông tin user để API sử dụng nếu cần
+        return $decoded->data;
+
+    } catch (Exception $e) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized: Invalid Token']);
+        exit();
+    }
 }
 ?>
 ```
@@ -2284,11 +2055,17 @@ try {
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 require_once '../config/database.php';
 require_once '../../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
 $arr = explode(" ", $authHeader);
@@ -2326,11 +2103,17 @@ try {
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 require_once '../config/database.php';
 require_once '../../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
 $arr = explode(" ", $authHeader);
@@ -2414,7 +2197,1354 @@ try {
 ?>
 ```
 
-### src\js\accountManage.js
+### client\admin\js\admin-layout.js
+```js
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Kiểm tra bảo mật (Sơ bộ)
+    checkAdminAuth();
+
+    // 2. Render giao diện chung
+
+    createOverlay();
+
+    renderSidebar();
+    renderHeader();
+    
+    displayAdminInfo();
+});
+
+// Hàm tạo Overlay động
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    overlay.onclick = toggleSidebar; // Bấm vào vùng tối thì đóng sidebar
+    document.body.appendChild(overlay);
+}
+
+// --- 1. RENDER SIDEBAR ---
+function renderSidebar() {
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
+
+    const sidebarHTML = `
+        <div class="sidebar" id="adminSidebar">
+            <button class="sidebar-close-btn" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="sidebar-brand">
+                <h2>B4E Admin</h2>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="index.html" class="${page === 'index.html' || page === '' ? 'active' : ''}">
+                    <i class="fas fa-home"></i> Tổng quan
+                </a>
+                <a href="manage_books.html" class="${page.includes('book') ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Quản lý Sách
+                </a>
+
+                <a href="manage_categories.html" class="${page.includes('categor') ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Quản lý Thể loại sách
+                </a>
+    
+                <a href="manage_donations.html" class="${page.includes('donation') ? 'active' : ''}">
+                    <i class="fas fa-gift"></i> Duyệt Quyên góp
+                </a>
+                <a href="manage_borrowings.html" class="${page.includes('borrow') ? 'active' : ''}">
+                    <i class="fas fa-exchange-alt"></i> Quản lý Mượn/Trả
+                </a>
+                <a href="manage_users.html" class="${page.includes('user') ? 'active' : ''}">
+                    <i class="fas fa-users"></i> Quản lý Người dùng
+                </a>
+
+                </a>
+                <a href="../index.html">
+                    <i class="fas fa-home"></i> Quay về trang chủ
+                </a>
+                
+                <div class="sidebar-divider"></div>
+                
+                <a href="#" onclick="handleLogout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </nav>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('afterbegin', sidebarHTML);
+}
+
+// --- 2. RENDER HEADER ---
+function renderHeader() {
+    // Tìm thẻ main-content để chèn Header vào đầu nó
+    const mainContent = document.querySelector('.main-content');
+    if (!mainContent) return;
+
+    const headerHTML = `
+        <header class="top-header">
+            <div class="header-left">
+                <button id="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="page-title">Hệ Thống Quản Trị Thư Viện</span>
+            </div>
+            
+            <div class="header-right">
+                <div class="admin-profile">
+                    <div class="admin-info">
+                        <small class="admin-role">Quản trị viên</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+    `;
+
+    mainContent.insertAdjacentHTML('afterbegin', headerHTML);
+}
+
+// --- 3. CÁC HÀM TIỆN ÍCH ---
+function checkAdminAuth() {
+    // 1. Lấy dữ liệu từ LocalStorage
+    const token = localStorage.getItem('b4e_token');
+    const userStr = localStorage.getItem('b4e_user');
+
+    // 2. Kiểm tra sơ bộ: Nếu không có token -> Đá về login
+    if (!token || !userStr) {
+        alert('Vui lòng đăng nhập để truy cập trang quản trị!');
+        window.location.href = '/client/index.html'; 
+        return;
+    }
+
+    try {
+        const user = JSON.parse(userStr);
+        
+        // 3. Kiểm tra quyền: Chỉ Admin/Super-Admin mới được ở lại
+        if (user.role !== 'admin' && user.role !== 'super-admin') {
+            alert('Bạn không có quyền truy cập trang này!');
+            window.location.href = '/client/index.html'; 
+            return;
+        }
+        
+    } catch (e) {
+        localStorage.clear();
+        window.location.href = '/client/index.html';
+    }
+}
+
+// Hiển thị tên Admin lấy từ localStorage
+function displayAdminInfo() {
+    const adminName = localStorage.getItem('b4e_username');
+    if (adminName) {
+        const nameEl = document.getElementById('layoutAdminName');
+        if (nameEl) nameEl.innerText = adminName;
+    }
+}
+
+// Xử lý Đăng xuất
+window.handleLogout = function() {
+    if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+        // Xóa thông tin lưu trữ
+        localStorage.removeItem('b4e_token');
+        localStorage.removeItem('b4e_user');
+        localStorage.removeItem('b4e_role');
+        
+        // Chuyển hướng về trang login
+        window.location.href = '/client/index.html';
+    }
+};
+
+// Toggle Sidebar (Cho mobile)
+window.toggleSidebar = function() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    const body = document.body;
+
+    if (window.innerWidth <= 768) {
+        // --- LOGIC MOBILE ---
+        // Thay vì dùng 'collapsed', ta dùng 'mobile-active' để trượt ra
+        sidebar.classList.toggle('mobile-active');
+        overlay.classList.toggle('active');
+
+        // Khóa cuộn trang khi mở menu (để tránh user cuộn nội dung bên dưới)
+        if (sidebar.classList.contains('mobile-active')) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
+    } else {
+        // --- LOGIC DESKTOP ---
+        sidebar.classList.toggle('collapsed');
+        const main = document.querySelector('.main-content');
+        if (main) main.classList.toggle('expanded');
+    }
+};
+```
+
+### client\admin\js\auth.js
+```js
+const Auth = {
+    // Hàm lấy token
+    getToken: () => localStorage.getItem('b4e_token'),
+
+    // Hàm kiểm tra đăng nhập bắt buộc
+    requireLogin: () => {
+        const token = localStorage.getItem('b4e_token');
+        const userStr = localStorage.getItem('b4e_user');
+        if (!token || !userStr) {
+            alert('Phiên đăng nhập hết hạn hoặc chưa đăng nhập.');
+            window.location.href = '../index.html'; // Chỉnh đường dẫn cho đúng với file của bạn
+            throw new Error("Unauthorized"); // Dừng script lại
+        }
+        return JSON.parse(userStr);
+    },
+
+    // Hàm Fetch
+    fetch: async (url, options = {}) => {
+        const token = localStorage.getItem('b4e_token');
+
+        // 1. Tự động thêm Header Authorization
+        const headers = options.headers || {};
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // 2. Tự động thêm Content-Type là JSON nếu không phải là FormData
+        if (!(options.body instanceof FormData) && !headers['Content-Type']) {
+            headers['Content-Type'] = 'application/json';
+        }
+
+        options.headers = headers;
+
+        // 3. Gọi fetch gốc
+        const response = await fetch(url, options);
+
+        // 4. Tự động xử lý lỗi 401 (Hết phiên)
+        if (response.status === 401) {
+            alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            localStorage.removeItem('b4e_token');
+            localStorage.removeItem('b4e_user');
+            window.location.href = '../index.html';
+            throw new Error("Session expired");
+        }
+
+        return response;
+    }
+};
+```
+
+### client\admin\js\book-form.js
+```js
+// Biến kiểm tra chế độ Edit
+let isEditMode = false;
+const urlParams = new URLSearchParams(window.location.search);
+const bookId = urlParams.get('id');
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Kiểm tra đăng nhập
+    Auth.requireLogin();
+
+    // 2. Tải danh sách thể loại
+    loadCategories();
+
+    // 3. Nếu có ID -> Chế độ Edit
+    if (bookId) {
+        isEditMode = true;
+        document.getElementById('page-title').innerText = 'Chỉnh sửa Sách';
+        document.getElementById('btn-submit').innerText = 'Cập nhật';
+        loadBookDetails(bookId);
+    }
+});
+
+// --- HÀM TẢI DỮ LIỆU ---
+
+async function loadCategories() {
+    try {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/categories/read.php`);
+        const categories = await response.json(); 
+        
+        const select = document.getElementById('categorySelect');
+        categories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = cat.name;
+            select.appendChild(option);
+        });
+    } catch (err) { console.error("Lỗi tải thể loại:", err); }
+}
+
+async function loadBookDetails(id) {
+    try {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/read_single.php?id=${id}`);
+        const book = await response.json();
+
+        // Điền dữ liệu vào form
+        document.getElementById('title').value = book.title;
+        document.getElementById('author').value = book.author;
+        document.getElementById('publisher').value = book.publisher;
+        document.getElementById('year').value = book.year;
+        document.getElementById('description').value = book.description;
+        
+        document.getElementById('categorySelect').value = book.category_id;
+
+        // Hiển thị ảnh cũ
+        if (book.image_url) {
+            const previewDiv = document.getElementById('current-image-preview');
+            const img = document.getElementById('img-preview');
+            // Xử lý đường dẫn ảnh
+            img.src = `${CONFIG.API_BASE_URL}/api/uploads/${book.image_url}`; 
+            previewDiv.style.display = 'block';
+        }
+
+    } catch (err) { alert("Không thể tải thông tin sách!"); }
+}
+
+// --- XỬ LÝ SUBMIT FORM ---
+
+async function handleBookSubmit(e) {
+    e.preventDefault();
+    
+    const btn = document.getElementById('btn-submit');
+    const originalText = btn.innerText;
+    btn.innerText = 'Đang lưu...';
+    btn.disabled = true;
+
+    // Chuẩn bị dữ liệu
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('author', document.getElementById('author').value);
+    formData.append('category_id', document.getElementById('categorySelect').value);
+    formData.append('publisher', document.getElementById('publisher').value);
+    formData.append('year', document.getElementById('year').value);
+    formData.append('description', document.getElementById('description').value);
+
+    // File ảnh
+    const fileInput = document.getElementById('imageInput');
+    if (fileInput.files[0]) {
+        formData.append('image', fileInput.files[0]);
+    }
+
+    let url = `${CONFIG.API_BASE_URL}/api/books/create.php`;
+    if (isEditMode) {
+        url = `${CONFIG.API_BASE_URL}/api/books/update.php`;
+        formData.append('id', bookId);
+    }
+
+    try {
+        const res = await Auth.fetch(url, {
+            method: 'POST',
+            body: formData 
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+            document.getElementById('alert-message').innerHTML = `<div style="color:green; margin-bottom:15px;">${result.message}</div>`;
+            if (!isEditMode) document.getElementById('bookForm').reset();
+        } else {
+            throw new Error(result.error || 'Lỗi không xác định');
+        }
+    } catch (error) {
+        document.getElementById('alert-message').innerHTML = `<div style="color:red; margin-bottom:15px;">Lỗi: ${error.message}</div>`;
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+// --- XỬ LÝ MODAL THỂ LOẠI (Thêm nhanh thể loại mới) ---
+
+function openCatModal() {
+    const modal = document.getElementById('catModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        // Focus vào ô nhập liệu ngay khi mở
+        const input = document.getElementById('newCatName');
+        if (input) input.focus();
+    }
+}
+
+function closeCatModal() {
+    const modal = document.getElementById('catModal');
+    if (modal) {
+        modal.style.display = 'none';
+        // Reset ô nhập liệu để lần sau mở ra trống trơn
+        document.getElementById('newCatName').value = ''; 
+    }
+}
+
+async function saveCategory() {
+    const nameInput = document.getElementById('newCatName');
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        alert('Vui lòng nhập tên thể loại!');
+        return;
+    }
+
+    // Khóa nút để tránh bấm nhiều lần
+    const btnSave = document.querySelector('#catModal .btn-green');
+    if(btnSave) {
+        btnSave.disabled = true;
+        btnSave.innerText = 'Đang lưu...';
+    }
+
+    try {
+        const res = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/categories/create.php`, {
+            method: 'POST',
+            body: JSON.stringify({ name: name })
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+            // 1. Thêm option mới vào thẻ Select
+            const select = document.getElementById('categorySelect');
+            const option = document.createElement('option');
+            
+            // API cần trả về {id: 123, name: "Tên mới", message: "..."}
+            option.value = result.id; 
+            option.text = result.name || name; 
+            option.selected = true; // Tự động chọn luôn thể loại vừa tạo
+            
+            select.appendChild(option);
+
+            // 2. Thông báo và đóng modal
+            alert('Đã thêm thể loại mới thành công!');
+            closeCatModal();
+        } else {
+            alert('Lỗi: ' + (result.error || 'Không thể tạo thể loại'));
+        }
+    } catch (err) { 
+        console.error(err);
+        alert('Lỗi kết nối server.'); 
+    } finally {
+        // Mở lại nút bấm
+        if(btnSave) {
+            btnSave.disabled = false;
+            btnSave.innerText = 'Lưu';
+        }
+    }
+}
+```
+
+### client\admin\js\dashboard.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+    Auth.requireLogin();
+
+    loadDashboardStats();
+});
+
+async function loadDashboardStats() {
+    try {
+        const token = localStorage.getItem('b4e_token');
+        
+        // 2. Gọi API với Header Authorization
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/get_stats.php`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        // 3. Xử lý lỗi 401 (Token hết hạn hoặc không hợp lệ)
+        if (response.status === 401) {
+            alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            localStorage.clear(); // Xóa rác
+            window.location.href = '../index.html';
+            return;
+        }
+
+        // 4. Parse JSON
+        const data = await response.json();
+
+        // Kiểm tra lỗi từ server (nếu có)
+        if (data.error) {
+            console.error(data.error);
+            return;
+        }
+
+        // 5. Cập nhật giao diện
+        // Điền dữ liệu vào các thẻ HTML
+        updateStat('stat-books', data.books || 0);
+        updateStat('stat-users', data.users || 0);
+        updateStat('stat-pending', data.pending_donations || 0);
+        updateStat('stat-returning', data.returning_books || 0);
+
+        // Hiển thị nút hành động nhanh
+        if (data.pending_donations > 0) {
+            const btnPending = document.getElementById('action-pending');
+            if (btnPending) btnPending.style.display = 'block';
+        }
+        
+        if (data.returning_books > 0) {
+            const btnReturn = document.getElementById('action-returning');
+            if (btnReturn) btnReturn.style.display = 'block';
+        }
+
+    } catch (error) {
+        console.error('Lỗi tải Dashboard:', error);
+    }
+}
+
+// Hàm cập nhật số liệu
+function updateStat(elementId, value) {
+    const el = document.getElementById(elementId);
+    if (el) el.innerText = value;
+}
+```
+
+### client\admin\js\manage_books.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+    Auth.requireLogin();
+    fetchBooks();
+});
+
+// --- 1. HÀM TẢI DANH SÁCH SÁCH ---
+async function fetchBooks() {
+    try {
+        // Gọi API lấy danh sách sách (API này trả về JSON mảng các sách)
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/readAll.php`);
+        const result = await response.json();
+
+        const books = result.data ? result.data : result;
+        
+        const tbody = document.getElementById('booksTableBody');
+        tbody.innerHTML = ''; 
+
+        if (books.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Chưa có sách nào.</td></tr>';
+            return;
+        }
+
+        // Duyệt qua từng sách và tạo dòng HTML
+        books.forEach(book => {
+            const tr = document.createElement('tr');
+            tr.id = `row-${book.id}`; // ID để dùng cho chức năng xóa
+
+            const imgUrl = book.image_url 
+            ? `${CONFIG.API_BASE_URL}/api/uploads/${book.image_url}`
+            : `/client/img/default-book.png`;
+
+            // Xử lý trạng thái (Badge màu)
+            let statusBadge = '';
+            if (book.status === 'available') {
+                statusBadge = '<span class="badge bg-green">Có sẵn</span>';
+            } else if (book.status === 'borrowed') {
+                statusBadge = '<span class="badge bg-yellow">Đang mượn</span>';
+            } else {
+                statusBadge = `<span class="badge bg-gray">${book.status}</span>`;
+            }
+
+            tr.innerHTML = `
+                <td>#${book.id}</td>
+                <td>
+                    <img src="${imgUrl}" style="width:40px; height:60px; object-fit:cover; border-radius:3px;" onerror="this.src='../img/default-book.png'">
+                </td>
+                <td>
+                    <b>${book.title}</b><br>
+                    <small style="color:#666;">${book.author}</small>
+                </td>
+                <td>${book.category_name || 'Chưa phân loại'}</td>
+                <td>${statusBadge}</td>
+                <td>
+                    <a href="book_form.html?id=${book.id}" class="btn btn-blue" title="Sửa" style="padding: 5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    &nbsp;
+                    <button class="btn btn-red" onclick="deleteBook(${book.id})" title="Xóa" style="padding: 5px 10px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Lỗi tải sách:', error);
+        document.getElementById('booksTableBody').innerHTML = 
+            '<tr><td colspan="6" style="text-align:center; color:red;">Lỗi kết nối server.</td></tr>';
+    }
+}
+// --- 2. HÀM XÓA SÁCH ---
+async function deleteBook(id) {
+    if (!confirm('Bạn có chắc chắn muốn xóa cuốn sách này? Hành động này không thể hoàn tác.')) return;
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/books/delete.php`, {
+            method: 'POST',
+            body: JSON.stringify({ id: id }) 
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert(result.message || 'Đã xóa thành công!');
+            
+            // 2. Xóa dòng khỏi bảng ngay lập tức (Hiệu ứng mờ dần cho mượt)
+            const row = document.getElementById(`row-${id}`);
+            if (row) {
+                row.style.transition = 'opacity 0.5s';
+                row.style.opacity = '0';
+                setTimeout(() => row.remove(), 500);
+            }
+        } else {
+            alert('Lỗi: ' + (result.error || 'Không thể xóa'));
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Lỗi kết nối hoặc lỗi server.');
+    }
+}
+```
+
+### client\admin\js\manage_borrowings.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+   Auth.requireLogin();
+    fetchBorrowings();
+});
+
+// --- 1. TẢI DANH SÁCH MƯỢN TRẢ ---
+async function fetchBorrowings() {
+    try {
+        const token = localStorage.getItem('b4e_token');
+        
+        // 2. Gọi API với Header Authorization
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/borrowings.php`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        // 3. Xử lý lỗi 401 (Token hết hạn hoặc không hợp lệ)
+        if (response.status === 401) {
+            alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            localStorage.clear(); // Xóa rác
+            window.location.href = '../index.html';
+            return;
+        }
+        const result = await response.json();
+        
+        // Xử lý dữ liệu trả về
+        const borrowings = result.data ? result.data : result;
+
+        const tbody = document.getElementById('borrowingsTableBody');
+        tbody.innerHTML = '';
+
+        if (!borrowings || borrowings.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Không có dữ liệu.</td></tr>';
+            return;
+        }
+
+        borrowings.forEach(item => {
+            const tr = document.createElement('tr');
+            
+            // 1. Xử lý ảnh bìa
+            const imgUrl = item.image_url 
+                ? `${CONFIG.IMG_BASE_URL}/${item.image_url}`.replace('//img', '/img')
+                : '../../img/default-book.png';
+
+            // 2. Xử lý Ngày tháng (Format DD/MM/YYYY)
+            const borrowDate = formatDate(item.borrow_date);
+            const dueDate = formatDate(item.due_date);
+            const returnDate = item.return_date ? formatDate(item.return_date) : '';
+
+            // 3. Xử lý Badge Trạng thái (Chuyển logic switch case PHP sang JS)
+            const statusHtml = getStatusBadge(item.status, item.return_date, item.due_date);
+
+            // 4. Xử lý Nút Hành động
+            let actionHtml = '';
+            // Nếu trạng thái là: Đang mượn, Đang trả, hoặc Quá hạn -> Hiện nút Xác nhận
+            if (['borrowed', 'returning', 'overdue'].includes(item.status)) {
+                actionHtml = `
+                    <button class="btn btn-green" onclick="confirmReturn(${item.id})" style="padding: 6px 12px; font-size: 0.9rem;">
+                        <i class="fas fa-check-circle"></i> Xác nhận đã nhận
+                    </button>
+                `;
+            } else {
+                actionHtml = `<span style="color:#aaa;"><i class="fas fa-check"></i> Đã xử lý</span>`;
+            }
+
+            // 5. Render HTML
+            tr.innerHTML = `
+                <td>
+                    <b>#${item.user_id}</b><br>
+                    <b>${item.username}</b><br>
+                    <small style="color:#666;">${item.phone || 'Chưa có SĐT'}</small>
+                </td>
+                <td>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="${imgUrl}" style="width:30px; height:45px; object-fit:cover; border-radius:3px;" onerror="this.src='../img/default-book.png'">
+                        <span>${item.book_title}</span>
+                    </div>
+                </td>
+                <td>
+                    Mượn: ${borrowDate}<br>
+                    <span style="color: #d9534f;">Hạn: ${dueDate}</span>
+                    ${returnDate ? `<br>Trả: ${returnDate}` : ''}
+                </td>
+                <td>${statusHtml}</td>
+                <td>${actionHtml}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Lỗi tải dữ liệu:', error);
+        document.getElementById('borrowingsTableBody').innerHTML = 
+            '<tr><td colspan="5" style="text-align:center; color:red;">Lỗi kết nối server.</td></tr>';
+    }
+}
+
+// --- 2. HÀM XỬ LÝ TRẢ SÁCH ---
+
+async function confirmReturn(borrowId) {
+    if (!confirm('Xác nhận sách đã trả?')) return;
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/confirm_return.php`, {
+            method: 'POST',
+            body: JSON.stringify({ borrow_id: borrowId }) 
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error("Server Error:", text);
+            throw new Error(`Lỗi Server: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message || 'Thành công!');
+            fetchBorrowings();
+        } else {
+            alert('Lỗi logic: ' + (result.error || 'Không thể xử lý'));
+        }
+    } catch (error) {
+        console.error("Chi tiết lỗi:", error);
+        alert('Lỗi kết nối: ' + error.message);
+    }
+}
+
+// --- HELPER FUNCTIONS ---
+
+// Hàm định dạng ngày
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+// Hàm tạo Badge trạng thái
+function getStatusBadge(status, returnDate, dueDate) {
+    const badgeStyle = 'display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 4px;';
+    
+    switch(status) {
+        case 'returning':
+            return `<span class="badge" style="${badgeStyle} background-color: #3498db;">User báo đã trả</span>`;
+        case 'borrowed':
+            return `<span class="badge" style="${badgeStyle} background-color: #f39c12;">Đang mượn</span>`;
+        case 'overdue':
+            return `<span class="badge" style="${badgeStyle} background-color: #c0392b;">Quá hạn</span>`;
+        case 'returned':
+            let subBadge = '';
+            // Logic so sánh ngày trả thực tế với ngày hẹn
+            if (returnDate && dueDate) {
+                const ret = new Date(returnDate);
+                const due = new Date(dueDate);
+                if (ret <= due) {
+                    subBadge = `<br><span class="badge" style="${badgeStyle} background-color: #2ecc71; font-size: 0.75rem; margin-top: 2px;">Đúng hạn</span>`;
+                } else {
+                    subBadge = `<br><span class="badge" style="${badgeStyle} background-color: #e74c3c; font-size: 0.75rem; margin-top: 2px;">Trả muộn</span>`;
+                }
+            }
+            return `<span class="badge" style="${badgeStyle} background-color: #27ae60;">Đã trả sách</span>${subBadge}`;
+        default:
+            return `<span class="badge">${status}</span>`;
+    }
+}
+```
+
+### client\admin\js\manage_categories.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+    Auth.requireLogin();
+    fetchCategories();
+});
+
+let isEditMode = false;
+
+// --- 1. TẢI DANH SÁCH ---
+async function fetchCategories() {
+    try {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/categories/read.php`);
+        const categories = await response.json();
+        
+        const tbody = document.getElementById('categoryTableBody');
+        tbody.innerHTML = '';
+
+        if (!categories || categories.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center">Chưa có thể loại nào.</td></tr>';
+            return;
+        }
+
+        categories.forEach(cat => {
+            const tr = document.createElement('tr');
+            tr.id = `row-${cat.id}`;
+            tr.innerHTML = `
+                <td>#${cat.id}</td>
+                <td><b>${cat.name}</b></td>
+                <td>
+                    <button class="btn btn-blue" onclick="openModal(${cat.id}, '${cat.name}')" style="padding:5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-red" onclick="deleteCategory(${cat.id})" style="padding:5px 10px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error(error);
+        alert('Lỗi tải danh sách thể loại');
+    }
+}
+
+// --- 2. XỬ LÝ MODAL ---
+function openModal(id = null, name = '') {
+    const modal = document.getElementById('categoryModal');
+    const title = document.getElementById('modalTitle');
+    const idInput = document.getElementById('catId');
+    const nameInput = document.getElementById('catName');
+
+    modal.style.display = 'flex';
+    
+    if (id) {
+        // Chế độ Sửa
+        isEditMode = true;
+        title.innerText = 'Cập nhật Thể loại';
+        idInput.value = id;
+        nameInput.value = name;
+    } else {
+        // Chế độ Thêm
+        isEditMode = false;
+        title.innerText = 'Thêm Thể loại Mới';
+        idInput.value = '';
+        nameInput.value = '';
+    }
+    nameInput.focus();
+}
+
+function closeModal() {
+    document.getElementById('categoryModal').style.display = 'none';
+}
+
+// --- 3. LƯU (THÊM / SỬA) ---
+async function handleSave(e) {
+    e.preventDefault();
+    
+    const id = document.getElementById('catId').value;
+    const name = document.getElementById('catName').value.trim();
+    const btn = document.getElementById('btn-save');
+
+    if (!name) return alert("Vui lòng nhập tên thể loại");
+
+    btn.disabled = true;
+    btn.innerText = "Đang lưu...";
+
+    try {
+        let url = `${CONFIG.API_BASE_URL}/api/categories/create.php`;
+        let method = 'POST';
+        let body = { name: name };
+
+        if (isEditMode) {
+            url = `${CONFIG.API_BASE_URL}/api/categories/update.php`;
+            // method = 'PUT'; // Một số host chặn PUT, dùng POST cho lành
+            body = { id: id, name: name };
+        }
+
+        const response = await Auth.fetch(url, {
+            method: method,
+            body: JSON.stringify(body)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message || 'Thành công!');
+            closeModal();
+            fetchCategories(); // Tải lại bảng
+        } else {
+            throw new Error(result.error || 'Có lỗi xảy ra');
+        }
+
+    } catch (error) {
+        alert('Lỗi: ' + error.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerText = "Lưu";
+    }
+}
+
+// --- 4. XÓA THỂ LOẠI ---
+async function deleteCategory(id) {
+    if (!confirm('Bạn có chắc chắn muốn xóa thể loại này? Lưu ý: Nếu có sách thuộc thể loại này, bạn sẽ không xóa được.')) return;
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/categories/delete.php`, {
+            method: 'POST',
+            body: JSON.stringify({ id: id })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Đã xóa thành công!');
+            // Xóa dòng HTML
+            const row = document.getElementById(`row-${id}`);
+            if(row) row.remove();
+        } else {
+            alert('Lỗi: ' + (result.error || 'Không thể xóa'));
+        }
+    } catch (error) {
+        alert('Lỗi kết nối server.');
+    }
+}
+```
+
+### client\admin\js\manage_donations.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+   Auth.requireLogin();
+    fetchDonations();
+});
+const token = localStorage.getItem('b4e_token');
+// --- 1. TẢI DANH SÁCH ---
+async function fetchDonations() {
+    try {
+
+        
+        
+        // 2. Gọi API với Header Authorization
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/donations.php`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        // 3. Xử lý lỗi 401 (Token hết hạn hoặc không hợp lệ)
+        if (response.status === 401) {
+            alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            localStorage.clear(); // Xóa rác
+            window.location.href = '../index.html';
+            return;
+        }
+        const result = await response.json();
+        
+        // Xử lý mảng dữ liệu
+        const donations = Array.isArray(result) ? result : (result.data || []);
+
+        const tbody = document.getElementById('donationsTableBody');
+        tbody.innerHTML = '';
+
+        if (donations.length === 0) {
+            // Hiện màn hình trống
+            document.getElementById('table-container').style.display = 'none';
+            document.getElementById('empty-state').style.display = 'block';
+            return;
+        }
+
+        // Hiện bảng, ẩn màn hình trống
+        document.getElementById('table-container').style.display = 'block';
+        document.getElementById('empty-state').style.display = 'none';
+
+        donations.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.id = `row-${item.id}`;
+
+            tr.innerHTML = `
+                <td>
+                    <b>${item.username}</b><br>
+                    <small style="color:#666;">${item.email}</small>
+                </td>
+                <td>
+                    <span style="color:#007bff; font-weight:bold; font-size:1.1rem;">
+                        ${item.book_title}
+                    </span><br>
+                    TG: ${item.book_author}<br>
+                    <small>NXB: ${item.book_publisher || 'N/A'} (${item.book_year || '-'})</small>
+                </td>
+                <td>
+                    <span class="badge bg-yellow">${item.book_condition || 'Normal'}</span>
+                </td>
+                <td>${item.donation_type}</td>
+                <td>
+                    <button class="btn btn-green" onclick="processDonation(${item.id}, 'approve')" style="margin-right:5px;">
+                        <i class="fas fa-check"></i> Tiếp nhận
+                    </button>
+                    <br>
+                    <button class="btn btn-red" onclick="processDonation(${item.id}, 'reject')">
+                        <i class="fas fa-times"></i> Từ chối
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Lỗi tải dữ liệu:', error);
+        alert('Không thể tải danh sách quyên góp.');
+    }
+}
+
+// --- 2. XỬ LÝ DUYỆT / TỪ CHỐI ---
+async function processDonation(id, action) {
+    const confirmMsg = action === 'approve' 
+        ? 'Bạn có chắc chắn muốn DUYỆT sách này? Nó sẽ được thêm vào kho sách ngay lập tức.' 
+        : 'Bạn có chắc chắn muốn TỪ CHỐI yêu cầu này?';
+
+    if (!confirm(confirmMsg)) return;
+
+    // Xác định API endpoint
+    const apiEndpoint = action === 'approve' 
+        ? '/api/admin/approve_donation.php' 
+        : '/api/admin/reject_donation.php';
+
+    try {
+        const response = await fetch(`${CONFIG.API_BASE_URL}${apiEndpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' ,
+                'Authorization': 'Bearer ' + token},
+            
+            body: JSON.stringify({ donation_id: id })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message || 'Thao tác thành công!');
+            
+            // Hiệu ứng xóa dòng mượt mà
+            const row = document.getElementById(`row-${id}`);
+            if (row) {
+                row.style.transition = 'all 0.5s';
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    row.remove();
+                    // Kiểm tra lại nếu hết dòng thì hiện thông báo trống
+                    const tbody = document.getElementById('donationsTableBody');
+                    if (tbody.children.length === 0) {
+                        document.getElementById('table-container').style.display = 'none';
+                        document.getElementById('empty-state').style.display = 'block';
+                    }
+                }, 500);
+            }
+        } else {
+            alert('Lỗi: ' + (result.error || 'Có lỗi xảy ra'));
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Lỗi kết nối server.');
+    }
+}
+```
+
+### client\admin\js\manage_users.js
+```js
+document.addEventListener('DOMContentLoaded', () => {
+    Auth.requireLogin();
+    fetchUsers();
+});
+
+let currentAdminId = null; 
+
+// --- 1. HÀM QUY ĐỔI ROLE THÀNH ĐIỂM SỐ ---
+function getRolePower(role) {
+    switch(role) {
+        case 'super-admin': return 3;
+        case 'admin': return 2;
+        default: return 1; // user
+    }
+}
+
+// --- 2. TẢI DANH SÁCH ---
+async function fetchUsers() {
+    // 1. Lấy thông tin Admin hiện tại từ LocalStorage
+    const userStr = localStorage.getItem('b4e_user');
+    if (!userStr) return; // Auth.requireLogin đã xử lý redirect rồi
+
+    const currentUser = JSON.parse(userStr);
+    const myRolePower = getRolePower(currentUser.role); 
+    currentAdminId = currentUser.id;
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/users.php`, {
+            method: 'GET'
+        });
+
+        const result = await response.json();
+        const users = result.data || [];
+        
+        // Cập nhật lại ID từ server nếu cần thiết (ưu tiên localstorage để render nhanh, nhưng server là chuẩn nhất)
+        if (result.current_admin_id) {
+            currentAdminId = result.current_admin_id;
+        }
+
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = '';
+
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Không có người dùng nào.</td></tr>';
+            return;
+        }
+
+        users.forEach(u => {
+            const tr = document.createElement('tr');
+            tr.id = `row-${u.id}`;
+
+            // --- Xử lý Role Badge ---
+            let roleBadge = '';
+            if (u.role === 'admin') {
+                roleBadge = '<span class="badge" style="background:#6f42c1; color:white;">Admin</span>';
+            } else if (u.role === 'super-admin') {
+                roleBadge = '<span class="badge" style="background:#d63384; color:white;">Super-Admin</span>';
+            } else {
+                roleBadge = '<span class="badge" style="background:#17a2b8; color:white;">User</span>';
+            }
+
+            // --- LOGIC ẨN/HIỆN NÚT ---
+            const targetUserPower = getRolePower(u.role);
+            let actionButtons = '';
+
+            // Trường hợp 1: Là chính mình -> Hiện nút Sửa (thường mình được sửa thông tin mình), Ẩn nút Xóa
+            // Lưu ý: So sánh lỏng (==) vì ID từ API có thể là number hoặc string
+            if (u.id == currentAdminId) {
+                actionButtons = `
+                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa thông tin cá nhân" style="padding: 5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <span style="color:#aaa; font-size:0.8rem; margin-left:5px;">(Bạn)</span>
+                `;
+            } 
+            // Trường hợp 2: Quyền của mình CAO HƠN người kia -> Hiện đủ nút
+            else if (myRolePower > targetUserPower) {
+                actionButtons = `
+                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa quyền/Thông tin" style="padding: 5px 10px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    &nbsp;
+                    <button class="btn btn-red" onclick="deleteUser(${u.id})" title="Xóa tài khoản" style="padding: 5px 10px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+            } 
+            // Trường hợp 3: Quyền thấp hơn hoặc bằng (Admin nhìn Admin khác, hoặc Admin nhìn Super-Admin) -> Ẩn hết
+            else {
+                actionButtons = `<span style="color:#aaa; font-style:italic; font-size:0.9rem;">Không đủ quyền hạn</span>`;
+            }
+
+            // Định dạng ngày
+            const joinDate = u.created_at ? new Date(u.created_at).toLocaleDateString('vi-VN') : '---';
+
+            tr.innerHTML = `
+                <td>#${u.id}</td>
+                <td>
+                    <b>${u.username}</b><br>
+                    <small style="color:#666;">${u.email}</small>
+                </td>
+                <td>${roleBadge}</td>
+                <td>
+                    <div style="font-size:0.9rem;">
+                        <i class="fas fa-phone" style="width:15px; text-align:center;"></i> ${u.phone || '---'}<br>
+                        <i class="fas fa-map-marker-alt" style="width:15px; text-align:center;"></i> ${u.address || '---'}
+                    </div>
+                </td>
+                <td>${joinDate}</td>
+                <td>
+                    ${actionButtons}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Lỗi tải user:', error);
+        document.getElementById('usersTableBody').innerHTML = 
+            '<tr><td colspan="6" style="text-align:center; color:red;">Lỗi kết nối server.</td></tr>';
+    }
+}
+
+// ... (Giữ nguyên hàm deleteUser)
+
+// --- 2. HÀM XÓA USER ---
+async function deleteUser(id) {
+    if (!confirm('CẢNH BÁO: Xóa người dùng sẽ xóa luôn lịch sử mượn và quyên góp của họ. Bạn có chắc chắn không?')) return;
+
+    const token = localStorage.getItem('b4e_token'); // Lấy token
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/delete_user.php`, {
+            method: 'POST',
+            body: JSON.stringify({ id: id })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert(result.message || 'Đã xóa người dùng.');
+            const row = document.getElementById(`row-${id}`);
+            if(row) row.remove();
+        } else {
+            alert('Lỗi: ' + (result.error || 'Không thể xóa'));
+        }
+    } catch (error) {
+        alert('Lỗi kết nối.');
+    }
+}
+```
+
+### client\admin\js\user_form.js
+```js
+// Lấy ID từ URL
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('id');
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = Auth.requireLogin();
+    window.currentUser = currentUser;
+    loadUserDetails(userId);
+});
+
+// --- HÀM HỖ TRỢ: QUY ĐỔI ROLE RA ĐIỂM ---
+function getRolePower(role) {
+    switch(role) {
+        case 'super-admin': return 3;
+        case 'admin': return 2;
+        default: return 1; // user
+    }
+}
+
+// --- 1. TẢI THÔNG TIN ---
+async function loadUserDetails(id) {
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/get_user.php?id=${id}`);
+        const user = await response.json();
+
+        // Điền dữ liệu vào form
+        document.getElementById('userId').value = user.id;
+        document.getElementById('email').value = user.email;
+        document.getElementById('username').value = user.username;
+        document.getElementById('phone').value = user.phone || '';
+        document.getElementById('address').value = user.address || '';
+
+        // --- XỬ LÝ LOGIC PHÂN QUYỀN TRONG SELECT BOX ---
+        const roleSelect = document.getElementById('role');
+        const myPower = getRolePower(window.currentUser.role);
+        const targetUserPower = getRolePower(user.role);
+
+        // A. Điền giá trị hiện tại
+        roleSelect.value = user.role;
+
+        // B. Duyệt qua các option để khóa những quyền cao hơn mình
+        // Ví dụ: Mình là Admin (2), không thể chọn Super-Admin (3) cho người khác
+        for (let i = 0; i < roleSelect.options.length; i++) {
+            const option = roleSelect.options[i];
+            const optionPower = getRolePower(option.value);
+
+            if (optionPower > myPower) {
+                option.disabled = true;
+                option.innerText += " (Không đủ quyền)";
+            }
+        }
+
+        // C. Trường hợp đặc biệt: Nếu người được sửa có quyền CAO HƠN hoặc BẰNG mình
+        // (Ví dụ: Admin xem profile Super-Admin, hoặc Admin xem Admin khác)
+        // Thì không được phép sửa Role của họ xuống thấp hơn (tránh lạm quyền)
+        // Logic: Chỉ Super-Admin mới sửa được Super-Admin khác.
+        if (targetUserPower >= myPower && window.currentUser.id != user.id) {
+             roleSelect.disabled = true; // Khóa luôn ô chọn
+             roleSelect.title = "Bạn không thể thay đổi quyền của người có cấp bậc ngang hoặc cao hơn.";
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert('Lỗi: ' + error.message);
+    }
+}
+
+// --- 2. XỬ LÝ LƯU (SUBMIT) ---
+async function handleUserSubmit(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById('btn-save');
+    const roleSelect = document.getElementById('role');
+    const selectedRole = roleSelect.value;
+    
+    // --- VALIDATE LOGIC TRƯỚC KHI GỬI ---
+    const myPower = getRolePower(window.currentUser.role);
+    const selectedRolePower = getRolePower(selectedRole);
+
+    if (selectedRolePower > myPower) {
+        alert("Lỗi bảo mật: Bạn không thể cấp quyền cao hơn quyền hạn của mình!");
+        return;
+    }
+
+    // Hiệu ứng loading
+    const originalText = btn.innerText;
+    btn.innerText = 'Đang lưu...';
+    btn.disabled = true;
+
+    // Lấy dữ liệu từ form
+    const data = {
+        id: document.getElementById('userId').value,
+        username: document.getElementById('username').value,
+        role: selectedRole,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value
+    };
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/update_user.php`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById('alert-message').innerHTML = 
+                `<div style='color:green; margin-bottom:15px; padding:10px; background:#d4edda; border-radius:4px;'>
+                    ${result.message} <a href='manage_users.html' style='font-weight:bold;'>Quay lại danh sách</a>
+                </div>`;
+        } else {
+            throw new Error(result.error || 'Lỗi cập nhật');
+        }
+
+    } catch (error) {
+        document.getElementById('alert-message').innerHTML = 
+            `<div style='color:red; margin-bottom:15px; padding:10px; background:#f8d7da; border-radius:4px;'>
+                Lỗi: ${error.message}
+            </div>`;
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+```
+
+### client\js\accountManage.js
 ```js
 //Hàm chuyển tab, lưu tab đang được chọn vào localstorage để không bị reload lại trang mặc định khi thực hiện hành động
         function openTab(tabName) {
@@ -2453,7 +3583,7 @@ try {
             loadDonationHistory();
 
             async function loadProfile() {
-                const res = await fetch('/api/auth/get_profile.php', { headers: { 'Authorization': 'Bearer ' + token } });
+                const res = await fetch(`${CONFIG.API_BASE_URL}/api/auth/get_profile.php`, { headers: { 'Authorization': 'Bearer ' + token } });
                 const user = await res.json();
 
                 // Điền thông tin vào form 
@@ -2468,7 +3598,7 @@ try {
                     const adminDiv = document.getElementById('admin-dashboard-link');
                     
                     adminDiv.innerHTML = `
-                        <a href="/admin/index.php" 
+                        <a href="admin/index.html" 
                            class="btn-submit" 
                            style="background-color: rgb(52, 73, 94); text-decoration: none; display: inline-flex; align-items: center;">
                            <i class="fas fa-user-shield"></i>Trang Quản Trị
@@ -2484,7 +3614,7 @@ try {
                     phone: document.getElementById('phone').value,
                     address: document.getElementById('address').value
                 };
-                await fetch('/api/auth/update_profile.php', {
+                await fetch(`${CONFIG.API_BASE_URL}/api/auth/update_profile.php`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
                     body: JSON.stringify(data)
@@ -2494,7 +3624,7 @@ try {
             });
     
             async function loadBorrowHistory() {
-                const res = await fetch('/api/users/borrowings.php', { headers: { 'Authorization': 'Bearer ' + token } });
+                const res = await fetch(`${CONFIG.API_BASE_URL}/api/users/borrowings.php`, { headers: { 'Authorization': 'Bearer ' + token } });
                 const list = await res.json();
                 const tbody = document.getElementById('borrow-list');
                 tbody.innerHTML = '';
@@ -2513,7 +3643,7 @@ try {
                                      </button>`;
                     } 
                     else if (item.status === 'returning') {
-                        // TH2: Đang trả (Mới thêm) -> Hiện badge chờ
+                        // TH2: Đang trả -> Hiện badge chờ
                         statusBadge = '<span class="badge" style="background:#3498db; color:white;">Chờ xác nhận trả</span>';
                         actionBtn = '<small style="color:#666;">Đang xử lý...</small>';
                     }
@@ -2530,7 +3660,7 @@ try {
                     const row = `<tr>
                         <td>
                             <div style="display:flex; align-items:center; gap:10px;">
-                                <img src="${item.image_url}" style="width:30px; height:45px; object-fit:cover; border-radius:3px;">
+                                <img src="${CONFIG.IMG_BASE_URL}/${item.image_url}" style="width:30px; height:45px; object-fit:cover; border-radius:3px;">
                                 <div>
                                     <b>${item.title}</b><br>
                                     <small>${item.author}</small>
@@ -2547,7 +3677,7 @@ try {
             }
 
             async function loadDonationHistory() {
-                const res = await fetch('/api/users/donations.php', { headers: { 'Authorization': 'Bearer ' + token } });
+                const res = await fetch(`${CONFIG.API_BASE_URL}/api/users/donations.php`, { headers: { 'Authorization': 'Bearer ' + token } });
                 const list = await res.json();
                 const tbody = document.getElementById('donation-list');
                 tbody.innerHTML = '';
@@ -2575,7 +3705,7 @@ try {
             const token = localStorage.getItem('b4e_token');
             
             try {
-                const res = await fetch('/api/users/return.php', {
+                const res = await fetch(`${CONFIG.API_BASE_URL}/api/users/return.php`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
                     body: JSON.stringify({ borrow_id: borrowId })
@@ -2595,7 +3725,7 @@ try {
         }
 ```
 
-### src\js\app.js
+### client\js\app.js
 ```js
 // Chờ cho toàn bộ cấu trúc HTML của trang được tải xong rồi mới chạy mã
 document.addEventListener('DOMContentLoaded', () => {
@@ -2748,7 +3878,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ```
 
-### src\js\book-browser.js
+### client\js\book-browser.js
 ```js
 function setupBookBrowser(config) {
     const bookGrid = document.querySelector(config.gridSelector);
@@ -2777,7 +3907,7 @@ function setupBookBrowser(config) {
     // --- 1. HÀM TẢI DANH MỤC TỪ DATABASE ---
     async function loadCategories() {
         try {
-            const res = await fetch('/api/categories/read.php');
+            const res = await fetch(`${CONFIG.API_BASE_URL}/api/categories/read.php`);
             const categories = await res.json();
 
             categoryContainer.innerHTML = '';
@@ -2836,7 +3966,7 @@ function setupBookBrowser(config) {
         params.append('page', currentFilters.page);
         params.append('limit', currentFilters.limit);
 
-        const apiUrl = `/api/books/read.php?${params.toString()}`;
+        const apiUrl = `${CONFIG.API_BASE_URL}/api/books/read.php?${params.toString()}`;
         
         bookGrid.style.opacity = '0.5';
 
@@ -2876,7 +4006,7 @@ function setupBookBrowser(config) {
             const safeTitle = book.title.replace(/'/g, "\\'");
             bookCard.innerHTML = `
                 <div class="book-cover">
-                    <img src="${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
+                    <img src="${CONFIG.IMG_BASE_URL}/${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
                     <div class="book-status ${statusClass}">${statusText}</div>
                 </div>
                 <div class="book-details">
@@ -2988,13 +4118,13 @@ window.handleBorrow = async function(bookId) {
     const token = localStorage.getItem('b4e_token');
     if (!token) {
         alert('Vui lòng đăng nhập để mượn sách.');
-        window.location.href = 'login.html';
+        window.location.href = '/client/login.html';
         return;
     }
     if (!confirm('Xác nhận mượn cuốn sách này?')) return;
 
     try {
-        const response = await fetch('/api/borrowings/create.php', {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/borrowings/create.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -3016,14 +4146,14 @@ window.handleBorrow = async function(bookId) {
 
 ```
 
-### src\js\borrow-module.js
+### client\js\borrow-module.js
 ```js
 (function() {
     // Biến nội bộ lưu ID sách đang chọn
     let _currentBookId = null;
 
     function loadBorrowModal() {
-        fetch('/src/layout/modal_borrow.html')
+        fetch(`/client/layout/modal_borrow.html`)
             .then(response => response.text())
             .then(html => {
                 const div = document.createElement('div');
@@ -3071,7 +4201,7 @@ window.handleBorrow = async function(bookId) {
             btnConfirm.disabled = true;
 
             try {
-                const res = await fetch('/api/borrowings/create.php', {
+                const res = await fetch(`${CONFIG.API_BASE_URL}/api/borrowings/create.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3108,6 +4238,7 @@ window.handleBorrow = async function(bookId) {
         window.location.href = 'login.html';
         return;
     }
+    
 
     // 2. Tìm Modal
     const modal = document.getElementById('borrowModal');
@@ -3153,7 +4284,18 @@ window.handleBorrow = async function(bookId) {
 })();
 ```
 
-### src\js\details.js
+### client\js\config.js
+```js
+const CONFIG = {
+
+    API_BASE_URL: 'http://localhost:3000', 
+    
+    // Đường dẫn đầy đủ để load ảnh từ server
+    IMG_BASE_URL: 'http://localhost:3000/api/uploads'
+};
+```
+
+### client\js\details.js
 ```js
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -3167,7 +4309,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Gọi API lấy chi tiết sách
     try {
-        const response = await fetch(`/api/books/read_single.php?id=${bookId}`);
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/books/read_single.php?id=${bookId}`);
         
         if (!response.ok) {
             throw new Error('Không tìm thấy sách hoặc lỗi server.');
@@ -3187,7 +4329,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function renderBookDetails(book) {
     // Điền thông tin
     document.title = `${book.title} - B4E Library`;
-    document.getElementById('book-img').src = book.image_url || 'img/default-book.png';
+    document.getElementById('book-img').src = `${CONFIG.IMG_BASE_URL}/${book.image_url}` || 'img/default-book.png';
     document.getElementById('book-title').textContent = book.title;
     document.getElementById('book-author').textContent = book.author;
     document.getElementById('book-category').textContent = book.category_name || 'Chưa phân loại';
@@ -3233,7 +4375,7 @@ async function handleBorrowDetail(bookId) {
     if (!confirm('Bạn có chắc chắn muốn mượn cuốn sách này?')) return;
 
     try {
-        const response = await fetch('/api/borrowings/create.php', {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/borrowings/create.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -3265,7 +4407,7 @@ function handleBack(e) {
 }
 ```
 
-### src\js\donate.js
+### client\js\donate.js
 ```js
 document.addEventListener('DOMContentLoaded', () => {
     const donationForm = document.getElementById('donationForm');
@@ -3302,7 +4444,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 3. Gọi API
             try {
-                const response = await fetch('/api/donations/create.php', {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/donations/create.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3337,12 +4479,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-### src\js\index.js
+### client\js\index.js
 ```js
 document.addEventListener('DOMContentLoaded', () => {
         
         // 1. TẢI THỐNG KÊ
-        fetch('/api/public/stats.php')
+        fetch(`${CONFIG.API_BASE_URL}/api/public/stats.php`)
             .then(res => res.json())
             .then(data => {
                 // Hàm định dạng số
@@ -3356,7 +4498,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Lỗi tải thống kê:', err));
 
         // 2. TẢI SÁCH MỚI NHẤT
-        fetch('/api/books/read.php?sort=newest')
+        fetch(`${CONFIG.API_BASE_URL}/api/books/read.php?sort=newest`)
             .then(res => res.json())
             .then(response => { 
                 const container = document.getElementById('new-books-list');
@@ -3377,7 +4519,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.style.cursor = 'pointer';
 
                     div.innerHTML = `
-                        <img src="${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
+                        <img src="${CONFIG.IMG_BASE_URL}/${book.image_url}" alt="${book.title}" onerror="this.src='img/default-book.png'">
                         <h4>${book.title}</h4>
                         <p>${book.author}</p>
                     `;
@@ -3388,7 +4530,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 ```
 
-### src\js\IntegrateBooks.js
+### client\js\IntegrateBooks.js
 ```js
 
 
@@ -3647,7 +4789,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ```
 
-### src\js\login.js
+### client\js\login.js
 ```js
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -3714,7 +4856,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             // Sử dụng đường dẫn tương đối gốc
-            const apiUrl = '/api/auth/login.php'; // Hoặc /api/auth/login.php tùy config server của bạn
+            const apiUrl = `${CONFIG.API_BASE_URL}/api/auth/login.php`; 
 
             try {
                 const response = await fetch(apiUrl, {
@@ -3761,7 +4903,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-### src\js\main.js
+### client\js\main.js
 ```js
 document.addEventListener('DOMContentLoaded', () => {
         const loadComponent = (url, elementId, callback) => {
@@ -3907,7 +5049,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-### src\js\register.js
+### client\js\register.js
 ```js
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -3983,7 +5125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Gọi API Register (Đường dẫn tương đối gốc)
-                const response = await fetch('/api/auth/register.php', {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/register.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
