@@ -41,6 +41,7 @@ CREATE TABLE `books` (
   `status` ENUM('available', 'borrowed') NOT NULL DEFAULT 'available',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  'is_deleted' TINYINT(1) DEFAULT 0;
   FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -91,7 +92,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- Mật khẩu cho cả 2 tài khoản là: 123456
 -- Hash: $2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm (Bcrypt cost 10)
 INSERT INTO `users` (`username`, `email`, `password_hash`, `role`, `phone`, `address`) VALUES
-('admin_b4e', 'admin@b4e.com', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'admin', '0909123456', 'Phòng Admin, Thư viện B4E'),
+('admin_b4e', 'admin@gmail.com.com', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'super-admin', '0909123456', 'Phòng Admin, Thư viện B4E'),
 ('user_test', 'test@b4e.com', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'user', '0987654321', 'Hà Nội, Việt Nam');
 
 -- 3.3. Thêm Sách (20 cuốn)

@@ -19,7 +19,8 @@ try {
     $query = "SELECT b.*, c.name as category_name 
               FROM books b 
               LEFT JOIN categories c ON b.category_id = c.id 
-              WHERE b.id = ?";
+              WHERE b.id = ?
+              AND is_deleted = 0";
               
     $stmt = $db->prepare($query);
     $stmt->execute([$_GET['id']]);

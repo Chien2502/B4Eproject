@@ -1,7 +1,6 @@
 <?php
 
 class Database {
-    // Thông tin CSDL
     private $host = 'localhost';        
     private $db_name = 'b4e_library'; 
     private $username = 'root';        

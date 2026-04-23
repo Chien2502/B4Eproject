@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sách</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+    <style>    
+        #catModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center; }
+        .modal-content { background:white; padding:20px; border-radius:5px; width:300px; box-shadow:0 0 10px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+    
+    <div class="main-content">
+        <div class="content">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h1 id="page-title">Thêm Sách Mới</h1>
+
+                <div id="alert-message"></div>
+
+                <div class="card">
+                    <form id="bookForm" onsubmit="handleBookSubmit(event)">
+                        
+                        <input type="hidden" id="bookId">
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label>Tên sách (*)</label>
+                                <input type="text" id="title" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tác giả (*)</label>
+                                <input type="text" id="author" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Thể loại</label>
+                                <div class="input-group">
+                                    <select id="categorySelect" class="form-control">
+                                        <option value="">-- Chọn thể loại --</option>
+                                        </select>
+                                    <button type="button" class="btn btn-blue" onclick="openCatModal()">+</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nhà xuất bản</label>
+                                <input type="text" id="publisher" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Năm xuất bản</label>
+                                <input type="number" id="year" class="form-control">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Mô tả</label>
+                                <textarea id="description" rows="5" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Ảnh bìa</label>
+                                <div class="file-upload-wrapper">
+                                    <div id="current-image-preview" style="display:none; margin-bottom:10px;">
+                                        <img src="" id="img-preview" style="height: 100px; border-radius: 4px;">
+                                        <br><small>Ảnh hiện tại</small>
+                                    </div>
+                                    
+                                    <input type="file" id="imageInput" accept="image/*">
+                                    <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Để trống nếu không muốn thay đổi ảnh.</p>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <a href="manage_books.html" class="btn btn-red">Hủy</a>
+                                <button type="submit" class="btn btn-green" id="btn-submit">Lưu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="catModal">
+        <div class="modal-content">
+            <h3>Thêm Thể loại Mới</h3>
+            <input type="text" id="newCatName" placeholder="Nhập tên thể loại..." style="width:100%; padding:8px; margin:10px 0; border:1px solid #ccc;">
+            <div style="text-align:right;">
+                <button type="button" class="btn btn-red" onclick="closeCatModal()">Hủy</button>
+                <button type="button" class="btn btn-green" onclick="saveCategory()">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="js/admin-layout.js"></script>
+    <script src="js/book-form.js"></script> </body>
+    <script src="js/auth.js"></script>
+</html>

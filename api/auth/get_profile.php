@@ -1,5 +1,4 @@
 <?php
-// file: api/auth/get_profile.php
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

@@ -1,0 +1,40 @@
+<div class="modal-overlay" id="borrowModal" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 style="color: Black;">Xác nhận Mượn sách</h2>
+            <button class="modal-close" id="btnCloseX">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3 id="modalBookTitle" style="color: #333; margin-bottom: 5px;">Tên sách</h3>
+                <p style="color: #666; font-style: italic;">Vui lòng kiểm tra thông tin bên dưới</p>
+            </div>
+
+            <div class="borrow-info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <div>
+                    <strong style="display: block; color: #666; font-size: 0.9rem;">Ngày mượn</strong>
+                    <span id="modalBorrowDate" style="color: #333; font-weight: bold; font-size: 1.1rem;">...</span>
+                </div>
+                <div>
+                    <strong style="display: block; color: #666; font-size: 0.9rem;">Hạn trả (Dự kiến)</strong>
+                    <span id="modalDueDate" style="color: #d9534f; font-weight: bold; font-size: 1.1rem;">...</span>
+                </div>
+            </div>
+
+            <div class="borrow-rules" style="margin-bottom: 25px;">
+                <h4 style="margin-bottom: 10px; border-bottom: 2px solid #eee; padding-bottom: 5px;">Lưu ý quan trọng:</h4>
+                <ul style="font-size: 0.9rem; color: #555; padding-left: 20px; line-height: 1.6;">
+                    <li>Thời gian mượn tối đa là <strong>14 ngày</strong>.</li>
+                    <li>Bạn có thể trả sách trước thời hạn cho thư viện.</li>
+                    <li>Vui lòng bảo quản sách cẩn thận.</li>
+                    <li>Trả sách quá hạn có thể bị phạt hoặc nặng hơn là khóa tài khoản.</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-red" id="btnCancelBorrow" style="background: #95a5a6;">Hủy bỏ</button>
+                <button class="btn btn-primary" id="btnConfirmBorrow">Xác nhận Mượn</button>
+            </div>
+        </div>
+    </div>
+</div>
