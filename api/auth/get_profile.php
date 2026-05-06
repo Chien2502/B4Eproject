@@ -37,7 +37,7 @@ try {
     $database = new Database();
     $db = $database->connect();
     
-    $query = 'SELECT id, username, email, phone, address, role FROM users WHERE id = ?';
+    $query = 'SELECT id, username, email, phone, address, role, avatar FROM users WHERE id = ?';
     $stmt = $db->prepare($query);
     $stmt->execute([$user_id]);
 

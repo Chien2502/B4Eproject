@@ -21,9 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── 0. Cấu hình ──────────────────────────────────────────────────────────────
-// !! Thay YOUR_GEMINI_API_KEY bằng key thật lấy từ https://aistudio.google.com
-define('GEMINI_API_KEY', 'YOUR_GEMINI_API_KEY');
-define('GEMINI_MODEL',   'gemini-1.5-flash-latest');
+define('GEMINI_API_KEY', 'AIzaSyCKa-9nSD1YQR8PDNIhud5bCX-LC-NDAPM');
+define('GEMINI_MODEL',   'gemini-2.5-flash-lite'); // Dùng bản nhỏ gọn Lite để tránh quá tải 503 và lỗi 404
 define('GEMINI_ENDPOINT',
     'https://generativelanguage.googleapis.com/v1beta/models/'
     . GEMINI_MODEL
@@ -87,20 +86,22 @@ $base64Image = base64_encode($imageData);
 
 // ── 4. Gọi Gemini Vision API ──────────────────────────────────────────────────
 $prompt = <<<PROMPT
-Đây là ảnh bìa sách. Hãy phân tích và trả về thông tin theo đúng format JSON sau.
-Không thêm markdown, không thêm text bên ngoài JSON.
+QUAN TRỌNG MỨC ĐỘ CAO NHẤT: Nhiệm vụ ĐẦU TIÊN VÀ KIÊN QUYẾT của bạn là xác định xem ảnh này CÓ ĐÚNG CHUẨN LÀ BÌA CỦA MỘT CUỐN SÁCH ĐƯỢC XUẤT BẢN hay không.
+Nếu ảnh rơi vào MỘT TRONG CÁC TRƯỜNG HỢP SAU, bạn BẮT BUỘC phải dừng lại và CHỈ trả về đúng chuỗi JSON lỗi `{"error": "not_a_book"}` (không giải thích gì thêm):
+1. Ảnh là tài liệu, văn bản, giấy tờ, tờ rơi, hồ sơ, hóa đơn, bài kiểm tra, mẫu tài liệu (document templates).
+2. Ảnh phong cảnh, động vật, người, đồ vật linh tinh, màn hình máy tính.
+3. Ảnh không phải là bìa ngoài của một cuốn sách hoàn chỉnh.
 
+CHỈ KHI ảnh CHẮC CHẮN 100% là bìa của một cuốn sách thực sự, hãy phân tích và đọc thật kỹ mọi chữ, logo, số trên bìa (kể cả thông tin tái bản, năm xuất bản, logo nhà xuất bản) và trả về thông tin theo đúng format JSON sau:
 {
   "title": "tên sách (string)",
   "author": "tên tác giả hoặc nhiều tác giả, phân cách bằng dấu phẩy (string)",
-  "description": "mô tả ngắn nội dung sách từ 2-4 câu (string)",
-  "category": "thể loại sách ví dụ: Văn học, Khoa học, Kinh tế, Tâm lý, Lịch sử, Thiếu nhi, ... (string)",
-  "publish_year": năm xuất bản nếu thấy trên bìa (number hoặc null),
+  "publisher": "tên nhà xuất bản (nếu thấy chữ NXB, Nhà xuất bản, hoặc nhận diện được logo của NXB) (string hoặc null)",
+  "publish_year": năm xuất bản hoặc năm tái bản (nếu thấy con số năm xuất bản trên bìa) (number hoặc null),
+  "description": "mô tả ngắn nội dung sách từ 2-4 câu. CHÚ Ý: Nếu trên bìa có ghi 'tái bản lần thứ...' hoặc các thông tin đặc biệt khác, hãy ghi chú vào phần đầu của mô tả này (string)",
+  "category": "thể loại sách ví dụ: Văn học, Khoa học, Kinh tế, Tâm lý, Lịch sử, Thiếu nhi, Giáo khoa... (string)",
   "isbn": "số ISBN nếu nhìn thấy trên bìa (string hoặc null)"
 }
-
-Nếu ảnh không phải bìa sách, trả về chính xác:
-{"error": "not_a_book"}
 PROMPT;
 
 $payload = [
@@ -116,24 +117,59 @@ $payload = [
         ],
     ]],
     'generationConfig' => [
-        'temperature'     => 0.1,   // Low temperature → more deterministic
-        'maxOutputTokens' => 512,
+        'temperature'      => 0.1,
+        'maxOutputTokens'  => 512,
+        'responseMimeType' => 'application/json',
     ],
 ];
 
-$ch = curl_init(GEMINI_ENDPOINT);
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST           => true,
-    CURLOPT_POSTFIELDS     => json_encode($payload),
-    CURLOPT_TIMEOUT        => 30,
-    CURLOPT_SSL_VERIFYPEER => false,
-    CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
-]);
-$geminiResponse = curl_exec($ch);
-$curlErr        = curl_error($ch);
-$httpStatus     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
+$maxRetries = 2;
+$attempt = 0;
+$success = false;
+$geminiResponse = '';
+$httpStatus = 0;
+$curlErr = '';
+
+while ($attempt <= $maxRetries && !$success) {
+    $attempt++;
+    
+    $ch = curl_init(GEMINI_ENDPOINT);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => json_encode($payload),
+        CURLOPT_TIMEOUT        => 45, // Tăng timeout do có thể phải chờ sleep
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
+    ]);
+    
+    $geminiResponse = curl_exec($ch);
+    $curlErr        = curl_error($ch);
+    $httpStatus     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($curlErr) {
+        break; // Lỗi mạng từ phía server thì thoát vòng lặp luôn
+    }
+
+    if ($httpStatus === 200) {
+        $success = true;
+    } elseif ($httpStatus === 429 && $attempt <= $maxRetries) {
+        // Xử lý giới hạn tần suất (Rate Limit: 15 req/min của Free Tier)
+        $errData = json_decode($geminiResponse, true);
+        $errMsg = $errData['error']['message'] ?? '';
+        
+        $waitTime = 3; // Mặc định chờ 3 giây nếu không phân tích được số
+        // Tìm chữ "Please retry in X.Xs." từ Gemini API
+        if (preg_match('/retry in ([0-9.]+)s/i', $errMsg, $matches)) {
+            $waitTime = (int)ceil((float)$matches[1]) + 1; // Cộng dư 1 giây cho an toàn
+        }
+        
+        sleep($waitTime); // Tạm dừng PHP chạy để chờ Gemini reset quota
+    } else {
+        break; // Các lỗi khác (400, 403, 500) thì không thử lại
+    }
+}
 
 if ($curlErr) {
     http_response_code(502);
@@ -142,11 +178,13 @@ if ($curlErr) {
 }
 
 if ($httpStatus !== 200) {
-    $errData = json_decode($geminiResponse, true);
+    $errData   = json_decode($geminiResponse, true);
+    $geminiMsg = $errData['error']['message']
+                 ?? $errData['error']['status']
+                 ?? substr($geminiResponse, 0, 300); // Trả tối đa 300 ký tự đầu của response thô
     http_response_code(502);
     echo json_encode([
-        'error'  => 'Gemini API lỗi.',
-        'detail' => $errData['error']['message'] ?? $geminiResponse,
+        'error'  => 'Gemini API lỗi [HTTP ' . $httpStatus . ']: ' . $geminiMsg,
     ]);
     exit;
 }
@@ -155,10 +193,11 @@ if ($httpStatus !== 200) {
 $geminiData = json_decode($geminiResponse, true);
 $rawText    = $geminiData['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
-// Loại bỏ markdown code fences nếu Gemini vẫn thêm vào
-$rawText = preg_replace('/```json\s*/i', '', $rawText);
-$rawText = preg_replace('/```\s*/i', '', $rawText);
+// Loại bỏ các đoạn text thừa nếu có, chỉ lấy từ dấu { đầu tiên đến dấu } cuối cùng
 $rawText = trim($rawText);
+if (($start = strpos($rawText, '{')) !== false && ($end = strrpos($rawText, '}')) !== false) {
+    $rawText = substr($rawText, $start, $end - $start + 1);
+}
 
 $bookInfo = json_decode($rawText, true);
 
