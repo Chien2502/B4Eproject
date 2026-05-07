@@ -1,5 +1,11 @@
 {
     "require": {
-        "firebase/php-jwt": "^6.11"
+        "firebase/php-jwt": "^6.11",
+        "kreait/firebase-php": "7.14"
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
     }
 }

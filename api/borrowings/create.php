@@ -10,6 +10,8 @@ require_once '../config/notification_helper.php';
 require_once '../../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') { http_response_code(200); exit; }
 
@@ -79,6 +81,22 @@ try {
         );
 
         $db->commit();
+
+        // 5. Gửi Realtime Firebase Notification (FCM)
+        try {
+            $factory = (new Factory())->withServiceAccount(__DIR__.'/../firebase_credentials.json');
+            $messaging = $factory->createMessaging();
+            $message = CloudMessage::withTarget('topic', 'book_updates')
+                ->withData([
+                    'action' => 'status_changed',
+                    'book_id' => $data->book_id,
+                    'is_available' => '0' // trạng thái mới của cuốn sách: 0 = false (borrowed)
+                ]);
+            $messaging->send($message);
+        } catch (\Exception $fcmEx) {
+            // Log lỗi nếu cần, nhưng không làm gián đoạn response thành công
+            error_log("FCM Send Error: " . $fcmEx->getMessage());
+        }
 
         http_response_code(201);
         echo json_encode(['message' => 'Mượn sách thành công!']);

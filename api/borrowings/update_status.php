@@ -11,6 +11,9 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/middleware.php';
 require_once __DIR__ . '/../config/notification_helper.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -109,6 +112,23 @@ try {
     }
 
     $db->commit();
+
+    // 6. Gửi Realtime Firebase Notification (FCM) nếu sách được trả (có sẵn trở lại)
+    if ($new_status === 'returned') {
+        try {
+            $factory = (new Factory())->withServiceAccount(__DIR__.'/../firebase_credentials.json');
+            $messaging = $factory->createMessaging();
+            $message = CloudMessage::withTarget('topic', 'book_updates')
+                ->withData([
+                    'action' => 'status_changed',
+                    'book_id' => $borrow['book_id'],
+                    'is_available' => '1' // trạng thái mới của cuốn sách: 1 = true (available)
+                ]);
+            $messaging->send($message);
+        } catch (\Exception $fcmEx) {
+            error_log("FCM Send Error: " . $fcmEx->getMessage());
+        }
+    }
 
     http_response_code(200);
     echo json_encode([

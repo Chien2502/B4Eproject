@@ -66,7 +66,7 @@ try {
         $audience_claim = "http://localhost"; 
         $issuedat_claim = time(); 
         $notbefore_claim = $issuedat_claim; 
-        $expire_claim = $issuedat_claim + 360000; // Token hết hạn sau 100 giờ
+        $expire_claim = $issuedat_claim + 3600; // Access token hết hạn sau 1 giờ
 
         // Dữ liệu "payload" lưu vào Token
         $payload = array(
@@ -83,15 +83,32 @@ try {
             )
         );
 
-        // 10. TẠO TOKEN
+        // 10. TẠO ACCESS TOKEN
         $jwt = JWT::encode($payload, $secret_key, 'HS256');
 
-        // 11. TRẢ TOKEN VỀ CHO NGƯỜI DÙNG
+        // 11. TẠO REFRESH TOKEN
+        $refresh_expire_claim = $issuedat_claim + 2592000; // Refresh token hết hạn sau 30 ngày
+        $refresh_payload = array(
+            "iss" => $issuer_claim,
+            "aud" => $audience_claim,
+            "iat" => $issuedat_claim,
+            "nbf" => $notbefore_claim,
+            "exp" => $refresh_expire_claim,
+            "data" => array(
+                "id" => $user['id'],
+                "username" => $user['username']
+            ),
+            "type" => "refresh"
+        );
+        $refresh_token = JWT::encode($refresh_payload, $secret_key, 'HS256');
+
+        // 12. TRẢ TOKEN VỀ CHO NGƯỜI DÙNG
         http_response_code(200); 
         echo json_encode(
             array(
                 "message" => "Đăng nhập thành công.",
                 "token" => $jwt,
+                "refresh_token" => $refresh_token,
                 "user" => array( // Gửi kèm thông tin user để frontend chào
                     "username" => $user['username'],
                     "email" => $user['email'],
