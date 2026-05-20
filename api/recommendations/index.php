@@ -33,7 +33,7 @@ if (!$token) {
 $limit  = max(1, min(30, (int)($_GET['limit'] ?? 8)));
 
 try {
-    $decoded = JWT::decode($token, new Key('B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
     $userId = (int)$decoded->data->id;
 
     $pdo = (new Database())->connect();

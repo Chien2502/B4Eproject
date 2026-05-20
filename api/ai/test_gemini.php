@@ -5,7 +5,9 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-define('GEMINI_API_KEY', 'AIzaSyBBnBdl21IHSm0_eVPvlX0wXQZqv_IXJPA');
+require_once __DIR__ . '/../config/env.php';
+
+define('GEMINI_API_KEY', getenv('GEMINI_API_KEY_1'));
 define('GEMINI_MODEL',   'gemini-2.0-flash'); // Confirmed in ListModels
 define('GEMINI_ENDPOINT',
     'https://generativelanguage.googleapis.com/v1beta/models/'

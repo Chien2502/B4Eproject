@@ -5,7 +5,9 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-define('GEMINI_API_KEY', 'AIzaSyBBnBdl21IHSm0_eVPvlX0wXQZqv_IXJPA');
+require_once __DIR__ . '/../config/env.php';
+
+define('GEMINI_API_KEY', getenv('GEMINI_API_KEY_1'));
 
 // Google AI Studio dùng v1beta cho ListModels
 $url = 'https://generativelanguage.googleapis.com/v1beta/models?key=' . GEMINI_API_KEY;

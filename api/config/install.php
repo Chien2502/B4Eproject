@@ -1,10 +1,12 @@
 <?php
 echo "<h1>Đang tiến hành cài đặt hệ thống...</h1>";
 
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$db_name = 'b4e_library';
+require_once __DIR__ . '/env.php';
+
+$host = getenv('DB_HOST') ?: 'localhost';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
+$db_name = getenv('DB_NAME') ?: 'b4e_library';
 
 try {
     // Kết nối đến MySQL Server

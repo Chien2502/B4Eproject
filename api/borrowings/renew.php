@@ -27,7 +27,7 @@ $token = $arr[1] ?? '';
 if (!$token) { http_response_code(401); echo json_encode(["error" => "Chưa đăng nhập"]); exit; }
 
 try {
-    $key = "B4E_SECRET_KEY_123456";
+    $key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456';
     $decoded = JWT::decode($token, new Key($key, 'HS256'));
     $user_id = $decoded->data->id;
 } catch (Exception $e) {

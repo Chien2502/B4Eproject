@@ -34,7 +34,7 @@ if (count($arr) < 2) {
 }
 $token = $arr[1];
 
-$secret_key = "B4E_SECRET_KEY_123456";
+$secret_key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456';
 
 try {
     $decoded = JWT::decode($token, new Key($secret_key, 'HS256'));

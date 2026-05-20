@@ -34,12 +34,12 @@ if (!$token) {
 }
 
 try {
-    $decoded = JWT::decode($token, new Key('B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
     $user_id = (int)$decoded->data->id;
 
     $db = (new Database())->connect();
 
-    // 2. Đếm số thông báo chưa đọc (cho badge 🔔)
+    // 2. Đếm số thông báo cá nhân chưa đọc (cho badge 🔔)
     $stmt_count = $db->prepare(
         "SELECT COUNT(*) AS unread_count
          FROM notifications
@@ -48,35 +48,68 @@ try {
     $stmt_count->execute([$user_id]);
     $unread_count = (int)$stmt_count->fetch()['unread_count'];
 
-    // 3. Lấy danh sách thông báo (mới nhất lên đầu, tối đa 50)
-    $stmt = $db->prepare(
+    // 3. Lấy danh sách thông báo cá nhân (mới nhất lên đầu, tối đa 50)
+    $stmt_personal = $db->prepare(
         "SELECT id, title, message, type, ref_id, is_read, created_at
          FROM notifications
          WHERE user_id = ?
          ORDER BY created_at DESC
          LIMIT 50"
     );
-    $stmt->execute([$user_id]);
-    $rows = $stmt->fetchAll();
+    $stmt_personal->execute([$user_id]);
+    $personal_rows = $stmt_personal->fetchAll();
 
-    // Ép kiểu để JSON sạch
-    $notifications = array_map(function ($n) {
-        return [
-            'id'         => (int)$n['id'],
-            'title'      => $n['title'],
-            'message'    => $n['message'],
-            'type'       => $n['type'],
-            'ref_id'     => $n['ref_id'] !== null ? (int)$n['ref_id'] : null,
-            'is_read'    => (bool)(int)$n['is_read'],
-            'created_at' => $n['created_at'],
+    // 4. Lấy danh sách thông báo hệ thống chung (tối đa 30)
+    $stmt_system = $db->query(
+        "SELECT id, title, message, ref_id, created_at
+         FROM system_announcements
+         ORDER BY created_at DESC
+         LIMIT 30"
+    );
+    $system_rows = $stmt_system->fetchAll();
+
+    // 5. Gộp và ánh xạ dữ liệu thống nhất
+    $merged_list = [];
+
+    foreach ($personal_rows as $p) {
+        $merged_list[] = [
+            'id'          => (int)$p['id'],
+            'title'       => $p['title'],
+            'message'     => $p['message'],
+            'type'        => $p['type'],
+            'ref_id'      => $p['ref_id'] !== null ? (int)$p['ref_id'] : null,
+            'is_read'     => (bool)(int)$p['is_read'],
+            'is_system'   => false,
+            'created_at'  => $p['created_at'],
         ];
-    }, $rows);
+    }
+
+    foreach ($system_rows as $s) {
+        $merged_list[] = [
+            'id'          => (int)$s['id'],
+            'title'       => $s['title'],
+            'message'     => $s['message'],
+            'type'        => 'system_broadcast',
+            'ref_id'      => $s['ref_id'] !== null ? (int)$s['ref_id'] : null,
+            'is_read'     => false, // Sẽ được kiểm tra và xử lý trạng thái đọc tại local SQLite của Flutter
+            'is_system'   => true,
+            'created_at'  => $s['created_at'],
+        ];
+    }
+
+    // Sắp xếp theo ngày tạo mới nhất lên đầu (descending order)
+    usort($merged_list, function ($a, $b) {
+        return strcmp($b['created_at'], $a['created_at']);
+    });
+
+    // Cắt bớt danh sách chỉ lấy 50 thông báo mới nhất tổng cộng
+    $merged_list = array_slice($merged_list, 0, 50);
 
     http_response_code(200);
     echo json_encode([
         'status'       => 'success',
         'unread_count' => $unread_count,
-        'data'         => $notifications,
+        'data'         => $merged_list,
     ]);
 
 } catch (Exception $e) {

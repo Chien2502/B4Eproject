@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── 0. Cấu hình ──────────────────────────────────────────────────────────────
-define('GEMINI_API_KEY', 'AIzaSyCKa-9nSD1YQR8PDNIhud5bCX-LC-NDAPM');
+require_once __DIR__ . '/../config/env.php';
+define('GEMINI_API_KEY', getenv('GEMINI_API_KEY_2'));
 define('GEMINI_MODEL',   'gemini-2.5-flash-lite'); // Dùng bản nhỏ gọn Lite để tránh quá tải 503 và lỗi 404
 define('GEMINI_ENDPOINT',
     'https://generativelanguage.googleapis.com/v1beta/models/'
@@ -47,7 +48,7 @@ if (!$token) {
 }
 
 try {
-    $decoded = JWT::decode($token, new Key('B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
     // Cho phép tất cả user đã đăng nhập (admin + user thường)
     // Tính năng dùng cho cả Admin (thêm sách) và User (quyên góp sách)
 } catch (Exception $e) {

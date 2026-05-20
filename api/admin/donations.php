@@ -22,15 +22,34 @@ try {
     $database = new Database();
     $conn = $database->connect();
 
-    // 4. Truy vấn dữ liệu
-    $query = "SELECT d.*, u.username, u.email 
-              FROM donations d 
-              LEFT JOIN users u ON d.user_id = u.id 
-              WHERE d.status = 'pending' 
-              ORDER BY d.created_at ASC";
-              
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
+    // 4. Truy vấn dữ liệu — trả về tất cả để admin quản lý toàn bộ workflow
+    // Optional filter: ?status=pending|approved|in_transit|received|processed|rejected
+    $allowed_statuses = ['pending', 'approved', 'in_transit', 'received', 'processed', 'rejected'];
+    $status_filter = $_GET['status'] ?? 'all';
+
+    if ($status_filter !== 'all' && in_array($status_filter, $allowed_statuses)) {
+        $query = "SELECT d.*, u.username, u.email 
+                  FROM donations d 
+                  LEFT JOIN users u ON d.user_id = u.id 
+                  WHERE d.status = :status
+                  ORDER BY d.created_at DESC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([':status' => $status_filter]);
+    } else {
+        $query = "SELECT d.*, u.username, u.email 
+                  FROM donations d 
+                  LEFT JOIN users u ON d.user_id = u.id 
+                  ORDER BY 
+                    CASE d.status 
+                      WHEN 'pending'    THEN 0
+                      WHEN 'in_transit' THEN 1
+                      WHEN 'received'   THEN 2
+                      ELSE 3
+                    END ASC,
+                    d.created_at DESC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+    }
     $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 5. Trả về kết quả JSON

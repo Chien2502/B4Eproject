@@ -33,7 +33,7 @@ if (!$token) {
 }
 
 try {
-    $decoded = JWT::decode($token, new Key('B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
     $user_id = (int)$decoded->data->id;
 
     $data = json_decode(file_get_contents('php://input'));

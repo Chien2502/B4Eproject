@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../config/env.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
@@ -19,7 +20,7 @@ function checkAdminAuth() {
 
     try {
         // 2. Giải mã Token
-        $key = "B4E_SECRET_KEY_123456"; 
+        $key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456'; 
         $decoded = JWT::decode($token, new Key($key, 'HS256'));
         
         // 3. Kiểm tra Role trong Token
