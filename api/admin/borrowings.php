@@ -18,6 +18,9 @@ try {
     $database = new Database();
     $conn = $database->connect();
 
+    require_once '../config/stale_helper.php';
+    checkAndUpdateStaleBorrowings($conn);
+
     // Query phức tạp: Join bảng borrowings, users và books
     $query = "SELECT br.*, u.username, u.phone, b.title as book_title, b.image_url 
               FROM borrowings br

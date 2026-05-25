@@ -23,11 +23,16 @@ try {
 
     $data = json_decode(file_get_contents('php://input'));
     $borrow_id = $data->borrow_id;
+    $return_method = $data->return_method ?? 'direct';
+
+    if (!in_array($return_method, ['direct', 'shipping'])) {
+        $return_method = 'direct';
+    }
 
     $db = (new Database())->connect();
 
-    // Kiểm tra lượt mượn có hợp lệ không
-    $check = $db->prepare("SELECT id FROM borrowings WHERE id = ? AND user_id = ? AND status = 'borrowed'");
+    // Kiểm tra lượt mượn có hợp lệ không (chấp nhận cả 'borrowed' và 'overdue')
+    $check = $db->prepare("SELECT id FROM borrowings WHERE id = ? AND user_id = ? AND status IN ('borrowed', 'overdue')");
     $check->execute([$borrow_id, $user_id]);
     
     if ($check->rowCount() == 0) {
@@ -36,11 +41,11 @@ try {
         exit;
     }
 
-    // CHỈ CẬP NHẬT TRẠNG THÁI LƯỢT MƯỢN -> 'returning'
+    // Cập nhật trạng thái lượt mượn -> 'return_requested' và lưu 'return_method'
     // Không cập nhật bảng books!
-    $stmt = $db->prepare("UPDATE borrowings SET status = 'returning' WHERE id = ?");
+    $stmt = $db->prepare("UPDATE borrowings SET status = 'return_requested', return_method = ? WHERE id = ?");
     
-    if ($stmt->execute([$borrow_id])) {
+    if ($stmt->execute([$return_method, $borrow_id])) {
         echo json_encode(['message' => 'Đã gửi yêu cầu trả sách. Vui lòng mang sách đến thư viện hoặc gửi qua bưu điện.']);
     } else {
         throw new Exception("Lỗi cập nhật CSDL.");

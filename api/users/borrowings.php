@@ -25,6 +25,9 @@ try {
 
     $db = (new Database())->connect();
     
+    require_once '../config/stale_helper.php';
+    checkAndUpdateStaleBorrowings($db);
+    
     // JOIN bảng borrowings với books để lấy tên sách và ảnh
     $query = "SELECT br.*, b.title, b.image_url, b.author 
               FROM borrowings br

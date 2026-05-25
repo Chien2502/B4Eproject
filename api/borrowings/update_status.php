@@ -45,7 +45,7 @@ if (empty($borrowing_id) || empty($status)) {
 
 $allowed_statuses = [
     'pending_approval', 'approved', 'preparing', 'shipped',
-    'borrowed', 'return_requested', 'return_shipping',
+    'borrowed', 'return_requested', 'return_approved', 'return_shipping',
     'returned', 'overdue', 'cancelled'
 ];
 
@@ -132,6 +132,11 @@ try {
                ->execute([$borrow['book_id']]);
             break;
 
+        case 'return_approved':
+            $db->prepare("UPDATE borrowings SET status = ?, return_approved_at = NOW() WHERE id = ?")
+               ->execute([$new_status, $borrow_id]);
+            break;
+
         default:
             $db->prepare("UPDATE borrowings SET status = ? WHERE id = ?")
                ->execute([$new_status, $borrow_id]);
@@ -178,6 +183,13 @@ try {
             createNotification($db, $user_id, 'borrow_approved',
                 'Xác nhận đã nhận sách 📚',
                 "Bạn đã nhận cuốn \"{$book_title}\". Hạn trả: {$due_date}. Chúc bạn đọc vui!",
+                $borrow_id);
+            break;
+
+        case 'return_approved':
+            createNotification($db, $user_id, 'system',
+                'Yêu cầu trả sách đã được duyệt ✅',
+                "Yêu cầu trả cuốn \"{$book_title}\" đã được phê duyệt. Vui lòng đóng gói sách và gửi cho shipper hoặc mang đến bưu cục, sau đó bấm xác nhận gửi hàng trên ứng dụng.",
                 $borrow_id);
             break;
 

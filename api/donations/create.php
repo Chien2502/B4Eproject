@@ -67,9 +67,12 @@ try {
     $database = new Database();
     $db = $database->connect();
 
+    $donation_type = $data['donation_type'] ?? 'directDelivery';
+    $pickup_type = ($donation_type === 'shipToLibrary') ? 'user_ship' : 'self_deliver';
+
     $query = "INSERT INTO donations 
-              (user_id, book_title, book_author, book_publisher, book_year, book_condition, donation_type, image_url, status) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+              (user_id, book_title, book_author, book_publisher, book_year, book_condition, donation_type, pickup_type, image_url, status) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
 
     $stmt = $db->prepare($query);
 
@@ -84,7 +87,8 @@ try {
         $book_publisher, 
         $book_year, 
         $book_condition, 
-        $data['donation_type'],
+        $donation_type,
+        $pickup_type,
         $image_url
     ])) {
         http_response_code(201);

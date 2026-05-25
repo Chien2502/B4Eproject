@@ -24,7 +24,10 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 }
 
 // Lọc theo thể loại
-if (isset($_GET['category']) && $_GET['category'] != 'Tất cả' && !empty($_GET['category'])) {
+if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
+    $where_sql .= " AND b.category_id = ?";
+    array_push($params, (int)$_GET['category_id']);
+} else if (isset($_GET['category']) && $_GET['category'] != 'Tất cả' && !empty($_GET['category'])) {
     $where_sql .= " AND c.name = ?";
     array_push($params, $_GET['category']);
 }
