@@ -1,0 +1,5 @@
+api/firebase_credentials.json
+api/.env
+node_modules/
+vendor/
+.vscode/
