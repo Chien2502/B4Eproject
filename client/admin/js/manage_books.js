@@ -51,13 +51,14 @@ async function fetchBooks() {
                 <td>${book.category_name || 'Chưa phân loại'}</td>
                 <td>${statusBadge}</td>
                 <td>
-                    <a href="book_form.html?id=${book.id}" class="btn btn-blue" title="Sửa" style="padding: 5px 10px;">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    &nbsp;
-                    <button class="btn btn-red" onclick="deleteBook(${book.id})" title="Xóa" style="padding: 5px 10px;">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <a href="book_form.html?id=${book.id}" class="btn btn-blue" title="Sửa" style="padding: 5px 10px; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-red" onclick="deleteBook(${book.id})" title="Xóa" style="padding: 5px 10px; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </td>
             `;
             tbody.appendChild(tr);

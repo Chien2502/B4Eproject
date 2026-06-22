@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-   Auth.requireLogin();
+    Auth.requireLogin();
     fetchBorrowings();
 });
 
@@ -33,7 +33,7 @@ async function fetchBorrowings() {
         tbody.innerHTML = '';
 
         if (!borrowings || borrowings.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Không có dữ liệu.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Không có dữ liệu.</td></tr>';
             return;
         }
 
@@ -50,20 +50,126 @@ async function fetchBorrowings() {
             const dueDate = formatDate(item.due_date);
             const returnDate = item.return_date ? formatDate(item.return_date) : '';
 
-            // 3. Xử lý Badge Trạng thái (Chuyển logic switch case PHP sang JS)
+            // 3. Xử lý Badge Trạng thái
             const statusHtml = getStatusBadge(item.status, item.return_date, item.due_date);
+
+            // 3b. Xử lý Vận chuyển & Thanh toán
+            let deliveryHtml = '';
+            if (item.delivery_type === 'pickup') {
+                deliveryHtml = `<span style="color: #27ae60; font-weight: bold;"><i class="fas fa-hand-holding"></i> Nhận tại TV</span>`;
+            } else if (item.delivery_type === 'delivery') {
+                deliveryHtml = `
+                    <span style="color: #2980b9; font-weight: bold;"><i class="fas fa-shipping-fast"></i> Giao tận nơi</span>
+                    ${item.shipping_fee > 0 ? `<br><small style="color: #555;">Ship: ${formatVND(item.shipping_fee)}</small>` : ''}
+                    ${item.delivery_address ? `<br><small style="color: #7f8c8d; font-size: 0.75rem; display: inline-block; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.delivery_address}">Đ/C: ${item.delivery_address}</small>` : ''}
+                `;
+            } else {
+                deliveryHtml = `<span style="color: #999;">-</span>`;
+            }
+
+            let paymentHtml = '';
+            if (item.delivery_type === 'delivery') {
+                const methodText = item.payment_method === 'vietqr' ? 'VietQR' : (item.payment_method === 'cod' ? 'COD' : 'Khác');
+                let statusBadge = '';
+                if (item.payment_status === 'pending') {
+                    statusBadge = `<span class="badge" style="background-color: #f1c40f; color: #333; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Chờ TT</span>`;
+                } else if (item.payment_status === 'paid') {
+                    statusBadge = `<span class="badge" style="background-color: #2ecc71; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Đã TT</span>`;
+                } else if (item.payment_status === 'failed') {
+                    statusBadge = `<span class="badge" style="background-color: #e74c3c; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">TT Lỗi</span>`;
+                } else if (item.payment_status === 'refunded') {
+                    statusBadge = `<span class="badge" style="background-color: #7f8c8d; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Đã hoàn</span>`;
+                } else {
+                    statusBadge = `<span class="badge" style="background-color: #bdc3c7; color: #333; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Không cần</span>`;
+                }
+                paymentHtml = `<div style="margin-top: 5px; font-size: 0.8rem;">TT: ${methodText} - ${statusBadge}</div>`;
+            }
+
+            let returnMethodHtml = '';
+            if (item.return_method) {
+                const methodText = item.return_method === 'self_deliver' ? 'Tự mang trả' : (item.return_method === 'pickup_shipper' ? 'Shipper thu hồi' : 'Khác');
+                returnMethodHtml = `<div style="margin-top: 3px; font-size: 0.8rem; color: #e67e22;"><i class="fas fa-undo"></i> Trả: ${methodText}</div>`;
+            }
+
+            const deliveryAndPaymentHtml = `
+                <div>
+                    ${deliveryHtml}
+                    ${paymentHtml}
+                    ${returnMethodHtml}
+                </div>
+            `;
 
             // 4. Xử lý Nút Hành động
             let actionHtml = '';
-            // Nếu trạng thái là: Đang mượn, Đang trả, hoặc Quá hạn -> Hiện nút Xác nhận
-            if (['borrowed', 'returning', 'overdue'].includes(item.status)) {
+            const btnStyle = 'padding: 6px 12px; font-size: 0.8rem; margin: 2px; display: inline-flex; align-items: center; gap: 4px; border: none; border-radius: 4px; color: white; cursor: pointer; font-weight: bold;';
+            
+            if (item.status === 'pending_approval') {
                 actionHtml = `
-                    <button class="btn btn-green" onclick="confirmReturn(${item.id})" style="padding: 6px 12px; font-size: 0.9rem;">
-                        <i class="fas fa-check-circle"></i> Xác nhận đã nhận
+                    <button class="btn btn-green" onclick="updateStatus(${item.id}, 'approved')" style="${btnStyle}">
+                        <i class="fas fa-check"></i> Duyệt mượn
+                    </button>
+                    <button class="btn btn-red" onclick="updateStatus(${item.id}, 'cancelled')" style="${btnStyle}">
+                        <i class="fas fa-times"></i> Từ chối
                     </button>
                 `;
+            } else if (item.status === 'approved') {
+                if (item.delivery_type === 'delivery') {
+                    actionHtml = `
+                        <button class="btn btn-blue" onclick="updateStatus(${item.id}, 'preparing')" style="${btnStyle}">
+                            <i class="fas fa-box"></i> Chuẩn bị sách
+                        </button>
+                        <button class="btn btn-red" onclick="updateStatus(${item.id}, 'cancelled')" style="${btnStyle}">
+                            <i class="fas fa-times"></i> Hủy
+                        </button>
+                    `;
+                } else {
+                    // pickup
+                    actionHtml = `
+                        <button class="btn btn-green" onclick="updateStatus(${item.id}, 'borrowed')" style="${btnStyle}">
+                            <i class="fas fa-hand-holding"></i> Xác nhận đã lấy
+                        </button>
+                        <button class="btn btn-red" onclick="updateStatus(${item.id}, 'cancelled')" style="${btnStyle}">
+                            <i class="fas fa-times"></i> Hủy
+                        </button>
+                    `;
+                }
+            } else if (item.status === 'preparing') {
+                actionHtml = `
+                    <button class="btn btn-blue" onclick="updateStatus(${item.id}, 'shipped')" style="${btnStyle}">
+                        <i class="fas fa-truck"></i> Bắt đầu giao
+                    </button>
+                `;
+            } else if (item.status === 'shipped') {
+                actionHtml = `
+                    <button class="btn btn-green" onclick="updateStatus(${item.id}, 'borrowed')" style="${btnStyle}">
+                        <i class="fas fa-check-circle"></i> Xác nhận đã giao
+                    </button>
+                `;
+            } else if (['return_requested', 'return_approved', 'return_shipping'].includes(item.status)) {
+                actionHtml = `
+                    <button class="btn btn-green" onclick="updateStatus(${item.id}, 'returned')" style="${btnStyle}">
+                        <i class="fas fa-check-circle"></i> Xác nhận đã nhận trả
+                    </button>
+                `;
+            } else if (['borrowed', 'overdue'].includes(item.status)) {
+                actionHtml = `<span style="color:#aaa; font-size: 0.85rem;"><i class="fas fa-hourglass-half"></i> Chờ user trả</span>`;
             } else {
-                actionHtml = `<span style="color:#aaa;"><i class="fas fa-check"></i> Đã xử lý</span>`;
+                actionHtml = `<span style="color:#aaa; font-size: 0.85rem;"><i class="fas fa-check"></i> Đã xử lý</span>`;
+            }
+
+            // Gia hạn sách
+            if (item.renew_status === 'pending') {
+                actionHtml += `
+                    <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ddd; text-align: left;">
+                        <span style="font-size: 0.75rem; color: #e67e22; font-weight: bold;"><i class="fas fa-history"></i> Xin gia hạn ${item.renew_days} ngày</span><br>
+                        <button class="btn btn-blue" onclick="handleRenewal(${item.id}, 'approve')" style="padding: 4px 8px; font-size: 0.75rem; margin-top:3px; border:none; border-radius:3px; color:white; cursor:pointer; font-weight:bold;">
+                            Duyệt
+                        </button>
+                        <button class="btn btn-red" onclick="handleRenewal(${item.id}, 'reject')" style="padding: 4px 8px; font-size: 0.75rem; margin-top:3px; border:none; border-radius:3px; color:white; cursor:pointer; font-weight:bold;">
+                            Từ chối
+                        </button>
+                    </div>
+                `;
             }
 
             // 5. Render HTML
@@ -84,6 +190,7 @@ async function fetchBorrowings() {
                     <span style="color: #d9534f;">Hạn: ${dueDate}</span>
                     ${returnDate ? `<br>Trả: ${returnDate}` : ''}
                 </td>
+                <td>${deliveryAndPaymentHtml}</td>
                 <td>${statusHtml}</td>
                 <td>${actionHtml}</td>
             `;
@@ -93,19 +200,22 @@ async function fetchBorrowings() {
     } catch (error) {
         console.error('Lỗi tải dữ liệu:', error);
         document.getElementById('borrowingsTableBody').innerHTML = 
-            '<tr><td colspan="5" style="text-align:center; color:red;">Lỗi kết nối server.</td></tr>';
+            '<tr><td colspan="6" style="text-align:center; color:red;">Lỗi kết nối server.</td></tr>';
     }
 }
 
-// --- 2. HÀM XỬ LÝ TRẢ SÁCH ---
-
-async function confirmReturn(borrowId) {
-    if (!confirm('Xác nhận sách đã trả?')) return;
+// --- 2. HÀM CẬP NHẬT TRẠNG THÁI ---
+async function updateStatus(borrowingId, status) {
+    let confirmMsg = `Xác nhận chuyển trạng thái phiếu mượn sang "${getStatusText(status)}"?`;
+    if (status === 'cancelled') {
+        confirmMsg = `Hủy yêu cầu mượn sách này?`;
+    }
+    if (!confirm(confirmMsg)) return;
 
     try {
-        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/confirm_return.php`, {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/borrowings/update_status.php`, {
             method: 'POST',
-            body: JSON.stringify({ borrow_id: borrowId }) 
+            body: JSON.stringify({ borrowing_id: borrowingId, status: status })
         });
 
         if (!response.ok) {
@@ -117,10 +227,39 @@ async function confirmReturn(borrowId) {
         const result = await response.json();
 
         if (response.ok) {
-            alert(result.message || 'Thành công!');
+            alert(result.message || 'Cập nhật trạng thái thành công!');
             fetchBorrowings();
         } else {
             alert('Lỗi logic: ' + (result.error || 'Không thể xử lý'));
+        }
+    } catch (error) {
+        console.error("Chi tiết lỗi:", error);
+        alert('Lỗi kết nối: ' + error.message);
+    }
+}
+
+// Giữ lại hàm cũ để tránh lỗi gọi nếu có chỗ khác gọi
+async function confirmReturn(borrowId) {
+    return updateStatus(borrowId, 'returned');
+}
+
+// --- 3. HÀM XỬ LÝ GIA HẠN ---
+async function handleRenewal(borrowId, action) {
+    const msg = action === 'approve' ? 'Duyệt yêu cầu gia hạn này?' : 'Từ chối yêu cầu gia hạn này?';
+    if (!confirm(msg)) return;
+
+    try {
+        const response = await Auth.fetch(`${CONFIG.API_BASE_URL}/api/admin/handle_renewal.php`, {
+            method: 'POST',
+            body: JSON.stringify({ borrow_id: borrowId, action: action })
+        });
+        
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message || 'Thành công!');
+            fetchBorrowings(); // Reload
+        } else {
+            alert('Lỗi: ' + (result.error || 'Không thể xử lý'));
         }
     } catch (error) {
         console.error("Chi tiết lỗi:", error);
@@ -137,20 +276,56 @@ function formatDate(dateString) {
     return date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
+// Định dạng tiền tệ VND
+function formatVND(value) {
+    if (!value) return '0đ';
+    return Number(value).toLocaleString('vi-VN') + 'đ';
+}
+
+function getStatusText(status) {
+    switch (status) {
+        case 'pending_approval': return 'Chờ duyệt';
+        case 'approved': return 'Đã duyệt';
+        case 'preparing': return 'Đang chuẩn bị';
+        case 'shipped': return 'Đang giao';
+        case 'borrowed': return 'Đang mượn';
+        case 'return_requested': return 'Yêu cầu trả';
+        case 'return_approved': return 'Đã duyệt trả';
+        case 'return_shipping': return 'Đang giao trả';
+        case 'returned': return 'Đã trả sách';
+        case 'overdue': return 'Quá hạn';
+        case 'cancelled': return 'Đã hủy';
+        default: return status;
+    }
+}
+
 // Hàm tạo Badge trạng thái
 function getStatusBadge(status, returnDate, dueDate) {
-    const badgeStyle = 'display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 4px;';
+    const badgeStyle = 'display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 4px; text-align: center;';
     
     switch(status) {
-        case 'returning':
-            return `<span class="badge" style="${badgeStyle} background-color: #3498db;">User báo đã trả</span>`;
+        case 'pending_approval':
+            return `<span class="badge" style="${badgeStyle} background-color: #7f8c8d;">Chờ duyệt mượn</span>`;
+        case 'approved':
+            return `<span class="badge" style="${badgeStyle} background-color: #3498db;">Đã duyệt mượn</span>`;
+        case 'preparing':
+            return `<span class="badge" style="${badgeStyle} background-color: #e67e22;">Đang chuẩn bị</span>`;
+        case 'shipped':
+            return `<span class="badge" style="${badgeStyle} background-color: #9b59b6;">Đang giao sách</span>`;
         case 'borrowed':
             return `<span class="badge" style="${badgeStyle} background-color: #f39c12;">Đang mượn</span>`;
+        case 'return_requested':
+            return `<span class="badge" style="${badgeStyle} background-color: #34495e;">Yêu cầu trả</span>`;
+        case 'return_approved':
+            return `<span class="badge" style="${badgeStyle} background-color: #16a085;">Duyệt trả</span>`;
+        case 'return_shipping':
+            return `<span class="badge" style="${badgeStyle} background-color: #2980b9;">Đang giao trả</span>`;
         case 'overdue':
             return `<span class="badge" style="${badgeStyle} background-color: #c0392b;">Quá hạn</span>`;
+        case 'cancelled':
+            return `<span class="badge" style="${badgeStyle} background-color: #d63031;">Đã hủy</span>`;
         case 'returned':
             let subBadge = '';
-            // Logic so sánh ngày trả thực tế với ngày hẹn
             if (returnDate && dueDate) {
                 const ret = new Date(returnDate);
                 const due = new Date(dueDate);
@@ -162,6 +337,6 @@ function getStatusBadge(status, returnDate, dueDate) {
             }
             return `<span class="badge" style="${badgeStyle} background-color: #27ae60;">Đã trả sách</span>${subBadge}`;
         default:
-            return `<span class="badge">${status}</span>`;
+            return `<span class="badge" style="${badgeStyle} background-color: #95a5a6;">${status}</span>`;
     }
 }

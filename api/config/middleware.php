@@ -20,7 +20,7 @@ function checkAdminAuth() {
 
     try {
         // 2. Giải mã Token
-        $key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456'; 
+        $key = getenv('JWT_SECRET_KEY');
         $decoded = JWT::decode($token, new Key($key, 'HS256'));
         
         // 3. Kiểm tra Role trong Token

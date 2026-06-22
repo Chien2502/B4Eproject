@@ -57,7 +57,10 @@ function renderSidebar() {
                     <i class="fas fa-users"></i> Quản lý Người dùng
                 </a>
 
+                <a href="send_broadcast.html" class="${page.includes('broadcast') ? 'active' : ''}">
+                    <i class="fas fa-bullhorn"></i> Gửi thông báo
                 </a>
+
                 <a href="../index.html">
                     <i class="fas fa-home"></i> Quay về trang chủ
                 </a>

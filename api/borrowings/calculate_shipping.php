@@ -31,7 +31,7 @@ if (!$token) {
 }
 
 try {
-    $key = getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456';
+    $key = getenv('JWT_SECRET_KEY');
     JWT::decode($token, new Key($key, 'HS256'));
 } catch (Exception $e) {
     http_response_code(401);

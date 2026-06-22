@@ -33,7 +33,7 @@ if (count($arr) < 2) {
 }
 $token = $arr[1];
 
-$secret_key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456'; // Phải giống hệt key trong login.php
+$secret_key = getenv('JWT_SECRET_KEY'); // Phải giống hệt key trong login.php
 
 try {
     // 1. Xác thực Token

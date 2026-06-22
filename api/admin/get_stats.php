@@ -31,7 +31,9 @@ try {
     $stats['books'] = $conn->query("SELECT COUNT(*) FROM books")->fetchColumn();
     $stats['users'] = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
     $stats['pending_donations'] = $conn->query("SELECT COUNT(*) FROM donations WHERE status='pending'")->fetchColumn();
-    $stats['returning_books'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='returning'")->fetchColumn();
+    $stats['returning_books'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status IN ('return_requested','return_approved','return_shipping')")->fetchColumn();
+    $stats['pending_approval'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE status='pending_approval'")->fetchColumn();
+    $stats['pending_renewals'] = $conn->query("SELECT COUNT(*) FROM borrowings WHERE renew_status='pending'")->fetchColumn();
 
     // 6. Đính kèm ID Admin (để đồng bộ với logic Frontend)
     $stats['current_admin_id'] = $admin_data->id;

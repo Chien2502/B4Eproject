@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi thông báo - Quản trị</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <div class="main-content">
+        <div class="content">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <h1>Gửi thông báo hệ thống (Broadcast)</h1>
+                
+                <div id="alert-message"></div>
+
+                <div class="card" style="text-align: left; padding: 25px; border-radius: 8px;">
+                    <form id="broadcastForm" onsubmit="handleSendBroadcast(event)">
+                        <div class="form-group">
+                            <label style="font-weight: bold; margin-bottom: 5px; display: block;">Tiêu đề thông báo</label>
+                            <input type="text" id="title" required placeholder="Nhập tiêu đề thông báo..." style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label style="font-weight: bold; margin-bottom: 5px; display: block;">Nội dung chi tiết</label>
+                            <textarea id="message" rows="6" required placeholder="Nhập nội dung chi tiết gửi đến toàn bộ người dùng hệ thống..." style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-family: inherit;"></textarea>
+                        </div>
+
+                        <div style="margin-top: 25px; text-align: right;">
+                            <button type="submit" class="btn btn-blue" id="btn-send" style="padding: 10px 20px; font-weight: bold; border-radius: 4px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-paper-plane"></i> Gửi thông báo ngay
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="js/admin-layout.js"></script>
+    <script src="js/send_broadcast.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

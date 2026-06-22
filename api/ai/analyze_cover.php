@@ -48,7 +48,7 @@ if (!$token) {
 }
 
 try {
-    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'), 'HS256'));
     // Cho phép tất cả user đã đăng nhập (admin + user thường)
     // Tính năng dùng cho cả Admin (thêm sách) và User (quyên góp sách)
 } catch (Exception $e) {

@@ -17,7 +17,7 @@ $token = explode(" ", $authHeader)[1] ?? '';
 if (!$token) { http_response_code(401); exit; }
 
 try {
-    $key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456';
+    $key = getenv('JWT_SECRET_KEY');
     $decoded = JWT::decode($token, new Key($key, 'HS256'));
     $user_id = $decoded->data->id;
 

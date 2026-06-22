@@ -40,6 +40,8 @@ async function loadDashboardStats() {
         updateStat('stat-users', data.users || 0);
         updateStat('stat-pending', data.pending_donations || 0);
         updateStat('stat-returning', data.returning_books || 0);
+        updateStat('stat-pending-approval', data.pending_approval || 0);
+        updateStat('stat-pending-renewals', data.pending_renewals || 0);
 
         // Hiển thị nút hành động nhanh
         if (data.pending_donations > 0) {
@@ -50,6 +52,16 @@ async function loadDashboardStats() {
         if (data.returning_books > 0) {
             const btnReturn = document.getElementById('action-returning');
             if (btnReturn) btnReturn.style.display = 'block';
+        }
+
+        if (data.pending_approval > 0) {
+            const btnPendingApproval = document.getElementById('action-pending-approval');
+            if (btnPendingApproval) btnPendingApproval.style.display = 'block';
+        }
+
+        if (data.pending_renewals > 0) {
+            const btnPendingRenewals = document.getElementById('action-pending-renewals');
+            if (btnPendingRenewals) btnPendingRenewals.style.display = 'block';
         }
 
     } catch (error) {

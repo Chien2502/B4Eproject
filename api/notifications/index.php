@@ -34,7 +34,7 @@ if (!$token) {
 }
 
 try {
-    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456', 'HS256'));
+    $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'), 'HS256'));
     $user_id = (int)$decoded->data->id;
 
     $db = (new Database())->connect();

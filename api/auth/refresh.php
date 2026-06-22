@@ -29,7 +29,7 @@ if (empty($data->refresh_token)) {
     exit;
 }
 
-$secret_key = getenv('JWT_SECRET_KEY') ?: getenv('JWT_SECRET_KEY') ?: 'B4E_SECRET_KEY_123456';
+$secret_key = getenv('JWT_SECRET_KEY');
 
 try {
     // Giải mã refresh token

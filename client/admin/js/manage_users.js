@@ -67,22 +67,25 @@ async function fetchUsers() {
             // Lưu ý: So sánh lỏng (==) vì ID từ API có thể là number hoặc string
             if (u.id == currentAdminId) {
                 actionButtons = `
-                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa thông tin cá nhân" style="padding: 5px 10px;">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <span style="color:#aaa; font-size:0.8rem; margin-left:5px;">(Bạn)</span>
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa thông tin cá nhân" style="padding: 5px 10px; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <span style="color:#aaa; font-size:0.8rem;">(Bạn)</span>
+                    </div>
                 `;
             } 
             // Trường hợp 2: Quyền của mình CAO HƠN người kia -> Hiện đủ nút
             else if (myRolePower > targetUserPower) {
                 actionButtons = `
-                    <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa quyền/Thông tin" style="padding: 5px 10px;">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    &nbsp;
-                    <button class="btn btn-red" onclick="deleteUser(${u.id})" title="Xóa tài khoản" style="padding: 5px 10px;">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <a href="user_form.html?id=${u.id}" class="btn btn-blue" title="Sửa quyền/Thông tin" style="padding: 5px 10px; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-red" onclick="deleteUser(${u.id})" title="Xóa tài khoản" style="padding: 5px 10px; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 `;
             } 
             // Trường hợp 3: Quyền thấp hơn hoặc bằng (Admin nhìn Admin khác, hoặc Admin nhìn Super-Admin) -> Ẩn hết
