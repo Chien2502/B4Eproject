@@ -1,0 +1,85 @@
+{
+    "best_config": {
+        "Model": "User-Based CF",
+        "Similarity": "Cosine",
+        "K_Neighbors/Params": 10,
+        "Precision@8": 0.0275,
+        "Recall@8": 0.07333333333333333,
+        "Hit Rate": 0.2,
+        "Coverage": 0.84
+    },
+    "all_results": [
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Jaccard",
+            "K_Neighbors/Params": 5,
+            "Precision@8": 0.025,
+            "Recall@8": 0.0661111111111111,
+            "Hit Rate": 0.2,
+            "Coverage": 0.9233333333333333
+        },
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Jaccard",
+            "K_Neighbors/Params": 10,
+            "Precision@8": 0.02666666666666667,
+            "Recall@8": 0.07111111111111112,
+            "Hit Rate": 0.19333333333333333,
+            "Coverage": 0.85
+        },
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Jaccard",
+            "K_Neighbors/Params": 20,
+            "Precision@8": 0.025,
+            "Recall@8": 0.06722222222222221,
+            "Hit Rate": 0.19333333333333333,
+            "Coverage": 0.7966666666666666
+        },
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Cosine",
+            "K_Neighbors/Params": 5,
+            "Precision@8": 0.025833333333333333,
+            "Recall@8": 0.06888888888888887,
+            "Hit Rate": 0.20666666666666667,
+            "Coverage": 0.92
+        },
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Cosine",
+            "K_Neighbors/Params": 10,
+            "Precision@8": 0.0275,
+            "Recall@8": 0.07333333333333333,
+            "Hit Rate": 0.2,
+            "Coverage": 0.84
+        },
+        {
+            "Model": "User-Based CF",
+            "Similarity": "Cosine",
+            "K_Neighbors/Params": 20,
+            "Precision@8": 0.024166666666666666,
+            "Recall@8": 0.06555555555555555,
+            "Hit Rate": 0.18666666666666668,
+            "Coverage": 0.78
+        },
+        {
+            "Model": "Item-Based CF",
+            "Similarity": "Jaccard",
+            "K_Neighbors/Params": "All Items",
+            "Precision@8": 0.025833333333333333,
+            "Recall@8": 0.06944444444444443,
+            "Hit Rate": 0.20666666666666667,
+            "Coverage": 0.84
+        },
+        {
+            "Model": "Item-Based CF",
+            "Similarity": "Cosine",
+            "K_Neighbors/Params": "All Items",
+            "Precision@8": 0.025833333333333333,
+            "Recall@8": 0.06944444444444443,
+            "Hit Rate": 0.2,
+            "Coverage": 0.86
+        }
+    ]
+}

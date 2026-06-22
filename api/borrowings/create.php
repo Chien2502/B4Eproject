@@ -154,9 +154,12 @@ try {
         ]);
         $borrow_id = (int)$db->lastInsertId();
 
-        // 5.2: KHÔNG đổi status sách ngay — chỉ set 'reserved' sau khi Admin duyệt
-        // (Sách vẫn là 'available' cho đến khi approved — timeout 24/48h sẽ tự hủy nếu không duyệt)
-        // UPDATE: Ta vẫn giữ available để tránh block vô hạn cho dự án học thuật này.
+        // 5.2: Đổi status sách sang 'busy' nếu thanh toán qua VietQR (giao dịch chuyển tiền đang chờ duyệt)
+        if ($delivery_type === 'delivery' && $payment_method === 'vietqr') {
+            $db->prepare("UPDATE books SET status = 'busy' WHERE id = ?")
+               ->execute([$data->book_id]);
+        }
+
 
         // 5.3: Gửi thông báo xác nhận yêu cầu đã gửi cho user
         $deliveryNote = $delivery_type === 'delivery'

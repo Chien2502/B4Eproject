@@ -127,8 +127,8 @@ try {
         case 'cancelled':
             $db->prepare("UPDATE borrowings SET status = ?, cancelled_at = NOW() WHERE id = ?")
                ->execute([$new_status, $borrow_id]);
-            // Đảm bảo sách trở về available nếu đã bị lock
-            $db->prepare("UPDATE books SET status = 'available' WHERE id = ? AND status = 'borrowed'")
+            // Đảm bảo sách trở về available nếu đã bị lock (bao gồm trạng thái borrowed hoặc busy)
+            $db->prepare("UPDATE books SET status = 'available' WHERE id = ? AND status IN ('borrowed', 'busy')")
                ->execute([$borrow['book_id']]);
             break;
 
